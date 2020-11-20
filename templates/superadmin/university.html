@@ -1,0 +1,720 @@
+{% extends 'superadmin/base.html' %} {% load static %} {% block body %}
+<style type="text/css">
+    .dashboard_main_content .main_content_container {
+        padding: 99px 0 0;
+    }
+    
+    .cart_page_form.style3 .table_body td {
+        padding: 24px 38px;
+    }
+    
+    .table-responsive {
+        overflow-x: hidden;
+    }
+    
+    .tdp {
+        width: 35%;
+        background: #8d35b4;
+        color: white;
+        font-weight: bold;
+    }
+    
+    .modal-dialog {
+        max-width: 935px;
+    }
+    
+    .modal-body .row .col-md-3 .shop_grid {
+        position: relative;
+        border-style: solid;
+        border-width: 2px;
+        border-color: rgb(237, 239, 247);
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        height: 212px;
+        margin-bottom: 30px;
+        padding: 20px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+</style>
+<div class="dashboard_main_content">
+    <div class="container-fluid">
+        <div class="main_content_container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                        <h4 class="title float-left">University</h4>
+                        {% comment %} <ol class="breadcrumb float-right">
+                            <li class="breadcrumb-item"><a href="page-dashboard-student.php">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">University</li>
+                        </ol>
+                    </nav> {% endcomment %}
+                </div>
+                <div class="col-lg-12">
+                    <a href="#" data-toggle="modal" data-target="#exampleModalCenter3" class="btn btn-success pull-right"> + Add University</a>
+                   
+                </div>
+                <div class="col-lg-12" id="showpackagedata">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Create University -->
+<div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Create University</h5>
+                <button type="button" class="close" id="adduniclose" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="my_course_content_container">
+                            <div class="my_setting_content mb30">
+                                <div class="my_setting_content_header">
+                                    <div class="my_sch_title">
+                                        <h4 class="m0">University info</h4>
+                                    </div>
+                                </div>
+                                <form action="uniadd" method="POST" id="pdata" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="row my_setting_content_details pb0">
+                                        <div class="col-xl-12">
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="my_profile_setting_input form-group">
+                                                        <label for="formGroupExampleInput1">University Name</label>
+                                                        <input type="text" class="form-control" id="uniname" name="uniname" placeholder="Enter University Name" required>
+                                                    </div>
+                                                    <div class="my_profile_setting_input form-group">
+                                                        <label for="formGroupExampleInput2">University User Name
+														</label>
+                                                        <input type="text" class="form-control" id="username" name="username" placeholder="" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-6">
+                                                    <div class="my_profile_setting_input form-group">
+                                                        <label for="formGroupExampleInput2">University Password </label>
+                                                        <input type="text" class="form-control" id="password" name="password" placeholder="" required>
+                                                    </div>
+                                                    <div class="my_profile_setting_input form-group">
+                                                        <label for="formGroupExampleInput2">University Address </label>
+                                                        <input type="text" class="form-control" id="address" name="address" placeholder="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="my_profile_setting_input form-group">
+                                                        <label for="formGroupExampleInput2">Email Address </label>
+                                                        <input type="text" class="form-control" id="email" name="email" placeholder="" required>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-xl-6">
+                                                    <div class="my_profile_setting_input form-group">
+                                                        <label for="formGroupExampleInput2">UniPakage </label>
+                                                        <select name="package" id="package" class="form-control">
+															{% for p in package %}
+															<option value="{{p.PackId}}">{{p.PackName}}</option>
+
+															{% endfor %}
+														</select>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="row my_setting_content_details pb0">
+
+                                    </div>
+                                    <div class="row my_setting_content_details">
+                                        <div class="col-xl-5">
+                                            <div class="my_profile_setting_input form-group">
+                                                <label for="formGroupExampleInput1">Status</label>
+                                                <select name="status" id="status" class="form-control">
+                                                            
+                                                    <option value="Active">Active</option>
+                                                    <option value="Disable">Disable</option>
+
+                                                
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-5">
+                                            <div class="my_profile_setting_input form-group">
+                                                <label for="formGroupExampleInput1">Picture</label>
+                                                <input type="file" class="form-control" id="image" name="image" placeholder="Mention Here Skills to Develop" required>
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+
+                            </div>
+                        </div>
+                    
+
+
+
+                        </div>
+                        <div class="row my_setting_content_details">
+										<div class="col-xl-2">
+											<label></label>
+											<button type="submit" class="btn btn-primary">Create</button>
+
+										</div>
+
+									</div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- update -->
+
+<div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Update University</h5>
+                <button type="button" class="close" id="updateuniclose" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="my_course_content_container">
+                            <div class="my_setting_content mb30">
+                                <div class="my_setting_content_header">
+                                    <div class="my_sch_title">
+                                        <h4 class="m0">University info</h4>
+                                    </div>
+                                </div>
+                                <form action="updateuni" method="POST" id="udata" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="row my_setting_content_details pb0">
+                                        <div class="col-xl-12">
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="my_profile_setting_input form-group">
+                                                        <label for="formGroupExampleInput1">University Name</label>
+                                                        <input type="text" class="form-control" id="Uuniname" name="Uuniname" placeholder="Enter University Name" required>
+                                                    </div>
+                                                    <div class="my_profile_setting_input form-group">
+                                                        <label for="formGroupExampleInput2">University User Name
+														</label>
+                                                        <input type="text" class="form-control" id="Uusername" name="Uusername" placeholder="" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-6">
+                                                    <div class="my_profile_setting_input form-group">
+                                                        <label for="formGroupExampleInput2">University Password </label>
+                                                        <input type="text" class="form-control" id="Upassword" name="Upassword" placeholder="" required>
+                                                    </div>
+                                                    <div class="my_profile_setting_input form-group">
+                                                        <label for="formGroupExampleInput2">University Address </label>
+                                                        <input type="text" class="form-control" id="Uaddress" name="Uaddress" placeholder="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="my_profile_setting_input form-group">
+                                                        <label for="formGroupExampleInput2">Email Address </label>
+                                                        <input type="text" class="form-control" id="Uemail" name="Uemail" placeholder="" required>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-xl-6">
+                                                    <div class="my_profile_setting_input form-group">
+                                                        <label for="formGroupExampleInput2">UniPakage </label>
+                                                        <select name="Upackage" id="Upackage" class="form-control">
+															{% for p in package %}
+															<option value="{{p.PackId}}">{{p.PackName}}</option>
+
+															{% endfor %}
+														</select>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="row my_setting_content_details pb0">
+
+                                    </div>
+                                    <div class="row my_setting_content_details">
+                                        <div class="col-xl-5">
+                                            <div class="my_profile_setting_input form-group">
+                                                <label for="formGroupExampleInput1">Status</label>
+                                                <select id="Ustatus" name="Ustatus"  class="form-control">
+                                                            
+                                                    <option value="Active">Active</option>
+                                                    <option value="Disable">Disable</option>
+
+                                                
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-5">
+                                            <div class="my_profile_setting_input form-group">
+                                                <label for="formGroupExampleInput1">Picture</label>
+                                                <input type="file" class="form-control" id="Uimage" name="Uimage" placeholder="Mention Here Skills to Develop" >
+                                                <p id="uimg"></p>
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+
+                            <div class="my_profile_setting_input form-group">
+
+                                <input type="hidden" class="form-control" id="uid" name="uid" >
+
+
+
+                            </div>
+
+
+
+                        </div>
+                       <div class="row my_setting_content_details">
+										<div class="col-xl-2">
+											<label></label>
+											<button type="submit" class="btn btn-primary">Update</button>
+
+										</div>
+
+									</div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% comment %} show unibranches {% endcomment %}
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+	aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">University Branch Detail</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				  <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                      <tr>
+                       
+                        <th scope="col">Branch Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">MoreDetail</th>
+                    
+                      </tr>
+                    </thead>
+                    <tbody id="tabledata">
+                     
+                    
+                    </tbody>
+                  </table>
+            </div>
+          
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+{% comment %} show uniteacher and student {% endcomment %}
+
+
+<div class="modal fade" id="count" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+	aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">Total Number of Students and Faculty</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				  <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                      <tr>
+                       
+                        <th scope="col">Total Teacher Enrolled</th>
+                        <th scope="col">Total Student Enrolled</th>
+                        
+                    
+                      </tr>
+                    </thead>
+                    <tbody id="countdata">
+                     
+                    
+                    </tbody>
+                  </table>
+            </div>
+          
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+
+
+
+{% block script %}
+
+<script>
+
+    $(document).ready(function() {
+        showdata();
+
+        //insert data into table
+        $('#pdata').ajaxForm(function(data) {
+           
+            document.getElementById('uniname').value = '';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('address').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('package').value = '';
+            document.getElementById('status').value = '';
+            showdata();
+            toastr.success(data, "Success", {
+				"closeButton": false,
+				"debug": false,
+				"newestOnTop": false,
+				"progressBar": false,
+				"positionClass": "toast-top-right",
+				"preventDuplicates": false,
+				"onclick": null,
+				"showDuration": "300",
+				"hideDuration": "1000",
+				"timeOut": "5000",
+				"extendedTimeOut": "1000",
+				"showEasing": "swing",
+				"hideEasing": "linear",
+				"showMethod": "fadeIn",
+				"hideMethod": "fadeOut"
+                        });;
+            $('#adduniclose').click();
+        })
+
+
+
+    });
+    //end
+
+    //show data
+    function showdata() {
+        $.ajax({
+            url: 'unishow',
+            type: 'GET',
+            success: function(data) {
+                var datas = eval(data)
+                var mydata ="";
+                for (x = 0; x < datas.length; x++) {
+                    mydata += `
+
+						<div class="my_course_content_container">
+								<div class="my_setting_content">
+									<div class="my_setting_content_details">
+										<div class="cart_page_form style3 ">
+											<form action="#">
+												  <table class="table table-responsive">
+												  	<thead>
+												  		<tr class="carttable_row">
+													<th class="cartm_title">University Name</th>
+													<th class="cartm_title">Username</th>
+													<th class="cartm_title">Email</th>
+													<th class="cartm_title">Password</th>
+													<th class="cartm_title">Address</th>
+													
+													
+												     <th class="cartm_title">Update</th>
+													<th class="cartm_title">Delete</th>
+                                                    <th class="cartm_title">BranchDetail</th>
+													
+												</tr>
+											</thead>
+											<tbody class="table_body">
+												<tr>
+
+													<td>${datas[x].UniName}</td>
+
+													<td>${datas[x].UniUsername}</td>
+													<td>${datas[x].UniEmail}</td>
+													<td>${datas[x].UniPassword}</td>
+													<td>${datas[x].UniAddress}</td>
+													
+													
+													<td><a href="#"
+															class="btn btn-sm btn-success"   data-toggle="modal" data-target="#exampleModalCenter4" onclick="updateshow(${datas[x].UniId})">Update</a></td>
+													<td><a href="#"
+															class="btn btn-sm btn-danger" onclick="deletedata(${datas[x].UniId})">Delete</a></td>
+													
+
+                                                    <td><a href="#"
+												class="btn btn-sm btn-success" data-toggle="modal" data-target="#staticBackdrop" onclick="Branchdata(${datas[x].UniId})">ShowBranch</a></td>
+                                                
+													
+												</tr>
+
+
+											</tbody>
+										</table>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+        
+       
+        `;
+
+
+                }
+                $('#showpackagedata').html(mydata)
+            }
+
+
+
+        });
+
+    }
+
+    //end show data 
+
+
+
+    //delete data
+
+    function deletedata(x) {
+
+        $.ajax({
+
+            url: 'deleteuni',
+            type: 'POST',
+            data: {
+                'uid': x,
+                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+            },
+            success: function(data) {
+                toastr.error(data, "Warning", {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                            });;
+                showdata();
+            }
+
+        });
+
+    }
+
+    //end delete data
+    //updateshow
+    function updateshow(x) {
+
+        $.ajax({
+
+            url: 'updateuni',
+            type: 'GET',
+            data: {
+
+                'uid': x
+            },
+            success: function(data) {
+                var datas = eval(data);
+                $('#uid').val(x);
+                $('#Uuniname').val(datas[0].UniName);
+                $('#Uusername').val(datas[0].UniUsername);
+                $('#Upassword').val(datas[0].UniPassword);
+                $('#Uaddress').val(datas[0].UniAddress);
+                $('#Uemail').val(datas[0].UniEmail);
+                $('#Upackage').val(datas[0].UniPackage);
+                $('#Ustatus').val(datas[0].UniStatus);
+                $('#Uimage').val(datas[0].UniLogo);
+                $('#uimg').attr(datas[0].UniLogo);
+                $('#uimg').append(data[UniLogo]);
+                
+
+            }
+        });
+    }
+
+    //End update show
+
+
+    //update data
+
+    $('#udata').ajaxForm(function(data) {
+        toastr.success(data, "Success", {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+                    });;
+            showdata();
+           $('#updateuniclose').click();
+        })
+        //end update data
+
+
+    //Branch Data show
+
+    function Branchdata(a){
+          $.ajax({
+
+            url: 'branchdata',
+            type: 'POST',
+            data: {
+                'uid': a,
+                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+            },
+            success: function(data) {
+            var datas = eval(data)
+            var mydata;
+            for (x=0;x<datas.length;x++){
+            mydata+=`
+        
+        <tr>
+        <td>${datas[x].BranchName}</td>
+        <td>${datas[x].BranchEmail}</td>
+        <td>${datas[x].BranchAddress}</td>
+        
+
+          <td><button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#count" onclick="count(${datas[x].BranchId})">Show</button></td>
+          
+        
+        </tr>
+        `;
+
+
+      }
+      $('#tabledata').html(mydata)
+              
+            }
+
+        });
+    }
+
+
+    // show Branch faculty and student
+    function count(a){
+        
+      
+          $.ajax({
+
+            url: 'Count',
+            type: 'POST',
+            data: {
+                'bid': a,
+                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+            },
+            success: function(data) {
+                var datas = eval(data)
+                var mydata;
+                    mydata+=`
+        
+                <tr>
+            <td>${datas[0]}</td>
+            <td>${datas[1]}</td>
+            
+
+          
+        
+        </tr>
+        `;
+
+        $('#countdata').html(mydata)
+
+     
+      
+              
+            }
+
+        });
+
+
+
+    }
+</script>
+{% endblock %} {% endblock %}

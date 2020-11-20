@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block mytitle %}
+	<!-- Inner Page Breadcrumb -->
+	<section class="inner_page_breadcrumb">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-6 offset-xl-3 text-center">
+					<div class="breadcrumb_content">
+						<h4 class="breadcrumb_title">Contact Us</h4>
+						<ol class="breadcrumb">
+						    <li class="breadcrumb-item"><a href="#">Home</a></li>
+						    <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock  %}
+{% block body %}
+	<!-- How It's Work -->
+	<section class="our-contact">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-lg-4">
+					<div class="contact_localtion text-center">
+						<div class="icon"><span class="flaticon-placeholder-1"></span></div>
+						<h4>Our Location</h4>
+						<p>Garden West Karachi Pakistan.</p>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-4">
+					<div class="contact_localtion text-center">
+						<div class="icon"><span class="flaticon-phone-call"></span></div>
+						<h4>Our Location</h4>
+						<p class="mb0">Mobile: (+096) 468 235 <br> Fax: (+096) 468 235</p>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-4">
+					<div class="contact_localtion text-center">
+						<div class="icon"><span class="flaticon-email"></span></div>
+						<h4>Write Some Words</h4>
+						<p><a href="https://grandetest.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0f466169604f6a6b7a6276216c6062">[email&#160;protected]</a></p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6">
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3618.6121051761565!2d67.08718661500374!3d24.911209484029996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f2c157da9cd%3A0x2f960b5bb3f0893!2sFederal%20Urdu%20University%20of%20Arts%2C%20Sciences%20%26%20Technology!5e0!3m2!1sen!2s!4v1582628652936!5m2!1sen!2s" width="100%" height="600px" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+			
+				
+			
+</div>
+				<div class="col-lg-6 form_grid">
+					<h4 class="mb5">Send a Message</h4>
+					<p>Ex quem dicta delicata usu, zril vocibus maiestatis in qui.</p>
+						<form class="contact_form" id="contact_form" name="contact_form" action="contact" method="post" novalidate="novalidate">
+						{% csrf_token %}
+						<div class="row">
+			                <div class="col-sm-12">
+			                    <div class="form-group">
+			                    	<label for="exampleInputName">Full Name</label>
+									<input id="form_name" name="name" class="form-control"  type="text" required>
+								</div>
+			                </div>
+			                <div class="col-sm-12">
+			                    <div class="form-group">
+			                    	<label for="exampleInputEmail">Your Email</label>
+			                    	<input type="Email" id="form_email" name="email" class="form-control required " required >
+			                    </div>
+			                </div>
+			                <div class="col-sm-12">
+			                    <div class="form-group">
+			                    	<label for="exampleInputSubject">Subject</label>
+				                    <input id="form_subject" name="subject" class="form-control required"type="text"  required >
+								</div>
+			                </div>
+			                <div class="col-sm-12">
+	                            <div class="form-group">
+	                            	<label for="exampleInputEmail1">Your Message</label>
+	                                <textarea id="form_message" name="message" class="form-control required" rows="5" required></textarea>
+	                            </div>
+			                    <div class="form-group ui_kit_button mb0">
+				                    <button type="submit" class="btn dbxshad btn-lg btn-thm circle white">Button</button>
+			                    </div>
+			                </div>
+		                </div>
+		            </form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% block message %}
+	<script>
+	{% if Thank %}
+	alert('{{message}}')
+	{% endif %}
+	</script>
+	{% endblock message %}	
+{% endblock  %}

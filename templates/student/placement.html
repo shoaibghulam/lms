@@ -1,0 +1,72 @@
+{% extends 'student/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.faq_question_widget{
+	min-height: 83vh;
+}
+.okbtn
+{
+	width: 50%;
+    margin-top: 29px;
+}
+.tdp
+{
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+    
+}
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+						<div class="row">
+							<div class="col-lg-12">
+							 <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Placement </h4>
+					
+							 </nav>
+						    </div>
+   								 <div class="col-lg-12">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th class="tdp">Job Title</th>
+            <th class="tdp">Name of Organization</th>
+            <th class="tdp">Company Profile</th>
+            <th class="tdp">Employment Type</th>
+            <th class="tdp">Job Description</th>
+            <th class="tdp">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for j in job %}
+          <tr>
+          
+            <td>{{j.Job_Title}}</td>
+            <td>{{j.Name_of_Organization}}</td>
+            <td>{{j.Company_Profile}}</td>
+            <td>{{j.Employment_Type}}</td>
+           	<td><a href="/upload/{{j.Job_description}}" class="btn btn-primary" >Download </a></td>
+            
+            <td><a href="jobapply" class="btn-success btn"name="">Apply</a></td>
+           
+          </tr>
+           {% endfor %}
+      
+         
+          
+        </tbody>
+      </table>
+    							 </div>
+ 							
+						</div>
+				</div>
+			</div>
+</div>
+
+{% endblock %}

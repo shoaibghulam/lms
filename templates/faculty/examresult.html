@@ -1,0 +1,481 @@
+{% extends 'faculty/base.html' %} {% load static %} {% block body %}
+<style type="text/css">
+    .dashboard_main_content .main_content_container {
+        padding: 99px 0 0;
+    }
+    
+    .faq_question_widget {
+        min-height: 83vh;
+    }
+    
+    .button-height {
+        margin-top: 31px;
+    }
+</style>
+<div class="dashboard_main_content">
+    <div class="container-fluid">
+        <div class="main_content_container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                        <h4 class="title float-left">Exam Result </h4>
+
+                    </nav>
+                    {% for message in messages %}
+                    <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                        <strong>Message:</strong> {{message}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+                    </div>
+                    {% endfor %}
+
+                </div>
+                <div class="col-lg-12">
+                    <div class="cart_page_form style2">
+                        <form action="examresult" method="POST">
+                            {% csrf_token %}
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr class="carttable_row">
+
+                                        <th class="cartm_title">Select Course</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table_body">
+                                    <tr>
+                                        <td>
+                                            <label for="">Courses</label>
+                                            <select class="form-control" name="courses">
+
+												{% for i in courses %}
+										
+												<option value="{{i.Cid}}">{{i.Course_name}}</option>
+									
+												{% endfor %}
+											</select>
+                                        </td>
+                                        <br>
+                                        <td>
+                                            <label for="">Batch</label>
+                                            <select class="form-control" name="batch">
+
+												{% for i in batch %}
+											   
+												<option value="{{i.Batch_id}}">
+													{{i.Batch_Name }}</option>
+                                                   
+										
+												{% endfor %}
+											</select>
+                                        </td>
+
+                                        <td>
+                                            <label for="">Semester</label>
+                                            <select class="form-control" name="semester">
+
+												{% for i in semester %}
+											
+												<option value="{{i.SamesterId}}">
+													{{i.Samester_Name }}</option>
+										
+												{% endfor %}
+											</select>
+                                        </td>
+                                        <td>
+                                            <input type="submit" class="btn btn-primary button-height" value="Search" name="" required>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+
+
+                </form>
+
+
+
+
+                <form action="resultentry" method="post">
+                    {% csrf_token %}
+
+                    <div class="col-lg-12">
+                        <div class="my_setting_content_details">
+                            <div class="cart_page_form style3">
+
+                                <table class="table table-responsive">
+                                    <thead>
+                                        <tr class="carttable_row">
+                                            <th class="cartm_title">Course Weightage</th>
+                                        </tr>
+                                        <tr class="">
+                                            <th class="cartm_title">Student Name</th>
+                                            <th class="cartm_title">Project</th>
+                                            <th class="cartm_title">Quiz/Assignment</th>
+                                            <th class="cartm_title">Midterm</th>
+                                            <th class="cartm_title">Final</th>
+                                            <th class="cartm_title">Obtained Marks</th>
+                                            <th class="cartm_title">Total</th>
+                                            <th class="cartm_title">Grade</th>
+
+                                            <th class="cartm_title"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table_body">
+                                        {% for data in data %}
+                                        <input type="hidden" name="sid" value='{{data.Student_ID.StudentId}}'>
+
+                                        <input type="hidden" name="depart" value='{{department}}'>
+
+
+                                        <input type="hidden" name="course" value='{{course}}'>
+
+                                        <tr>
+                                            <th scope="row">
+                                                <ul class="cart_list">
+                                                    <li class="list-inline-item"><a class="cart_title" href="#">{{data.Student_ID }}</a></li>
+                                                </ul>
+                                            </th>
+                                            <td>
+                                                <input style="width: 70px;"   id="projectmarks_{{data.Student_Course_ID}}" class="form-control project key_up" type="number" min="0" name="project" required onkeyup="AutoCalculate('{{data.Student_Course_ID}}')">
+                                            </td>
+                                            <td>
+                                                <input style="width: 70px;" min="0" id="quizmarks_{{data.Student_Course_ID}}" class="form-control quiz key_up" type="number" name="q/a" required onkeyup="AutoCalculate('{{data.Student_Course_ID}}')">
+                                            </td>
+                                            <td>
+                                                <input style="width: 70px;" id="midmarks_{{data.Student_Course_ID}}" min="0" class="form-control mid key_up" type="number" name="midterm" required onkeyup="AutoCalculate('{{data.Student_Course_ID}}')">
+                                            </td>
+
+                                            <td>
+                                                <input style="width: 70px;" min="0" id="finalmarks_{{data.Student_Course_ID}}" class="form-control final key_up" type="number" name="final" id="final" required onkeyup="AutoCalculate('{{data.Student_Course_ID}}')">
+                                            </td>
+                                            <td>
+                                                <input style="width: 70px;" id="obtainmarks_{{data.Student_Course_ID}}" class="form-control obtain key_up" type="text" name="Obtained_marks"  required value="" readonly>
+                                            </td>
+                                            <td>
+                                                <input style="width: 70px;" id="totalmarks_{{data.Student_Course_ID}}" class="form-control total key_up" type="text" name="total" id="total" value="100" required readonly >
+
+                                            </td>
+                                            <td>
+                                                <input style="width: 63px;" id="grade_{{data.Student_Course_ID}}" class="form-control" type="" name="Grade" required  value="">
+
+                                            </td>
+                                            <td colspan="4">
+
+
+
+
+                                                <input type="button" class="btn btn-primary" value="Insert Individual" name="" data-toggle="modal" data-target="#addModal" onclick="getstudent('{{data.Student_ID.StudentId }}')">
+
+
+
+
+                                            </td>
+
+                                        </tr>
+
+                                        {% endfor %}
+
+                                {% if status %}
+
+                                <input type="submit" class="btn btn-primary" value="All Submit" name="">
+
+
+                                {% else %}
+
+                                {% endif %}
+
+                </form>
+                </tbody>
+                <tfoot>
+                    <tr>
+
+                    </tr>
+                </tfoot>
+                </table>
+
+
+                </div>
+                </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Insert Individual student marks  -->
+<div class="modal" id="addModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Upload Exam Marks <i class="fa fa-upload"></i></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="/faculty/IndividualMarksUpload" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label>Student Name</label>
+
+                    <input type="hidden" name="studentId" id="studentId" value="">
+                    <input type="text" name="sname" id="sname" class="form-control" placeholder="Student Name" required maxlength=50><br>
+
+                    <label>Project Marks</label>
+                    <input type="number" onkeyup="AutoCalculateIndividual()" name="pmarks" id="pmarks" class="form-control" placeholder="Enter Marks" required maxlength=50><br>
+
+                    <label>Quiz Marks</label>
+                    <input type="number" onkeyup="AutoCalculateIndividual()" name="qmarks" id="qmarks" class="form-control" placeholder="Enter Marks" required maxlength=50><br>
+
+                    <label>Mid Marks</label>
+                    <input type="number" onkeyup="AutoCalculateIndividual()" name="mmarks" id="mmarks" class="form-control" placeholder="Enter Marks" required maxlength=50><br>
+
+       
+                    <label>Final Marks</label>
+                    <input type="number" onkeyup="AutoCalculateIndividual()" name="fmarks" id="fmarks" class="form-control" placeholder="Enter Marks" required maxlength=50><br>
+                    
+                    <label>Obtained Marks</label>
+                    <input readonly type="number" onkeyup="AutoCalculateIndividual()" name="SObtained_marks" id="SObtained_marks" class="form-control" placeholder="Enter Marks" required maxlength=50><br>
+
+
+                    <label>Total Marks</label>
+                    <input type="number" onkeyup="AutoCalculateIndividual()" name="tmarks" id="tmarks" class="form-control" placeholder="Enter Marks" required maxlength=50 value=100 readonly><br>
+
+
+                    
+                    <label>Grade</label>
+                    <input type="text" name="SGrade" id="SGrade" class="form-control" placeholder="Enter Grade" required maxlength=50  ><br>
+
+
+
+
+
+
+                    <div id="status"></div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="uploadvideo">upload</button>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% comment %} End Individual student marks {% endcomment %}
+
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+
+    function getstudent(x) {
+
+        $.ajax({
+
+            url: 'IndividualMarksUpload',
+            type: 'GET',
+            data: {
+
+                'uid': x
+            },
+            success: function(data) {
+                var datas = eval(data);
+                $('#sname').val(datas[0].First_name);
+                $('#studentId').val(x);
+
+
+
+
+
+
+
+            }
+        });
+
+
+
+    }
+
+
+
+
+
+ //For aLL STUDENT
+function AutoCalculate(id){
+  
+    
+    var p = parseInt(document.getElementById(`projectmarks_${id}`).value);
+    var q = parseInt(document.getElementById(`quizmarks_${id}`).value);
+    var m = parseInt(document.getElementById(`midmarks_${id}`).value);
+    var f = parseInt(document.getElementById(`finalmarks_${id}`).value);
+  
+    if(p > 0 && q>0 && m>0 && f>0){
+
+        var a ='' 
+    a = $(`#obtainmarks_${id}`)
+    a.val(parseInt(p)+parseInt(q)+parseInt(m)+parseInt(f))
+    var result = document.getElementById(`obtainmarks_${id}`).value
+
+    if(result<60){
+        
+        var assign = 'F';
+        var grade = $(`#grade_${id}`)
+        grade.val(assign)
+    
+    }
+    
+    else if(result>=60 && result <=66){
+
+        var assign = 'C';
+        var grade = $(`#grade_${id}`)
+        grade.val(assign)
+
+    }
+
+    else if(result>=67 && result <=73){
+
+        var assign = 'C+';
+        var grade = $(`#grade_${id}`)
+       grade.val(assign)
+
+
+
+    }
+
+    else if(result>=74 && result <=80){
+
+        var assign = 'B';
+        var grade = $(`#grade_${id}`)
+    
+        grade.val(assign)
+
+    }
+
+    else if(result>=81 && result <=87){
+
+        var assign = 'B+';
+        var grade = $(`#grade_${id}`)
+        grade.val(assign)
+
+    }
+
+
+    else if(result>=88 && result <=100){
+
+        var assign = 'A';
+        var grade = $(`#grade_${id}`)
+        grade.val(assign)
+
+    }
+    else{
+
+        var assign = 'F';
+        var grade = $(`#grade_${id}`)
+        grade.val(assign)
+
+    }
+
+
+    }
+   
+    
+
+  
+  
+}
+
+
+
+
+//FOR A SINGLE STUDENT
+
+function AutoCalculateIndividual(){
+  
+    var p = document.getElementById('pmarks').value;
+    var q = document.getElementById('qmarks').value;
+    var m = document.getElementById('mmarks').value;
+    var f = document.getElementById('fmarks').value;
+    var a ='' 
+    a = $('#SObtained_marks')
+    a.val(parseInt(p)+parseInt(q)+parseInt(m)+parseInt(f))
+    var result = document.getElementById('SObtained_marks').value
+
+    if(result<60){
+        
+        var assign = 'F';
+        var grade = $('#SGrade')
+        grade.val(assign)
+    
+    }
+    
+    else if(result>=60 && result <=66){
+
+        var assign = 'C';
+        var grade = $('#SGrade')
+        grade.val(assign)
+
+    }
+
+    else if(result>=67 && result <=73){
+
+        var assign = 'C+';
+        var grade = $('#SGrade')
+        grade.val(assign)
+
+
+
+    }
+
+    else if(result>=74 && result <=80){
+
+        var assign = 'B';
+        var grade = $('#SGrade')
+        grade.val(assign)
+
+    }
+
+    else if(result>=81 && result <=87){
+
+        var assign = 'B+';
+        var grade = $('#SGrade')
+        grade.val(assign)
+
+    }
+
+
+    else if(result>=88 && result <=100){
+
+        var assign = 'A';
+        var grade = $('#SGrade')
+        grade.val(assign)
+
+    }
+
+
+  
+  
+}
+  
+
+ 
+ 
+
+</script>
+
+{% endblock %} {% comment %} $('#sid').val(x); $('#marks').val(datas[0].Mark); {% endcomment %}
+
+<!-- Below 60F
+60-66 C
+67-73 C+
+74-80 B
+81-87 B+
+88-100 A -->

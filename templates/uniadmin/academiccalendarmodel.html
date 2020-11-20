@@ -1,0 +1,129 @@
+{% extends 'uniadmin/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.cart_page_form.style3 .table_body td {
+    padding: 24px 38px;
+}
+.table-responsive {
+    overflow-x: hidden;
+}
+.tdp
+{
+    width: 35%;
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+}
+#ui-id-1{
+	font-weight: bold;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Academic Calendar Model</h4>
+								
+							</nav>
+						</div>
+						<div class="col-lg-12">
+								<a href="newcalendarmodel" class="btn btn-success pull-right"> + Add New Calendar Model</a>
+								<form class="form-horizontal" action="/university/academiccalendarmodel" method="POST">
+								{% csrf_token %}
+								<div class="form-group row">
+									
+									
+									<div class="col-md-4">
+							
+
+							<input type="text" class="form-control" placeholder="Academic Calendar Title" name="AcademicCalendarTitle" required id="txtSearch">
+									</div>
+									<div class="col-md-1">
+										<input type="submit" class="btn btn-primary" value="Search" name="search">
+									</div>
+								</div>
+							</form>
+								{% for message in messages %}
+                        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                            <strong>Message:</strong> {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+        {% endfor %}
+			
+							</div>
+						<div class="col-lg-12">
+							
+							<div class="my_course_content_container">
+								<div class="my_setting_content">
+									<div class="my_setting_content_details">
+										<div class="cart_page_form style3">
+											<form action="#">
+												  <table class="table table-responsive">
+												  	<thead>
+													
+													  
+													  
+												  		<tr class="carttable_row">
+												  			
+												  			<th class="cartm_title">AC-ID</th>
+												  			<th class="cartm_title">Title</th>
+												  			<th class="cartm_title">Start Date</th>
+												  			<th class="cartm_title">End Date</th>
+												  			<th class="cartm_title">Location</th>
+												  			<th class="cartm_title">Edit</th>
+												  			<th class="cartm_title">Delete</th>
+												  		</tr>
+												  	</thead>
+												  	<tbody class="table_body">
+													  {% for d in data %}
+													    <tr>
+													    	
+													    	<td>{{d.AcademicCalendarId}}</td>
+													    	<td>{{d.AcademicCalendarTitle}}</td>
+													    	<td>{{d.AcademicCalendarStartDate}}</td>
+													    	<td>{{d.AcademicCalendarEndDate}}</td>
+													    	<td>{{d.AcademicCalendarLocation}}</td>
+													    	
+													    	
+													    	<td><a href="editcalendarmodel/{{d.AcademicCalendarId}}" class="btn btn-sm btn-success">Edit</a>
+													    		
+													    	</td> 	
+															<td><a href="deletecalendarmodel/{{d.AcademicCalendarId}}" class="btn btn-sm btn-danger">Delete</a></td>
+													    </tr>
+														{% endfor %}
+													 
+													   
+												  	</tbody>
+												</table>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+<script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+
+ $(function() {
+      $("#txtSearch").autocomplete({
+        source: "/university/academiccalendarmodelSuggestion",
+        minLength: 1,
+      });
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,244 @@
+{% extends 'uniadmin/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.cart_page_form.style3 .table_body td {
+    padding: 24px 38px;
+}
+.table-responsive {
+    overflow-x: hidden;
+}
+.tdp
+{
+    width: 35%;
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+}
+.modal-dialog {
+    max-width: 935px;
+}
+.modal-body .row .col-md-3 .shop_grid{position: relative;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(237, 239, 247);
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    height: 212px;
+    margin-bottom: 30px;
+    padding: 20px;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+
+
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+								{% for message in messages %}
+                        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                            <strong>Message:</strong> {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+        {% endfor %}
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Delete Course</h4>
+								<ol class="breadcrumb float-right">
+							    	<li class="breadcrumb-item"><a href="/university/admincourse">All</a></li>
+							    	<li class="breadcrumb-item active" aria-current="page">Courses</li>
+								</ol>
+							</nav>
+						</div>
+						
+						<div class="col-lg-12">
+							
+							<div class="my_course_content_container">
+								<div class="my_setting_content">
+									<div class="my_setting_content_details">
+										<div class="cart_page_form style3">
+											<form action="/university/deleteCourse" method="POST">
+												{% csrf_token %}
+										
+											<br><br>
+												
+												<div class="col-lg-12">
+            
+								<div class="form-group row">
+									<div class="col-md-4">
+										<select class="form-control" name="depart"> 
+											{% for i in depart %}
+												<option value={{i.Did}}>{{i.Department_name}}</option>
+											{% endfor %}
+										</select>
+									</div>
+									
+									<div class="col-md-3">
+
+									<select class="form-control" name="semester"> 
+										{% for i in semester %}
+											<option value={{i.SamesterId}}>{{i.Samester_Name}}</option>
+										{% endfor %}
+									</select>
+									</div>
+									
+									<div class="col-md-3">
+
+									<select class="form-control" name="batch"> 
+										{% for i in batch %}
+											<option value={{i.Batch_id}}>{{i.Batch_Name}}</option>
+										{% endfor %}
+									</select>
+									</div>
+									
+									
+								</div>
+							
+						</div>
+												<div class="col-xl-5 offset-4">
+													<label></label>
+													<input type="submit" id="#add" class=" mt-4 w-50 btn btn-primary text-white" value="Submit">
+												</div>
+											</form>
+                                            <br><br><br>
+                                
+
+                                            		  <table class="table table-responsive">
+												  	<thead>
+												  		<tr class="carttable_row">
+												  			
+												  			<th class="cartm_title">Course Name</th>
+												  			<th class="cartm_title">Teacher</th>
+															<th class="cartm_title">Department</th>
+												  			<th class="cartm_title">Email</th>
+												  			<th class="cartm_title">Actions</th>
+												  		</tr>
+												  	</thead>
+												  	<tbody class="table_body">
+													  {% for i in course  %}
+													    <tr>
+													    	
+													    
+													    	<td>{{i.Course_name}}</td>
+													    	<td>{{i.Instructor_id}}</td>
+															<td>{{i.Department_id}}</td>
+													    	<td>{{i.Instructor_id.username.email}}</td>
+													    	<td>
+													    		<a href="/university/deleteCourseID/{{i.Cid}}"><button type="button" class="btn btn-danger">Delete</button></a>
+													    	</td> 	
+													    </tr>
+													 {% endfor %}
+													   
+												  	</tbody>
+												</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+<!-- Create Admin -->
+<div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Create Admin</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        	<div class="col-md-12">
+        		<div class="my_course_content_container">
+										<div class="my_setting_content mb30">
+											<div class="my_setting_content_header">
+												<div class="my_sch_title">
+													<h4 class="m0">Admin info</h4>
+												</div>
+											</div>
+											<div class="row my_setting_content_details pb0">
+												<div class="col-xl-12">
+													<div class="row">
+														<div class="col-xl-6">
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput1">First Name</label>
+														    	<input type="text" class="form-control" id="formGroupExampleInput1" placeholder="Enter University Name">
+															</div>
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput2">Last Name </label>
+														    	<input type="text" class="form-control" id="formGroupExampleInput2" placeholder="">
+															</div>
+														</div>
+														<div class="col-xl-6">
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput2">Branch Password </label>
+														    	<input type="text" class="form-control" id="formGroupExampleInput2" placeholder="">
+															</div>
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput2">Username </label>
+														    	<input type="text" class="form-control" id="formGroupExampleInput2" placeholder="">
+															</div>
+														</div>
+															<div class="col-xl-12">
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput2">Email </label>
+														    	<input type="text" class="form-control" id="formGroupExampleInput2" placeholder="">
+															</div>
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput2">Contact </label>
+														    	<input type="text" class="form-control" id="formGroupExampleInput2" placeholder="">
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="row my_setting_content_details">
+												<div class="col-xl-5">
+													<div class="my_profile_setting_input form-group">
+												    	<label for="formGroupExampleInput1">Status</label>
+												    	<input type="text" class="form-control" id="faculty" placeholder="Mention Status">
+													</div>
+												</div>
+												<div class="col-xl-5">
+													<div class="my_profile_setting_input form-group">
+												    	<label for="formGroupExampleInput1">Picture</label>
+												    	<input type="file" class="form-control" id="course" placeholder="Mention Here Skills to Develop">
+													</div>
+												</div>
+												<div class="col-xl-2">
+													<label></label>
+													<input type="button" id="#add" class=" mt-4 w-50 btn btn-primary text-white" value="Add">
+												</div>
+												
+											</div>
+											
+										</div>
+									</div>
+        	</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+
+</script>
+
+{% endblock %}

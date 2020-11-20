@@ -1,0 +1,272 @@
+{% extends 'student/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.shop_grid {
+		height: 210px;
+	}
+</style>
+	<!-- Our Dashbord -->
+	<div class="our-dashbord dashbord">
+		<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Student Information </h4>
+								{% comment %} <ol class="breadcrumb float-right">
+							    	<li class="breadcrumb-item"><a href="#">Home</a></li>
+							    	<li class="breadcrumb-item active" aria-current="page">sic</li>
+								</ol> {% endcomment %}
+							</nav>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a  href="/student/examschedule">
+									 <img class="img-fluid" src="{% static '' %}faculty/images/image1.png" alt="1.png">
+									 <p><strong>Exam Schedule</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+								  <a href="/student/examresultstudent">
+									<img class="img-fluid" src="{% static '' %}faculty/images/shop/exam%20result.png" alt="2.png">
+									 <p><strong>Exam Result</strong></p>
+								  </a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="/student/registration">
+										<img class="img-fluid" src="{% static '' %}faculty/images/shop/registration.png" alt="3.png">
+										 <p><strong>Registration</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="/student/transcript">
+									 <img class="img-fluid" src="{% static '' %}faculty/images/shop/transcript.png" alt="2.png">
+									 <p><strong>Transcript</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+					<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="/student/studentcalendar">
+									 <img class="img-fluid" src="{% static '' %}faculty/images/shop/academic%20calender.png" alt="1.png">
+									 <p><strong>Academic Calendar</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="/student/facultyevaluations"> 
+									 <img class="img-fluid" src="{% static '' %}faculty/images/shop/evaluation.png" alt="3.png">
+									 <p><strong>Faculty Evaluation</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="/student/studentattendance"> 
+									 <img class="img-fluid" src="{% static '' %}faculty/images/shop/attendance.png" alt="3.png">
+									 <p><strong>Student Attendance</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="/student/Scrunityform"> 
+									 <img class="img-fluid" src="{% static '' %}faculty/images/shop/CAC%20Form.png" alt="3.png">
+									 <p><strong>Scrunity Forms</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="/student/semesterschedule"> 
+									 <img class="img-fluid" src="{% static '' %}faculty/images/shop/meeting%20appointment.png" alt="3.png">
+									 <p><strong>Semester Schedule</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="/student/curriculum"> 
+									 <img class="img-fluid" src="{% static '' %}faculty/images/shop/curriculm.png" alt="3.png">
+									 <p><strong>Curriculum</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="/student/formguidline">
+										<img class="img-fluid" src="{% static '' %}faculty/images/shop/online%20lectures.png" alt="3.png">
+										 <p><strong>Form & Guideline</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="/student/survey"> 
+									 <img class="img-fluid" src="{% static '' %}faculty/images/shop/survey.png" alt="3.png">
+									 <p><strong>Online Survey</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="/student/events"> 
+									 <img class="img-fluid" src="{% static '' %}faculty/images/shop/meeting%20appointment.png" alt="3.png">
+									 <p><strong>Events Meeting</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="/student/library">
+										<img class="img-fluid" src="{% static '' %}faculty/images/shop/IU%20research.png" alt="4.png">
+										 <p><strong>Library Book Search</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="digitallibrary">
+									 <img class="img-fluid" src="{% static '' %}faculty/images/shop/digital%20library.png" alt="5.png">
+									  <p><strong>Digital Library</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="/student/Phddigitallibrary">
+									 <img class="img-fluid" src="{% static '' %}faculty/images/shop/digital%20library.png" alt="6.png">
+									 <p><strong>Digital Library (Phd)</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						
+						
+						
+						
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="/student/placement"> 
+									 <img class="img-fluid" src="{% static '' %}faculty/images/shop/nimination.png" alt="3.png">
+									 <p><strong>Placement Portal</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="/student/onlinelecture"> 
+									 <img class="img-fluid" src="{% static '' %}faculty/images/shop/online%20lectures.png" alt="3.png">
+									 <p><strong>Online Lecture</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="/student/studentprofile"> 
+									 <img class="img-fluid" src="{% static '' %}faculty/images/shop/user%20stories.png" alt="3.png">
+									 <p><strong>My Profile</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<a href="/student/fvledashboard" target="new"> 
+									 <img class="img-fluid" src="{% static '' %}faculty/images/shop/vle%20icon.png" alt="3.png">
+									 <p><strong>VLE</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+								
+							
+									
+									
+								<a href="mailto:{{student_signupname.email}}" target="_blank"> <img class="img-fluid" src="{% static '' %}faculty/images/shop/online%20lectures.png" alt="3.png"></a>
+									
+									 <p><strong>Email</strong></p>
+									</a>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="row mt50 mb50">
+						<div class="col-lg-6 offset-lg-3">
+							<div class="copyright-widget text-center">
+								<p class="color-black2">Copyright Hnh tech solution © 2019. All Rights Reserved.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+  
+	
+<script>
+{% if thank %}
+
+alert('{{msg}}')
+
+{% endif %}
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+
+</script>
+{% endblock  %}

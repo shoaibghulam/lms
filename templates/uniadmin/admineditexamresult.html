@@ -1,0 +1,149 @@
+{% extends 'uniadmin/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.shop_grid {
+		height: 284px;
+	}
+	.okbtn
+	{
+		width: 50%;
+		margin-top: 29px;
+	}
+	.tdp
+	{
+		background: #8d35b4;
+		color: white;
+		font-weight: bold;
+	}
+	.cart_page_form.style2 .table_body td {
+		width: 34%;
+	}
+	label.control-label {
+		font-weight: 700;
+		color: black;
+	}
+	textarea.form-control {
+		padding: 44px;
+	}
+
+</style>
+<div class="dashboard_main_content">
+	<div class="container-fluid">
+		<div class="main_content_container">
+			<div class="row">
+				<div class="col-lg-12">
+					<br><br>
+					<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+						<a href="/university/adminexamresult"><h4 class="title float-left">Exam Result</h4></a>
+						<ol class="breadcrumb float-right">
+							<li class="breadcrumb-item"><a href="page-dashboard-student.php">Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Exam Result</li>
+						</ol>
+					</nav>
+				</div>
+			
+				<div class="col-lg-12">
+
+					<div class="my_course_content_container">
+						<div class="my_setting_content">
+							<div class="my_setting_content_details">
+								<div class="cart_page_form style3">
+									<form action="/university/admineditexamresult/{{result.Exam_Result_id}}" method="POST">
+											
+											{% csrf_token %}
+											<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Course</label>
+												
+												<input class="col-md-5 form-control" type="" name="" readonly value={{result.Course_id}}>
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2"> Project Marks</label>
+												<input class="col-md-5 form-control" type="text"  name="Pmarks" value={{result.Project_Marks}}>
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2"> Quiz Assignment Marks</label>
+												<input class="col-md-5 form-control" type="text"  name="Amarks" value={{result.Quiz_Assignment_Marks}}>
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Mid Term Marks</label>
+												<input class="col-md-5 form-control" type="text"  name="Mmarks" value={{result.Midterm_Marks}}>
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2"> Final Marks</label>
+												<input class="col-md-5 form-control" type="text"  name="Fmarks" value={{result.Final_Marks}}>
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2"> Total Marks</label>
+												<input class="col-md-5 form-control" type="text"  name="Tmarks" value={{result.Total_Marks}}>
+											</div>
+
+										</div>
+					
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Instructor</label>
+												<input class="col-md-5 form-control" type="" readonly name="" value={{result.InstructerId}}>
+
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Department</label>
+										<input class="col-md-5 form-control" type="" name="" readonly value={{result.Department_id}}>
+
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Student</label>
+											<input class="col-md-5 form-control" type="" readonly name="" value={{result.Student_ID}}>
+
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">GPA</label>
+												<input class="col-md-5 form-control" type="" name="gpa" value={{result.GPA}}>
+											</div>
+
+										</div>
+										
+											
+									
+										<div class="form-group row">
+											<div class="col-lg-12 offset-md-3">
+												<input type="submit" value="Edit" class="btn-primary btn" name="">
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

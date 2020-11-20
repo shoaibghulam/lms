@@ -1,0 +1,175 @@
+<?php include_once('header.php')?>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script>
+		$(document).ready(function(){
+
+			 $("#add").click(function(){
+                alert("hello world");
+                var faculty = $("#faculty").val();
+                var course = $("#course").val();
+
+                var table = $("#Expertisedetails");
+
+                var expertise = "<tr><td>"+faculty+"</td><td>"+course+"</td><td>"+'<a data-itemId="0" href="#" class="btn btn-danger deleteItem">Remove</a>'+"</td></tr>";
+                alert(expertise);
+                table.append(expertise);
+            });
+		});
+	</script>
+<div class="our-dashbord dashbord">
+		<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="row">
+								<div class="col-lg-12">
+									<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+										<h4 class="title float-left">Faculty Development Form</h4>
+										<ol class="breadcrumb float-right">
+									    	<li class="breadcrumb-item"><a href="#">Home</a></li>
+									    	<li class="breadcrumb-item active" aria-current="page">Faculty form</li>
+										</ol>
+									</nav>
+								</div>
+								<div class="col-lg-12">
+									<div class="my_course_content_container">
+										<div class="my_setting_content mb30">
+											<div class="my_setting_content_header">
+												<div class="my_sch_title">
+													<h4 class="m0">General info</h4>
+												</div>
+											</div>
+											<div class="row my_setting_content_details pb0">
+												<div class="col-xl-12">
+													<div class="row">
+														<div class="col-xl-6">
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput1">Name</label>
+														    	<input type="text" class="form-control" id="formGroupExampleInput1" placeholder="Enter your name">
+															</div>
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput2">Highest Degree </label>
+														    	<input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Enter Your Highest Degree">
+															</div>
+														</div>
+														<div class="col-xl-6">
+															<div class="my_profile_setting_input form-group">
+														    	<label for="exampleInputPhone">Department</label>
+														    	<input type="text" class="form-control" placeholder="Enter your Department">
+															</div>
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInputX">Subject</label>
+														    	<select class="form-control">
+														    		<option>Select Subject</option>
+														    		<option>English</option>
+														    		<option>Maths</option>
+														    	</select>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="my_setting_content_header style2">
+												<div class="my_sch_title">
+													<h4 class="m0">Area of Expertise</h4>
+												</div>
+											</div>
+											<div class="row my_setting_content_details">
+												<div class="col-xl-5">
+													<div class="my_profile_setting_input form-group">
+												    	<label for="formGroupExampleInput1">Please Mention the Course you Teach at University</label>
+												    	<input type="text" class="form-control" id="faculty" placeholder="Mention you Faculty">
+													</div>
+												</div>
+												<div class="col-xl-5">
+													<div class="my_profile_setting_input form-group">
+												    	<label for="formGroupExampleInput1">Please Mention the Core Area to you would like to develop</label>
+												    	<input type="text" class="form-control" id="course" placeholder="Mention Here Skills to Develop">
+													</div>
+												</div>
+												<div class="col-xl-2">
+													<label></label>
+													<input type="button" id="#add" class=" mt-4 w-50 btn btn-primary text-white" value="Add"/>
+												</div>
+												
+											</div>
+											<div class="container">
+												<table id="Expertisedetails" class="table table-responsive">
+												</table>
+											</div>
+											<hr>
+											<div class="my_setting_content_header style2">
+												<div class="my_sch_title">
+													<h4 class="m0">Teacher-Research Ratio</h4>
+													<h5>Please tick your prefrence for the following work strands at university</h5>
+												</div>
+												<div class="row my_setting_content_details">
+												<div class="col-xl-12">
+													<div class="my_profile_setting_input form-group">
+														<input type="radio" />
+												    	<label for="formGroupExampleInput1">Teaching Faculty only</label><br>
+												    	<input type="radio"/>
+												    	<label>Teaching and Research Faculty</label><br>
+												    	<input type="radio" name="">
+												    	<label>Research Faculty</label>
+													</div>
+												</div>
+											</div>
+											</div>
+											<hr>
+											<div class="my_setting_content_header style2">
+												<div class="my_sch_title">
+													<h4 class="m0">Proffesional Development Requirment</h4>
+												</div>
+											</div>
+											<div class="row my_setting_content_details">
+												<div class="col-xl-6">
+													<div class="my_profile_setting_input form-group">
+												    	<label for="formGroupExampleInputY">
+												    		Please Hightlight Areas in which you require
+												    		proffesional development with regard to your particular
+												    		area of work
+												    	</label>
+												    	<input type="text" class="form-control" id="formGroupExampleInputY" placeholder="Enter Area">
+												    	<a href="" class="btn btn-primary"> Add</a>
+													</div>
+												</div>
+												<div class="col-xl-6">
+													<label>How would you like to strengthen your area of expertise</label><br>
+													<input type="checkbox" />
+												    	<label for="formGroupExampleInput1">Seminars</label><br>
+												    	<input type="checkbox"/>
+												    	<label>Workshops</label><br>
+												    	<input type="checkbox" name="">
+												    	<label>Confrences</label><br>
+												    	<input type="checkbox" name="">
+												    	<label>Mentoring</label><br>
+												    	<input type="checkbox" name="">
+												    	<label>Job Shadowing</label><br>
+												    	<input type="checkbox" name="">
+												    	<label>Self Development (reading , research)</label><br>
+												</div>
+											    <div class="col-lg-12">
+													<button type="submit" class="my_setting_savechange_btn btn btn-thm">Save <span class="flaticon-right-arrow-1 ml15"></span></button>
+											    </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row mt20 mb50">
+								<div class="col-lg-12">
+									<div class="copyright-widget text-center">
+										<p class="color-black2">Copyright Edumy © 2019. All Rights Reserved.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<?php include_once('footer.php')?>

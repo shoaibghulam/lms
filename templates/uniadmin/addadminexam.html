@@ -1,0 +1,111 @@
+{% extends 'uniadmin/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.shop_grid {
+		height: 284px;
+	}
+	.okbtn
+	{
+		width: 50%;
+		margin-top: 29px;
+	}
+	.tdp
+	{
+		background: #8d35b4;
+		color: white;
+		font-weight: bold;
+	}
+	.cart_page_form.style2 .table_body td {
+		width: 34%;
+	}
+	label.control-label {
+		font-weight: 700;
+		color: black;
+	}
+	textarea.form-control {
+		padding: 44px;
+	}
+
+</style>
+<div class="dashboard_main_content">
+	<div class="container-fluid">
+		<div class="main_content_container">
+			<div class="row">
+				<div class="col-lg-12">
+					<br><br>
+					<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+						<h4 class="title float-left">Exam Schedule Model</h4>
+						
+					</nav>
+				</div>
+			
+				<div class="col-lg-12">
+
+					<div class="my_course_content_container">
+						<div class="my_setting_content">
+							<div class="my_setting_content_details">
+								<div class="cart_page_form style3">
+									<form action="addadminexam" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+										<div class="form-group ">
+						   				<div class="row">
+						   					<label class="control-label col-md-2">Select Semester  Id</label>
+						   					<select class="form-control col-md-5" name="semester" >
+						   						{% for t in semester %}
+											   {% ifchanged  %}
+						   						<option value="{{t.SamesterId}}">{{t.Samester_Name}} </option>
+												   {% endifchanged %}
+												   {% endfor %}
+						   					</select>
+						   				</div>
+						   				
+						   			</div>
+						   			<div class="form-group ">
+						   				<div class="row">
+						   					<label class="control-label col-md-2">Select Department Id</label>
+						   					<select class="form-control col-md-5" name="depart">
+						   						{% for t in department %}
+											   {% ifchanged  %}
+						   						<option value="{{t.Did}}">{{t.Department_name}} </option>
+												   {% endifchanged %}
+												   {% endfor %}
+						   					</select>
+						   				</div>
+						   				
+						   			</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Year </label>
+												<input class="col-md-5 form-control" type="datetime-local" name="Year" required>
+											</div>
+
+										</div>
+										<div class="form-group ">
+						   				<div class="row">
+						   					<label class="control-label col-md-2">Exam File</label>
+						   					<input class="col-md-5" type="file" name="Exam_Schedule_File" required>
+						   				</div>
+						   				
+						   			</div>
+									
+									
+									
+										
+										<div class="form-group row">
+											<div class="col-lg-12 offset-md-3">
+												<input type="submit" value="Save" class="btn-primary btn" name="">
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

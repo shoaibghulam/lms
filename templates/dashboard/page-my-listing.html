@@ -1,0 +1,157 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block body %}
+	
+
+
+	<!-- Our Dashbord -->
+	<div class="our-dashbord dashbord">
+		<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						
+						<div class="col-xl-12">
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="dashboard_navigationbar dn db-1199">
+										<div class="dropdown">
+											<button onclick="myFunction()" class="dropbtn"><i class="fa fa-bars pr10"></i> Dashboard Navigation</button>
+											<ul id="myDropdown" class="dropdown-content">
+												<li><a href="page-dashboard.html"><span class="flaticon-puzzle-1"></span> Dashboard</a></li>
+												<li><a href="page-my-courses.html"><span class="flaticon-online-learning"></span> My Courses</a></li>
+												<li><a href="page-my-order.html"><span class="flaticon-shopping-bag-1"></span> Order</a></li>
+												<li><a href="page-my-message.html"><span class="flaticon-speech-bubble"></span> Messages</a></li>
+												<li><a href="page-my-review.html"><span class="flaticon-rating"></span> Reviews</a></li>
+												<li><a href="page-my-bookmarks.html"><span class="flaticon-like"></span> Bookmarks</a></li>
+												<li class="active"><a href="page-my-listing.html"><span class="flaticon-add-contact"></span> Add listing</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+										<h4 class="title float-left">Add listing</h4>
+										<ol class="breadcrumb float-right">
+									    	<li class="breadcrumb-item"><a href="#">Home</a></li>
+									    	<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+										</ol>
+									</nav>
+								</div>
+								<div class="col-lg-12">
+									<div class="my_course_content_container">
+										<div class="my_setting_content mb30">
+											<div class="my_setting_content_header">
+												<div class="my_sch_title">
+													<h4 class="m0">Basic info</h4>
+												</div>
+											</div>
+											<div class="row my_setting_content_details pb0">
+												<div class="col-xl-12">
+													<form action="mylisting" method="POST" enctype="multipart/form-data">
+														{% csrf_token %}
+													<div class="row">
+														<div class="col-xl-6">
+
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput1">Course title</label>
+														    	<input type="text" class="form-control" id="formGroupExampleInput1" placeholder="UX/UI" name="title" required>
+															</div>
+															
+														</div>
+														<div class="col-xl-6">
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput3">Course price</label>
+														    	<input type="text" class="form-control" id="formGroupExampleInput3" placeholder="$89" name="price" required>
+															</div>
+														
+														</div>
+														<div class="col-xl-12">
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInputX">Course Duration</label>
+														    	<input type="text" class="form-control" id="formGroupExampleInputX" name="duration" required>
+															</div>
+														</div>
+														
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-12">
+												<div class="my_resume_textarea">
+													<div class="form-group">
+														<label for="exampleFormControlTextarea1">Course Description</label>
+														<textarea class="form-control" id="exampleFormControlTextarea1" rows="7" name="description" required></textarea>
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-12">
+												<div class="my_resume_textarea">
+													<div class="form-group">
+														<label for="exampleFormControlTextarea1">Course Requirment</label>
+														<textarea class="form-control" id="exampleFormControlTextarea1" rows="7" name="requirment" required></textarea>
+													</div>
+												</div>
+											</div>
+											<div class="row my_setting_content_details">
+												<div class="col-lg-12">
+													<div class="my_profile_select_box form-group">
+												    	<label for="exampleFormControlInput5">Category</label><br>
+												    	 <select class="form-control"  title="Select Your Industry"  required name="cat">
+															{% for i in category %}
+															
+																<option>{{i.cattitle}}</option>
+															{% endfor %}
+														
+														</select> 
+
+  
+
+													</div>
+												</div>
+											
+											</div>
+											<div class="row my_setting_content_details">
+												<div class="col-lg-12">
+													<div class="my_profile_select_box form-group">
+												    	<label for="exampleFormControlInput5">Level</label><br>
+												    	<select class="form-control" name="level" title="Select Your Level" required>
+														
+															{% for i in level %}
+															
+																<option>{{i.leveltitle}}</option>
+															{% endfor %}
+															
+														</select>
+													</div>
+												</div>
+												<div class="col-lg-12">
+													<label for="">Thumbnail</label> <br>
+													<input type="file" name="thumbnail"><br><br>
+													<button type="submit" class="my_setting_savechange_btn btn btn-thm">Save <span class="flaticon-right-arrow-1 ml15"></span></button>
+											    </div>
+											</div>
+										</form>
+										
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row mt20 mb50">
+								<div class="col-lg-12">
+									<div class="copyright-widget text-center">
+										<p class="color-black2">Copyright Edumy © 2019. All Rights Reserved.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
+</div>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,103 @@
+{% extends 'student/base.html' %} {% load static %} {% block body %}
+<style type="text/css">
+    .shop_grid {
+        height: 284px;
+    }
+    
+    .dashboard_main_content .main_content_container {
+        padding: 115px 0 0;
+    }
+</style>
+<!-- Our Dashbord -->
+
+<div class="dashboard_main_content">
+    <div class="container-fluid">
+        <div class="main_content_container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                        <h4 class="title float-left">Digital Library PHD</h4>
+
+                    </nav>
+                    <form class="form-horizontal" action="/faculty/Phddigitallibrary" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group row">
+
+
+                            <div class="col-md-4">
+
+
+                                <input type="text" class="form-control" placeholder="Book Title" name="BookTitle" required id="txtSearch"></br>
+
+                            </div>
+                            <div class="col-md-1">
+                                <input type="submit" class="btn btn-primary" value="Search" name="search">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <div class="card">
+
+                        <div class="col-lg-12">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+
+                                        <th class="tdp">Book Title</th>
+                                        <th class="tdp">Book Author</th>
+                                        <th class="tdp"> Book Edition</th>
+                                        <th class="tdp"> Book Publisher</th>
+                                        <th class="tdp"> Book Year Of Publisher</th>
+                                        <th class="tdp"> Download</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for d in data %}
+                                    <tr>
+
+                                        <td>{{d.BookTitle}}</td>
+                                        <td>{{d.BookAuthorid}}</td>
+                                        <td>{{d.BookEdition}}</td>
+                                        <td>{{d.BookPublisher}}</td>
+                                        <td>{{d.BookYearOfPublisher}}</td>
+
+                                        <td><a href="/upload/{{d.BookFile}}" class="btn btn-primary"> Download Book </a></td>
+
+                                    </tr>
+                                    {% endfor %}
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
+
+
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+
+    $(function() {
+        $("#txtSearch").autocomplete({
+            source: "/faculty/suggesPhddigitallibrary",
+            minLength: 1,
+        });
+    })
+</script>
+{% endblock %}

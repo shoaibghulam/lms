@@ -1,0 +1,151 @@
+{% extends 'faculty/base.html' %} {% load static %} {% block body %}
+<style type="text/css">
+    .dashboard_main_content .main_content_container {
+        padding: 99px 0 0;
+    }
+    
+    .faq_question_widget {
+        min-height: 83vh;
+    }
+    
+    .okbtn {
+        width: 70%;
+        /*margin-top: 29px;*/
+    }
+    
+    label.control-label {
+        font-weight: 700;
+        color: black;
+    }
+    
+    .tdp {
+        background: #8d35b4;
+        color: white;
+        font-weight: bold;
+    }
+    
+    .cart_page_form.style2 .table_body td {
+        width: 24%;
+    }
+    
+    .form-control {
+        font-size: 14px;
+        font-family: 'Nunito', sans-serif;
+        padding: 0 36px;
+    }
+    
+    .tdo {
+        float: right;
+        width: 57%;
+        font-weight: 800;
+        color: black;
+    }
+</style>
+<div class="dashboard_main_content">
+    <div class="container-fluid">
+        <div class="main_content_container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                        <h4 class="title float-left">Faculty Attendance</h4>
+                      
+                    </nav>
+                </div>
+                <div class="col-md-12">
+
+                    <div class="cart_page_form style2">
+                        <form action="facultyattendance" method="post">
+                            {% csrf_token %}
+                            <table class="table table-responsive">
+
+                                <tbody class="table_body">
+                                    <tr>
+                                        <td class="tdo">
+                                            Select Month
+                                        </td>
+                                        <td>
+
+                                            <select class="form-control" name="Month">
+												{% for d in yearMonth %}
+												<option value="{{d.FacultyAttendenceMonth}}">
+													{{d.FacultyAttendenceMonth}}</option>
+												{% endfor %}
+											</select>
+
+                                        </td>
+                                        <td>
+
+                                            <select class="form-control" name="Year">
+												{% for d in yearMonth %}
+												{% ifchanged d.FacultyAttendenceYear %}
+												<option value="{{d.FacultyAttendenceYear}}">{{d.FacultyAttendenceYear}}
+												</option>
+												{% endifchanged %}
+												{% endfor %}
+											</select>
+
+                                        </td>
+                                        <td>
+                                            <input type="submit" class="btn btn-primary btn" value="Attendance" name="">
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </form>
+                    </div>
+                </div>
+
+
+
+                <div class="col-lg-12">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="tdp">Month Name</th>
+                                <th class="tdp">Year</th>
+                                <th class="tdp">Present</th>
+                                <th class="tdp">Absent</th>
+                                <th class="tdp">Total Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for d in data %}
+                            <tr>
+                                <td>
+                                    {{d.FacultyAttendenceMonth}}
+
+                                </td>
+                                <td>{{d.FacultyAttendenceYear}}</td>
+                                <td>{{d.FacultyAttendencePresent}}</td>
+                                <td>{{d.FacultyAttendenceAbsent}}</td>
+                                {% if d.FacultyAttendenceTotal >= 70 %}
+                                <td>
+                                    <a href="" class="btn btn-sm  btn-success">
+                                        <i class="fa fa-check"></i> {{d.FacultyAttendenceTotal}}
+                                    </a>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <td>
+                                <a href="" class="btn btn-sm  btn-danger">
+                                    <i class="fa fa-times"></i> {{d.FacultyAttendenceTotal}}
+                                </a>
+                                {% endif %} {% endfor %}
+                        </tbody>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
+{% endblock %}

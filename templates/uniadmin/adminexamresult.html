@@ -1,0 +1,147 @@
+{% extends 'uniadmin/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.cart_page_form.style3 .table_body td {
+    padding: 24px 38px;
+}
+.table-responsive {
+    overflow-x: hidden;
+}
+.tdp
+{
+    width: 35%;
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+}
+
+#ui-id-1{
+	font-weight: bold;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Exam Result </h4>
+								
+							</nav>
+						</div>
+						<div class="col-lg-12">
+            
+							<form class="form-horizontal" action="/university/adminexamresult" method="POST">
+								<div class="form-group row">
+									{% csrf_token %}
+									<div class="col-md-5">
+										<input type="text" class="form-control" placeholder="Faculty Email" name="FacultyEmail" id="txtsearch1">
+
+									</div>
+									
+									<div class="col-md-3">
+										<input type="text" class="form-control" placeholder="Student Email" name="StudentEmail" id="txtsearch">
+									</div>
+									
+									
+									<div class="col-md-1">
+										<input type="Submit" class="btn btn-primary" value="Search" name="">
+									</div>
+								</div>
+							</form>
+              
+						</div>
+						<div class="col-lg-12">
+							</div>
+						<div class="col-lg-12">
+											{% for message in messages %}
+                        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                            <strong>Message:</strong> {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+        {% endfor %}
+
+							<div class="my_course_content_container">
+								<div class="my_setting_content">
+									<div class="my_setting_content_details">
+										<div class="cart_page_form style3">
+											<form action="#">
+												  <table class="table table-responsive">
+												  	<thead>
+												  		<tr class="carttable_row ">
+												  			
+												  			<th class="cartm_title">Course</th>
+												  			<th class="cartm_title">Project Marks</th>
+												  			<th class="cartm_title">Quiz Marks</th>
+												  			<th class="cartm_title">Midterm Marks</th>
+												  			<th class="cartm_title">Total Marks</th>
+												  			<th class="cartm_title">Final Marks</th>
+															  <th class="cartm_title">GPA</th>
+												  			<th class="cartm_title">Instructor</th>
+															  <th class="cartm_title">Student-Email</th>
+												  			<th class="cartm_title">Department</th>
+												  				<th class="cartm_title">Action</th>
+
+												  		</tr>
+												  	</thead>
+												  	<tbody class="table_body">
+													  {% for i in data %}
+													    <tr>
+															<td>{{i.Course_id}}</td>
+													    	<td>{{i.Project_Marks}}</td>
+													    	<td>{{i.Quiz_Assignment_Marks}}</td>
+													    	<td>{{i.Midterm_Marks}}</td>
+													    	<td>{{i.Total_Marks}}</td>
+													    	<td>{{i.Final_Marks}}</td>
+													    	<td>{{i.GPA}}</td>
+													    	<td>{{i.InstructerId}}</td>
+													    	<td>{{i.Student_ID.User_id.email}}</td>
+													    	<td>{{i.Department_id}}</td>
+													    	<td><a href="admineditexamresult/{{i.Exam_Result_id}}" class="btn btn-sm btn-success">Edit</a>
+													    		<a href="deletestudentresult/{{i.Exam_Result_id}}" class="btn btn-sm btn-danger">Delete</a>
+													    	</td> 	
+													    </tr>
+													 {% endfor %}
+													   
+												  	</tbody>
+												</table>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+<script>
+
+
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+ $(function() {
+      $("#txtsearch").autocomplete({
+        source: "/university/ExamEmailSuggestion",
+        minLength: 1,
+      });
+    })
+
+ $(function() {
+      $("#txtsearch1").autocomplete({
+        source: "/university/signupSuggestion",
+        minLength: 1,
+      });
+    })
+
+</script>
+{% endblock %}

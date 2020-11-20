@@ -1,0 +1,185 @@
+{% extends 'faculty/base.html' %}
+{% load static %}
+{% block  body%}
+
+
+<div class="our-dashbord dashbord">
+		<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="row">
+								<div class="col-lg-12">
+									<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+										<h4 class="title float-left">Faculty Development Form</h4>
+										
+									</nav>
+								</div>
+								<div class="col-lg-12">
+								{% for message in messages %}
+                        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                            <strong>Message:</strong> {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+        							{% endfor %}
+
+									<div class="my_course_content_container">
+										<div class="my_setting_content mb30">
+											<div class="my_setting_content_header">
+												<div class="my_sch_title">
+													<h4 class="m0">General info</h4>
+												</div>
+											</div>
+											<form id="Teacher_development" action="facultyform" method="post" enctype="multipart/form-data">
+											{% csrf_token %}
+											<div class="row my_setting_content_details pb0">
+												<div class="col-xl-12">
+													<div class="row">
+														<div class="col-xl-6">
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput1">Name</label>
+															
+														    	<input value='{{course_data}}' type="text" class="form-control" id="formGroupExampleInput1" placeholder="Enter your name" required readonly name="name">
+													
+															</div>
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput2">Highest Degree </label>
+														    	<input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Enter Your Highest Degree" required name="Degress">
+															</div>
+														</div>
+														<div class="col-xl-6">
+															<div class="my_profile_setting_input form-group">
+														    	<label for="exampleInputPhone">Department</label>
+																<select class="form-control"  required name="department"> 
+																	{% for i in depart %}
+														    		<option>{{i.Department_name}}</option>
+																	{% endfor %}
+														    		
+														    		
+														    	</select>
+															</div>
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInputX">Subject</label>
+														    	<select class="form-control" required name="courses"> 
+
+														    			{% for i in courses %}
+														    		<option>{{i.Course_name}}</option>
+																	{% endfor %}
+														    		
+														    	</select>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="my_setting_content_header style2">
+												<div class="my_sch_title">
+													<h4 class="m0">Area of Expertise</h4>
+												</div>
+											</div>
+											<div class="row my_setting_content_details">
+												<div class="col-xl-5">
+													<div class="my_profile_setting_input form-group">
+												    	<label for="formGroupExampleInput1">Please Mention the Course you Teach at University</label>
+												    	<input type="text" class="form-control" id="faculty" placeholder="Mention you Faculty" required name="expertise">
+													</div>
+												</div>
+												<div class="col-xl-5">
+													<div class="my_profile_setting_input form-group">
+												    	<label for="formGroupExampleInput1">Please Mention the Core Area to you would like to develop</label>
+												    	<input type="text" class="form-control" id="course" placeholder="Mention Here Skills to Develop" required name="corearea">
+													</div>
+												</div>
+												
+											</div>
+											<div class="container">
+												<table id="Expertisedetails" class="table table-responsive">
+												</table>
+											</div>
+											<hr>
+											<div class="my_setting_content_header style2">
+												<div class="my_sch_title">
+													<h4 class="m0">Teacher-Research Ratio</h4>
+													<h5>Please tick your prefrence for the following work strands at university</h5>
+												</div>
+												<div class="row my_setting_content_details">
+												<div class="col-xl-12">
+													<div class="my_profile_setting_input form-group">
+													<input type="radio" id="male" name="ratio" value="Teaching Faculty Only">
+														<label for="male">Teaching Faculty Only</label><br>
+														<input type="radio" id="female" name="ratio" value="Teaching And Research Faculty Only">
+														<label for="female">Teaching And Research Faculty Only</label><br>
+														<input type="radio" id="other" name="ratio" value="Research Faculty">
+														<label for="other">Research Faculty</label>
+													</div>
+												</div>
+											</div>
+											</div>
+											<hr>
+											<div class="my_setting_content_header style2">
+												<div class="my_sch_title">
+													<h4 class="m0">Proffesional Development Requirment</h4>
+												</div>
+											</div>
+											<div class="row my_setting_content_details">
+												<div class="col-xl-6">
+													<div class="my_profile_setting_input form-group">
+												    	<label for="formGroupExampleInputY">
+												    		Please Hightlight Areas in which you require
+												    		proffesional development with regard to your particular
+												    		area of work
+												    	</label>
+												    	<input type="text" class="form-control" id="formGroupExampleInputY" placeholder="Enter Area" required name="Area">
+												    	
+													</div>
+												</div>
+												<div class="col-xl-6">
+													<label>How would you like to strengthen your area of expertise</label><br>
+														
+														<input  type="checkbox" name="checkbox1" value="Seminars">
+														<label >Seminars</label><br>
+														
+												    	<input type="checkbox" name="checkbox1" value="Workshops">
+												    	<label>Workshops</label><br>
+												    	<input type="checkbox" name="checkbox1" value="Mentoring">
+												    	<label>Mentoring</label><br>
+														<input type="checkbox" name="checkbox1" value="job Shadowing">
+												    	<label>job Shadowing</label><br>
+														<input type="checkbox" name="checkbox1" value="Self Development (reading , research)">
+												    	<label>Self Development (reading , research)</label><br>
+												    	
+												</div>
+											    <div class="col-lg-12">
+													<button type="submit" class="my_setting_savechange_btn btn btn-thm">Save <span class="flaticon-right-arrow-1 ml15"></span></button>
+											    </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							</form>
+							<div class="row mt20 mb50">
+								<div class="col-lg-12">
+									<div class="copyright-widget text-center">
+										<p class="color-black2">Copyright Edumy © 2019. All Rights Reserved.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock  %}
+{% block script %}
+	<script>
+
+
+
+	</script>
+{% endblock  %}

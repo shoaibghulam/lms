@@ -1,0 +1,159 @@
+<?php include_once('header.php')?>
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.faq_question_widget{
+	min-height: 83vh;
+}
+.okbtn
+{
+	width: 50%;
+    margin-top: 29px;
+}
+.tdp
+{
+    /*width: 35%;*/
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+}
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+						<div class="row">
+							<div class="col-lg-12">
+							 <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Attendance </h4>
+								<ol class="breadcrumb float-right">
+							    	<li class="breadcrumb-item"><a href="#">Home</a></li>
+							    	<li class="breadcrumb-item active" aria-current="page">Attendance</li>
+								</ol>
+							 </nav>
+						    </div>
+							
+   								 <div class="col-lg-12">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+           
+            <th class="tdp">Course Name</th>
+            <th class="tdp">Total Session</th>
+            <th class="tdp">Present</th>
+            <th class="tdp">Absent</th>
+            <th class="tdp">Details</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+           
+            <td>
+            	ORGANIZATIONAL THEORY & DESIGN (012001461)
+            </td>
+            <td>
+            	12
+            </td>
+            <td>
+            	10
+            </td>
+            <td>2</td>
+            <td>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary">
+                <i class="fa fa-eye"></i>
+              </button>
+            </td>
+          </tr>
+           <tr>
+            
+            <td>
+              ORGANIZATIONAL THEORY  (012001461)
+            </td>
+            <td>
+              12
+            </td>
+            <td>
+              10
+            </td>
+            <td>2</td>
+            <td>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-primary">
+                <i class="fa fa-eye"></i>
+              </button>
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
+    							 </div>
+ 							
+						</div>
+				</div>
+			</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Attendance Summary</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+           
+            <th class="tdp">Lecture Number</th>
+            <th class="tdp">Session 1</th>
+            <th class="tdp">Session 2</th>
+            
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+           <td>1.</td>
+           <td>p.</td>
+           <td>p.</td>
+          </tr>
+           <tr>
+           <td>2.</td>
+           <td>p.</td>
+           <td>p.</td>
+          </tr>
+           <tr>
+           <td>3.</td>
+           <td>p.</td>
+           <td>p.</td>
+          </tr>
+           <tr>
+           <td>4.</td>
+           <td>p.</td>
+           <td>p.</td>
+          </tr>
+           <tr>
+           <td>5.</td>
+           <td>p.</td>
+           <td>p.</td>
+          </tr>
+         
+          
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="tdp">Total Session : 12</td>
+            <td class="tdp">Total Present : 10</td>
+            <td class="tdp">Total Absent : 11</td>
+          </tr>
+        </tfoot>
+      </table>
+      </div>
+    </div>
+  </div>
+</div>  
+<?php include_once('footer.php')?>

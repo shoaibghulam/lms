@@ -1,0 +1,171 @@
+<?php include_once('header.php')?>
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.cart_page_form.style3 .table_body td {
+    padding: 24px 38px;
+}
+.table-responsive {
+    overflow-x: hidden;
+}
+.tdp
+{
+    width: 35%;
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+}
+label.control-label {
+		font-weight: 700;
+		color: black;
+	}
+	textarea.form-control {
+		padding: 44px;
+	}
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Placement Portal</h4>
+								<ol class="breadcrumb float-right">
+							    	<li class="breadcrumb-item"><a href="page-dashboard-student.php">Home</a></li>
+							    	<li class="breadcrumb-item active" aria-current="page">Placement Portal</li>
+								</ol>
+							</nav>
+						</div>
+						<div class="col-lg-12">
+								<a href="javascript:void(0)" class="btn btn-success pull-right" data-toggle="modal" data-target="#exampleModalCenter"> + Add  Placement Portal </a>
+							</div>
+						<div class="col-lg-12">
+							
+							<div class="my_course_content_container">
+								<div class="my_setting_content">
+									<div class="my_setting_content_details">
+										<div class="cart_page_form style3 ">
+											<form action="#">
+												  <table class="table table-responsive">
+												  	<thead>
+												  		<tr class="carttable_row">
+												  			
+												  			<th class="cartm_title">Placement ID</th>
+												  			<th class="cartm_title">Job Title</th>
+												  			<th class="cartm_title">Name of Organization</th>
+                                <th class="cartm_title">Company Profile</th>
+                                <th class="cartm_title">Employment Type</th>
+												  			<th class="cartm_title">Actions</th>
+												  		</tr>
+												  	</thead>
+												  	<tbody class="table_body">
+													    <tr>
+													    	<td>1</td>
+													    	<td>IT</td>
+													    	<td>Hnh</td>
+                                <td>Local</td>
+                                <td>Permanent</td>
+													    	<td><a href="" class="btn btn-sm btn-success" data-toggle="modal" data-target="#exampleModalCenter12">Edit</a>
+													    		<a href="" class="btn btn-sm btn-danger">Delete</a>
+													    	</td> 	
+													    </tr>
+												  	</tbody>
+												</table>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Placement Portal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+        	<form>
+        		<div class="form-group row">
+        			<label class="control-label col-md-4">Job Title:</label>
+        			<input type="text" class="form-control col-md-5"  name="">
+        		</div>
+        		<div class="form-group row">
+        			<label class="control-label col-md-4">Name of Organization:</label>
+        		    <input type="text" class="form-control col-md-5"  name="">
+        		</div>
+            <div class="form-group row">
+              <label class="control-label col-md-4">Company Profile:</label>
+                <input type="text" class="form-control col-md-5"  name="">
+            </div>
+            <div class="form-group row">
+              <label class="control-label col-md-4">Employment Type:</label>
+                <input type="text" class="form-control col-md-5"  name="">
+            </div>
+             <div class="form-group row">
+              <label class="control-label col-md-4">Job description :</label>
+                <input type="file" class=""  name="">
+            </div>
+        	</form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Edit Modal -->
+<div class="modal fade" id="exampleModalCenter12" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit Placement Portal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <form>
+            <div class="form-group row">
+              <label class="control-label col-md-4">Job Title:</label>
+              <input type="text" class="form-control col-md-5"  name="">
+            </div>
+            <div class="form-group row">
+              <label class="control-label col-md-4">Name of Organization:</label>
+                <input type="text" class="form-control col-md-5"  name="">
+            </div>
+            <div class="form-group row">
+              <label class="control-label col-md-4">Company Profile:</label>
+                <input type="text" class="form-control col-md-5"  name="">
+            </div>
+            <div class="form-group row">
+              <label class="control-label col-md-4">Employment Type:</label>
+                <input type="text" class="form-control col-md-5"  name="">
+            </div>
+             <div class="form-group row">
+              <label class="control-label col-md-4">Job description :</label>
+                <input type="file" class=""  name="">
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Update changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<?php include_once('footer.php')?>

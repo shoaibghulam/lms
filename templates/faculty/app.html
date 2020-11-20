@@ -1,0 +1,210 @@
+{% extends 'faculty/vbase.html' %} {% load static %} {% block body %}
+<style type="text/css">
+    .shop_grid {
+        position: relative;
+        border-style: solid;
+        border-width: 2px;
+        border-color: rgb(237, 239, 247);
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        height: 266px;
+        margin-bottom: 30px;
+        padding: 20px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+    
+    .shop_grid .details .price {
+        font-size: 18px;
+        font-family: "Nunito";
+        color: rgb(199, 85, 51);
+        font-weight: bold;
+        line-height: 1.2;
+        text-align: center;
+    }
+    
+    .shop_grid .cart_bag {
+        border-radius: 50%;
+        background-color: rgb(255, 16, 83);
+        height: 50px;
+        margin-top: 0px;
+        opacity: 0;
+        text-align: center;
+        width: 50px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+    
+    .okbtn {
+        width: 50%;
+        margin-top: 29px;
+    }
+    
+    .tdp {
+        background: #8d35b4;
+        color: white;
+        font-weight: bold;
+    }
+</style>
+<!-- Our Dashbord -->
+<div class="our-dashbord dashbord">
+    <div class="dashboard_main_content">
+        <div class="container-fluid">
+            <div class="main_content_container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                            <h4 class="title float-left">Student Application</h4>
+                        </nav>
+                         {% for message in messages %}
+                        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                            <strong>Message:</strong> {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+        {% endfor %}
+                        <ol class="breadcrumb float-right">
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <a href="fvledashboard" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="Back to Course Room" data-original-title="Left">
+                                            Back To Course
+                                          
+                                        </a>
+                            </li>
+                             
+                          
+                        </ol>
+                    </div>
+                    <div class="col-lg-12">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+
+
+
+
+
+
+
+                                    <th class="tdp">Application Title</th>
+                                    <th class="tdp">Application Message</th>
+                                    <th class="tdp">Application Date</th>
+                                    <th class="tdp">Application Status</th>
+                                    <th class="tdp">Course</th>
+                                    <th class="tdp">Student</th>
+                                    <th class="tdp">Application Attachment</th>
+                                    <th class="tdp">Reply</th>
+
+
+                                </tr>
+                                {% for i in data %}
+                                <tr>
+
+                                    <td>{{i.ApplicationTitle}}</td>
+                                    <td>{{i.ApplicationMessage}}</td>
+                                    <td>{{i.ApplicationDate.date}}</td>
+                                    <td>{{i.ApplicationStatus}}</td>
+                                    <td>{{i.Course_id}}</td>
+                                    <td>{{i.Student_id}}</td>
+
+                                    <td><a href="/upload/{{i.ApplicationAttachment}}" class="btn btn-primary">Download </a></td>
+                                    <td>
+                                        <a href="#"><input type="submit" class="btn btn-primary btn" value="Teacher Reply" name="" data-toggle="modal" data-target="#count" onclick="showstudent('{{i.ApplicationId}}')"></a>
+
+
+                                </tr>
+                                {% endfor %}
+                            </thead>
+
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="count" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Application Reply</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+            </div>
+            <!-- Modal body -->
+            <form action="/faculty/showstudentapp" id="material" method="POST">
+                {% csrf_token %}
+            <div class="modal-body">
+                 <label>Application Reply</label>
+                    <textarea id="reply" name="Techer_Reply" rows="10" cols="50" maxlength="500" class="form-control"></textarea><br>
+
+                    <input type="hidden" id="sid" value="" name="sid">
+
+
+
+                    <div class="progress" style=" display:none" id="pbar">
+                        <div class="bar progress-bar">
+                            <div class="percent">0%</div>
+                        </div>
+                    </div>
+
+                    <div id="status"></div>
+            </div>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="uploadvideo">Reply</button>
+            </div>
+             </form>
+
+            <!-- Modal footer -->
+           
+           
+        </div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<script>
+ if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+    
+
+    function showstudent(x) {
+
+        $.ajax({
+
+            url: 'showstudentapp',
+            type: 'GET',
+            data: {
+
+                'uid': x
+                
+            },
+            success: function(data) {
+                var datas = eval(data);
+
+                $('#sid').val(x);
+                $('#reply').val(datas[0].Techer_Reply);
+                
+
+
+
+
+
+            }
+        });
+
+    }
+</script>
+{% endblock %}

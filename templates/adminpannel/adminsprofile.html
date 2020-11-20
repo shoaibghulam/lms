@@ -1,0 +1,77 @@
+<?php include_once('header.php')?>
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.cart_page_form.style3 .table_body td {
+    padding: 24px 38px;
+}
+.table-responsive {
+    overflow-x: hidden;
+}
+.tdp
+{
+    width: 35%;
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+}
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Student Profile </h4>
+								<ol class="breadcrumb float-right">
+							    	<li class="breadcrumb-item"><a href="page-dashboard-student.php">Home</a></li>
+							    	<li class="breadcrumb-item active" aria-current="page">Student Profile </li>
+								</ol>
+							</nav>
+						</div>
+						<div class="col-lg-12">
+								<a href="adminaddsprofile.php" class="btn btn-success pull-right"> + Add Student Profile </a>
+							</div>
+						<div class="col-lg-12">
+							
+							<div class="my_course_content_container">
+								<div class="my_setting_content">
+									<div class="my_setting_content_details">
+										<div class="cart_page_form style3 offset-md-2">
+											<form action="#">
+												  <table class="table table-responsive">
+												  	<thead>
+												  		<tr class="carttable_row">
+												  			
+												  			<th class="cartm_title">ID</th>
+												  			<th class="cartm_title">First Name</th>
+												  			<th class="cartm_title">Last Name</th>
+												  			<th class="cartm_title">Actions</th>
+												  		</tr>
+												  	</thead>
+												  	<tbody class="table_body">
+													    <tr>
+													    	<td>1</td>
+													    	<td>Kabber</td>
+													    	<td></td>
+													    	<td><a href="admineditprofile.php" class="btn btn-sm btn-success">Edit</a>
+													    		<a href="" class="btn btn-sm btn-danger">Delete</a>
+													    	</td> 	
+													    </tr>
+													 
+													   
+												  	</tbody>
+												</table>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+
+<?php include_once('footer.php')?>

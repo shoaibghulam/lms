@@ -1,0 +1,155 @@
+<?php include_once('header.php')?>
+<style type="text/css">
+	.shop_grid {
+		height: 284px;
+	}
+	table caption {
+	padding: .5em 0;
+}
+
+table.dataTable th,
+table.dataTable td {
+  white-space: nowrap;
+}
+
+.p {
+  text-align: center;
+  padding-top: 140px;
+  font-size: 14px;
+}
+</style>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<script type="text/javascript"  src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+<script type="text/javascript">
+	$(document).ready(function() {
+    $('table').DataTable();
+} );
+</script>
+	<!-- Our Dashbord -->
+	<div class="our-dashbord dashbord">
+		<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Library </h4>
+								<ol class="breadcrumb float-right">
+							    	<li class="breadcrumb-item"><a href="#">Home</a></li>
+							    	<li class="breadcrumb-item active" aria-current="page">library</li>
+								</ol>
+							</nav>
+						</div>
+						<div class="col-lg-12">
+							<form class="form-horizontal">
+								<div class="form-group row">
+									
+									<div class="col-md-3">
+										<input type="text" class="form-control" placeholder="Book title" name="">
+									</div>
+									
+									<div class="col-md-3">
+										<input type="text" class="form-control" placeholder="Book Author" name="">
+									</div>
+									<div class="col-md-3">
+										<input type="text" class="form-control" placeholder="Book Publisher" name="">
+									</div>
+									<div class="col-md-2">
+										<input type="text" class="form-control" placeholder="Book ISBN" name="">
+									</div>
+									<div class="col-md-1">
+										<input type="button" class="btn btn-primary" value="Search" name="">
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Account No</th>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Editor</th>
+            <th>Publisher</th>
+            <th>Year of Publisher</th>
+            <th>ISBN</th>
+            <th>Availbity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>24020</td>
+            <td>Ahmed Bakhtyar</td>
+            <td>Aiy Century Scoore Krain</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>2007</td>
+            <td>N/A</td>
+            <td><input type="button" value="Available" name=""></td>
+          </tr>
+          <tr>
+            <td>24020</td>
+            <td>Ahmed Bakhtyar</td>
+            <td>Aiy Century Scoore Krain</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>2007</td>
+            <td>N/A</td>
+            <td><input type="button" value="Available" name=""></td>
+          </tr>
+          <tr>
+            <td>24020</td>
+            <td>Ahmed Bakhtyar</td>
+            <td>Aiy Century Scoore Krain</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>2007</td>
+            <td>N/A</td>
+            <td><input type="button" value="Available" name=""></td>
+          </tr>
+          <tr>
+            <td>24020</td>
+            <td>Ahmed Bakhtyar</td>
+            <td>Aiy Century Scoore Krain</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>2007</td>
+            <td>N/A</td>
+            <td><input type="button" value="Available" name=""></td>
+          </tr>
+           <tr>
+            <td>24020</td>
+            <td>Ahmed Bakhtyar</td>
+            <td>Aiy Century Scoore Krain</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>2007</td>
+            <td>N/A</td>
+            <td><input type="button" value="Available" name=""></td>
+          </tr>
+          <tr>
+            <td>24020</td>
+            <td>Ahmed Bakhtyar</td>
+            <td>Aiy Century Scoore Krain</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>2007</td>
+            <td>N/A</td>
+            <td><input type="button" value="Available" name=""></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+				</div>
+			</div>
+							  
+		</div>
+	</div>
+<?php include_once('footer.php')?>

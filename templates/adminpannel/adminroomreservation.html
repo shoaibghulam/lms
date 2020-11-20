@@ -1,0 +1,82 @@
+<?php include_once('header.php')?>
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.cart_page_form.style3 .table_body td {
+    padding: 24px 38px;
+}
+.table-responsive {
+    overflow-x: hidden;
+}
+.tdp
+{
+    width: 35%;
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+}
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Room Reservation</h4>
+								<ol class="breadcrumb float-right">
+							    	<li class="breadcrumb-item"><a href="page-dashboard-student.php">Home</a></li>
+							    	<li class="breadcrumb-item active" aria-current="page">Room Reservation</li>
+								</ol>
+							</nav>
+						</div>
+						<div class="col-lg-12">
+								<a href="adminaddroomres.php" class="btn btn-success pull-right"> + Add Room Reservation</a>
+							</div>
+						<div class="col-lg-12">
+							
+							<div class="my_course_content_container">
+								<div class="my_setting_content">
+									<div class="my_setting_content_details">
+										<div class="cart_page_form style3">
+											<form action="#">
+												  <table class="table table-responsive">
+												  	<thead>
+												  		<tr class="carttable_row">
+												  			<th class="cartm_title">Resv-ID</th>
+												  			<th class="cartm_title">Reservation Participants</th>
+												  			<th class="cartm_title">Start Date</th>
+												  			<th class="cartm_title">Start Time</th>
+												  			<th class="cartm_title">End Time</th>
+												  			<th class="cartm_title">Room Name</th>
+												  			<th class="cartm_title">Actions</th>
+												  		</tr>
+												  	</thead>
+												  	<tbody class="table_body">
+													    <tr>
+													    	<td>1</td>
+													    	<td>100</td>
+													    	<td>May 5, 2020</td>
+													    	<td>3:48 p.m.</td>
+													    	<td>4:49 p.m.</td>
+													    	<td>Assembly Hall</td>
+													    	<td><a href="admineditroomreservation.php" class="btn btn-sm btn-success">Edit</a>
+													    		<a href="" class="btn btn-sm btn-danger">Delete</a>
+													    	</td> 	
+													    </tr>
+													 
+													   
+												  	</tbody>
+												</table>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+
+<?php include_once('footer.php')?>

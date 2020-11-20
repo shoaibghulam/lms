@@ -1,0 +1,168 @@
+{% extends 'faculty/base.html' %} {% load static %} {% block body %}
+<style type="text/css">
+    .shop_grid {
+        height: 284px;
+    }
+    
+    .okbtn {
+        width: 50%;
+        margin-top: 29px;
+    }
+    
+    .tdp {
+        background: #8d35b4;
+        color: white;
+        font-weight: bold;
+    }
+    
+    .cart_page_form.style2 .table_body td {
+        width: 34%;
+    }
+    
+    label.control-label {
+        font-weight: 700;
+        color: black;
+    }
+    
+    textarea.form-control {
+        padding: 44px;
+    }
+    
+    .button_height {
+        margin-left: 10px;
+    }
+</style>
+<!-- Our Dashbord -->
+<div class="our-dashbord dashbord">
+    <div class="dashboard_main_content">
+        <div class="container-fluid">
+            <div class="main_content_container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                            <h4 class="title float-left">Room Reservation System </h4>
+
+                        </nav>
+                    </div>
+                    <div class="col-lg-12">
+                        <form action="/faculty/RoomReservationinsert" method="POST" id="roombook" class="form-horizontal">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <input type="hidden" name="roomid" id="room">
+                                    <label class="control-label button_height">Date</label>
+                                    <input placeholder="Selected date" name="date" type="date" class="form-control button_height" disabled required>
+
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="control-label">Number of Participants</label>
+                                    <input class="form-control" name="Participants" type="text" disabled required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <label class="control-label button_height">Start Time</label>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <input type="time" name="starttime" class="form-control button_height" disabled required>
+
+                                        </div>
+
+
+
+
+                                    </div>
+                                    <br>
+                                    <label class="control-label button_height">End Time</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="time" name="Endtime" class="form-control button_height" disabled required>
+
+                                        </div>
+
+
+
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="control-label">
+						   						Comments
+						   					</label>
+                                    <textarea class="form-control" name="Comments" disabled required></textarea >
+						   				</div>
+						   			</div>
+						   			<div class="form-group row">
+						   				<div class="col-lg-12">
+						   					<input required type="submit" value="Book" class="btn-primary w-50 btn justify-content-center button_height" name="" disabled>
+						   				</div>
+						   			</div>
+						   		</form>
+						   </div>	
+							<div class="col-lg-12">
+						      <table class="table table-bordered table-hover">
+						        <thead>
+						          <tr>
+						            <th class="tdp">Sr No</th>
+						            <th  class="tdp">Room Name</th>
+						            <th class="tdp">room Code</th>
+						            <th class="tdp">Time Table</th>
+						            <th class="tdp">Action</th>
+								  </tr>
+								  
+
+						        </thead>
+						        <tbody>
+									{% for x in data  %}
+									  
+									
+						          <tr>
+						            <td>{{ x.RoomId }}</td>
+						            <td>
+						            	{{ x.RoomName }}
+						            </td>
+						            <td>
+						            	{{ x.RoomCode }}
+						            </td>
+						            <td>
+						            	Tue 15:00 18:00 E-10-06
+						            </td>
+						            <td>
+						            	<a href="javascript:void(0)"  class="showdata btn {% if x.RoomStatus == 'Booked' %}  btn-danger {% else %} btn-primary	{% endif %}  text-white w-100" onclick="roomid({{ x.RoomId }})"> {{x.RoomStatus}} </a>
+						            </td>
+								  </tr>
+								  
+								  {% endfor %}
+						         
+						         </tbody>
+						    </table>
+					        </div>	
+
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock  %}
+{% block script %}
+<script>
+	$(document).ready(function(){
+
+		$('#roombook').ajaxForm(function(data){
+			alert(data);
+			window.location.reload();
+		})
+
+		$('.showdata').click(function(){
+			$('input').attr('disabled',false)
+			$('textarea').attr('disabled',false)
+		})
+
+	});
+	// end readpage
+function roomid(x){
+	
+	$('#room').val(x)
+}
+</script>
+{% endblock  %}

@@ -1,0 +1,264 @@
+{% extends 'student/vbase.html' %} {% load static %} {% block body %}
+<style type="text/css">
+    .shop_grid {
+        position: relative;
+        border-style: solid;
+        border-width: 2px;
+        border-color: rgb(237, 239, 247);
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        height: 266px;
+        margin-bottom: 30px;
+        padding: 20px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+
+    .shop_grid .details .price {
+        font-size: 18px;
+        font-family: "Nunito";
+        color: rgb(199, 85, 51);
+        font-weight: bold;
+        line-height: 1.2;
+        text-align: center;
+    }
+
+    .shop_grid .cart_bag {
+        border-radius: 50%;
+        background-color: rgb(255, 16, 83);
+        height: 50px;
+        margin-top: 0px;
+        opacity: 0;
+        text-align: center;
+        width: 50px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+</style>
+<!-- Our Dashbord -->
+<div class="our-dashbord dashbord">
+    <div class="dashboard_main_content">
+        <div class="container-fluid">
+            <div class="main_content_container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                            <h4 class="title float-left">Online Mid Term Exam </h4>
+                        </nav>
+                        {% for message in messages %}
+                        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                            <strong>Message:</strong> {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <div class="cart_page_form style2">
+                            <form action="midterm" method="post">
+                                {% csrf_token %}
+                                <ol class="breadcrumb float-right">
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="myclass" class="btn btn-primary" data-toggle="tooltip"
+                                            data-placement="left" title="Back to Class Room" data-original-title="Left">
+                                            Back To Class
+                                        </a>
+
+                                    </li>
+                                </ol>
+                                <table class="table table-responsive">
+
+
+
+                                    <tbody class="table_body">
+                                        <tr>
+                                            <td class="tdo">
+                                                Select Course
+                                            </td>
+                                            <td>
+
+                                                <select class="form-control" name="courses">
+                                                    {% for d in data %}
+                                                    {% for j in d.Courses.all%} <option value="{{j.Cid}}">{{j}}</option>
+                                                    {% endfor %}
+                                                    {% endfor %}
+                                                </select>
+
+                                            </td>
+
+                                            <td>
+                                                <input type="submit" class="btn btn-primary btn" value="Search Mid Term"
+                                                    name="">
+                                            </td>
+                                            <td>
+
+                                                {% comment %} <button type="button" class="btn btn-primary btn"
+                                                    data-toggle="modal" data-target="#myModal">Upload Mid Term </button>
+                                                {% endcomment %}
+
+
+                                            </td>
+                                            <td>
+                                                <a href="midterm"><button type="button" class="btn btn-primary btn">All
+                                                        Mid Term Exam</button></a>
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-12">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="tdp">Course</th>
+                                    <th class="tdp">Mid Term Title</th>
+                                    <th class="tdp">Mid Term Desc</th>
+
+                                    <th class="tdp">StartDate</th>
+                                    <th class="tdp">End Date</th>
+                                    <th class="tdp">Mid Term File</th>
+                                    <th class="tdp">Upload Mid Term</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for data in course %}
+
+                                <tr>
+
+                                    <td>{{data.Course_id}}</td>
+                                    <td>{{data.MidtermTitle}}</td>
+                                    <td>{{data.MidtermDesc}}</td>
+
+                                    <td>{{data.StartDate}}</td>
+                                    <td>{{data.EndDate}}</td>
+
+                                    <td><a href="/upload/{{data.MidtermFile}}" class="btn btn-primary">Download </a>
+                                    </td>
+
+
+                                    <td>
+                                        {% if present <= data.EndDate %}
+                                        <button type="button" class="btn btn-primary btn" data-toggle="modal"
+                                            data-target="#myModal"
+                                            onclick="showdetail('{{data.MidtermId}}')">Upload</button>
+                                        {% else %}
+                                        <button type="button" class="btn btn-danger" disable>Date End</button></td>
+                                    {% endif %}
+                                    </td>
+
+
+
+
+
+
+                                </tr>
+                                {% endfor %}
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+</div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <form action="submitmidterm" id="inservideos" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <label>Student Name</label>
+                    <input type="text" name="name" id="vititle" class="form-control" required value='{{name}}'
+                        readonly><br>
+                    <label>Class Rollno</label>
+                    <input type="text" name="roll" id="vdesc" class="form-control" placeholder="Enter Rollno"
+                        required><br>
+                    <label>Class Section</label>
+                    <input type="text" name="section" id="vdesc" class="form-control" placeholder="Enter Section"
+                        required><br>
+
+                    <input type="hidden" name="courseid" id="courseid">
+                    <input type="hidden" name="MidtermId" id="MidtermId">
+
+                    <br><br>
+                    <input type="file" name="file" required><br><br>
+
+
+
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="uploadvideo">upload</button>
+            </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+
+</div>
+</div>
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+
+    function showdetail(x) {
+        $.ajax({
+
+            url: 'showmidterm',
+            type: 'GET',
+            data: {
+
+                'uid': x
+            },
+            success: function (data) {
+                var datas = eval(data);
+
+                $('#courseid').val(datas[0].Course_id);
+                $('#MidtermId').val(x);
+
+
+
+
+            }
+        });
+    }
+</script>
+{% endblock %}

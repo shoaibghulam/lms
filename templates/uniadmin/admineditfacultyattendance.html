@@ -1,0 +1,137 @@
+{% extends 'uniadmin/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.shop_grid {
+		height: 284px;
+	}
+	.okbtn
+	{
+		width: 50%;
+		margin-top: 29px;
+	}
+	.tdp
+	{
+		background: #8d35b4;
+		color: white;
+		font-weight: bold;
+	}
+	.cart_page_form.style2 .table_body td {
+		width: 34%;
+	}
+	label.control-label {
+		font-weight: 700;
+		color: black;
+	}
+	textarea.form-control {
+		padding: 44px;
+	}
+
+</style>
+<div class="dashboard_main_content">
+	<div class="container-fluid">
+		<div class="main_content_container">
+			<div class="row">
+				<div class="col-lg-12">
+					<br><br>
+					<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+						<h4 class="title float-left">Faculty Attendence Model</h4>
+						
+					</nav>
+				</div>
+			
+				<div class="col-lg-12">
+
+					<div class="my_course_content_container">
+						<div class="my_setting_content">
+							<div class="my_setting_content_details">
+								<div class="cart_page_form style3">
+								
+									<form action="/university/admineditfacultyattendance/{{data.FacultyAttendenceId}}" method="POST" enctype="multipart/form-data">
+									{% csrf_token %}
+										<div class="form-group ">
+                                            <div class="row">
+                                                <label class="control-label col-md-2">Attendence Year</label>
+                                                <input class="col-md-5 form-control" type="number" min="1900" max="2099" step="1" value="{{data.FacultyAttendenceYear}}" name="FacultyAttendenceYear" value="{{data.FacultyAttendenceYear}}">
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group ">
+                                            <div class="row">
+                                                <label class="control-label col-md-2">Attendence Month</label>
+                                                <select class="form-control col-md-5" name="FacultyAttendenceMonth" value="{{data.FacultyAttendenceMonth}}">
+												{% for m in monthname %}
+													<option value="{{m.FacultyAttendenceMonth}}">{{m.FacultyAttendenceMonth}}</option>
+												{% endfor %}
+													<option > January </option>
+													<option > February </option>
+													<option > March  </option>
+													<option > April </option>
+													<option > May </option>
+													<option > June </option>
+													<option > July </option>
+													<option > August </option>
+													<option > September  </option>
+													<option > October </option>
+													<option > November </option>
+													<option > December </option>
+													
+												</select>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group ">
+                                            <div class="row">
+                                                <label class="control-label col-md-2">Select Instructor</label>
+                                                <select class="form-control col-md-5" name="teacher">
+						   						{% for t in teacherlist %}
+											   {% ifchanged  %}
+						   						<option value="{{t.tid}}">{{t.First_Name}} {{t.Last_Name}} </option>
+												   {% endifchanged %}
+												   {% endfor %}
+						   					</select>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group ">
+                                            <div class="row">
+                                                <label class="control-label col-md-2">Attendence Present</label>
+                                                <input class="col-md-5 form-control" type="" name="FacultyAttendencePresent" value="{{data.FacultyAttendencePresent}}"  required>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group ">
+                                            <div class="row">
+                                                <label class="control-label col-md-2">Attendence Absent</label>
+                                                <input class="col-md-5 form-control" type="" name="FacultyAttendenceAbsent" value="{{data.FacultyAttendenceAbsent}}" required>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group ">
+                                            <div class="row">
+                                                <label class="control-label col-md-2">Attendence Total</label>
+                                                <input class="col-md-5 form-control" type="" name="FacultyAttendenceTotal" value="{{data.FacultyAttendenceTotal}}"required>
+                                            </div>
+
+                                        </div>
+									
+									
+										
+										<div class="form-group row">
+											<div class="col-lg-12 offset-md-3">
+												<input type="submit" value="Edit" class="btn-primary btn" name="">
+											</div>
+										</div>
+									</form>
+								
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'student/vbase.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.shop_grid {
+    position: relative;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(237, 239, 247);
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    height: 266px;
+    margin-bottom: 30px;
+    padding: 20px;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+.shop_grid .details .price {
+    font-size: 18px;
+    font-family: "Nunito";
+    color: rgb(199, 85, 51);
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
+.shop_grid .cart_bag {
+    border-radius: 50%;
+    background-color: rgb(255, 16, 83);
+    height: 50px;
+     margin-top: 0px; 
+    opacity: 0;
+    text-align: center;
+    width: 50px;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+
+  .tdp {
+        background: #8d35b4;
+        color: white;
+        font-weight: bold;
+    }
+</style>
+	<!-- Our Dashbord -->
+	<div class="our-dashbord dashbord">
+		<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							 <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Online Quiz</h4>
+							 </nav>
+							 <ol class="breadcrumb float-right">
+							    	<li class="breadcrumb-item active" aria-current="page">
+							    		<a href="myclass" class="btn btn-primary"  data-toggle="tooltip" data-placement="left" title="Back to Class Room" data-original-title="Left">
+							    			Back To Class
+							    		</a>
+							    	</li>
+								</ol>
+						</div>
+                        <div class="col-lg-12">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+
+                                    <th class="tdp">Course</th>
+                                    <th class="tdp">Department</th>
+                                    <th class="tdp">Teacher</th>
+                                    <th class="tdp">Join Quiz</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for data in data %}
+                                <tr>
+
+                                    <td>{{data.Course_id}}</td>
+                                    <td>{{data.Department_id}}</td>
+                                     <td>{{data.Instructor_id}}</td>
+                                <td> <a href="/student/startquiz" target="_blank"><button type="submit" class="btn btn-primary" >Click To Join</button></a></td>
+
+                                </tr>
+                                {% endfor %}
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+						
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+{% endblock %}

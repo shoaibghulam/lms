@@ -1,0 +1,72 @@
+{% extends 'faculty/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.faq_question_widget{
+	min-height: 83vh;
+}
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+						<div class="row">
+							<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Form and Guideline </h4>
+								
+							</nav>
+						</div>
+							<div class="col-lg-4 col-xl-4">
+						<div class="faq_question_widget">
+							<h4 class="title">Applications Form</h4>
+							<div class="widget_list">
+								<ul class="list_details">
+									{% for i in appform %}
+								
+							
+									<li><a href="/upload/{{i.FormFile}}">{{i.Formtitle}}</a></li>
+										{% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+							<div class="col-lg-4 col-xl-4">
+						<div class="faq_question_widget">
+							<h4 class="title">Thesis Guideline</h4>
+							<div class="widget_list">
+								<ul class="list_details">
+									{% for i in thesisform %}
+								
+							
+									<li><a href="/upload/{{i.FormFile}}">{{i.Formtitle}}</a></li>
+										{% endfor %}
+									
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+							<div class="col-lg-4 col-xl-4">
+						<div class="faq_question_widget">
+							<h4 class="title">Placement Forms</h4>
+							<div class="widget_list">
+								<ul class="list_details">
+										{% for i in placeform %}
+								
+							
+									<li><a href="/upload/{{i.FormFile}}">{{i.Formtitle}}</a></li>
+										{% endfor %}
+									
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+						</div>
+				</div>
+			</div>
+</div>
+{% endblock  %}

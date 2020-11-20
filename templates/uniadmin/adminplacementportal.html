@@ -1,0 +1,260 @@
+{% extends 'uniadmin/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.cart_page_form.style3 .table_body td {
+    padding: 24px 38px;
+}
+.table-responsive {
+    overflow-x: hidden;
+}
+.tdp
+{
+    width: 35%;
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+}
+label.control-label {
+		font-weight: 700;
+		color: black;
+	}
+	textarea.form-control {
+		padding: 44px;
+	}
+		#ui-id-1{
+	font-weight: bold;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Placement Portal</h4>
+								
+							</nav>
+						</div>
+						<div class="col-lg-12">
+								<a href="javascript:void(0)" class="btn btn-success pull-right" data-toggle="modal" data-target="#exampleModalCenter"> + Add  Placement Portal </a>
+								<form class="form-horizontal" action="/university/adminplacementportal" method="POST">
+								{% csrf_token %}
+								<div class="form-group row">
+									
+									
+									<div class="col-md-4">
+							
+
+							<input type="text" class="form-control" placeholder="Job_Title " name="Job_Title" required id="txtSearch">
+									</div>
+									<div class="col-md-1">
+										<input type="submit" class="btn btn-primary" value="Search" name="search">
+									</div>
+								</div>
+							</form>
+                 {% for message in messages %}
+                        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                            <strong>Message:</strong> {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+        {% endfor %}
+							</div>
+						<div class="col-lg-12">
+							
+							<div class="my_course_content_container">
+								<div class="my_setting_content">
+									<div class="my_setting_content_details">
+										<div class="cart_page_form style3 ">
+											<form action="#">
+												  <table class="table table-responsive">
+												  	<thead>
+												  		<tr class="carttable_row">
+												  			
+												  			
+												  			<th class="cartm_title">Job Title</th>
+												  			<th class="cartm_title">Name of Organization</th>
+                                <th class="cartm_title">Company Profile</th>
+                                <th class="cartm_title">Employment Type</th>
+                                <th class="cartm_title">Job_description File</th>
+												  			<th class="cartm_title">Edit</th>
+												  			<th class="cartm_title">Delete</th>
+												  		</tr>
+												  	</thead>
+												  	<tbody class="table_body">
+													   {% for d in data %}
+										         <tr>
+													    <td>{{d.Job_Title}}</td>
+													    	<td>{{d.Name_of_Organization}}</td>
+													    	<td>{{d.Company_Profile}}</td>
+													    	<td>{{d.Employment_Type}}</td>
+                                <td><a href="/upload/{{d.Job_description}}" class="btn btn-sm btn-primary" >Download </a></td>
+													  
+															<td><button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#exampleModalCenter12" onclick="show({{d.Placement_Portal_id}})">Edit</button> 
+															<td><a href="deleteadminplacementportal/{{d.Placement_Portal_id}}" class="btn btn-sm btn-danger">Delete</a></td>
+													    </tr>
+														{% endfor %}
+												  	</tbody>
+												</table>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Placement Portal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+        	<form action="addadminplacementportal" method="POST" enctype="multipart/form-data">
+       {% csrf_token %}
+        		<div class="form-group row">
+        			<label class="control-label col-md-4">Job Title:</label>
+        			<input type="text" class="form-control col-md-5"  name="Job_Title" required>
+        		</div>
+        		<div class="form-group row">
+        			<label class="control-label col-md-4">Name of Organization:</label>
+        		    <input type="text" class="form-control col-md-5"  name="Name_of_Organization" required>
+        		</div>
+            <div class="form-group row">
+              <label class="control-label col-md-4">Company Profile:</label>
+                <input type="text" class="form-control col-md-5"  name="Company_Profile" required>
+            </div>
+            <div class="form-group row">
+              <label class="control-label col-md-4">Employment Type:</label>
+                <input type="text" class="form-control col-md-5"  name="Employment_Type" required>
+            </div>
+             <div class="form-group row">
+              <label class="control-label col-md-4">Job description :</label>
+                <input type="file" class=""  name="Jobdescription" required>
+            </div>
+             <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+        	</form>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+</div>
+<!--Edit Modal -->
+<div class="modal fade" id="exampleModalCenter12" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit Placement Portal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+       <form action="/university/editadminplacementportal" method="POST" enctype="multipart/form-data" id="formid">
+									{% csrf_token %}
+        		<div class="form-group row">
+        			<label class="control-label col-md-4">Job Title:</label>
+        			<input type="text" class="form-control col-md-5"  name="FJob_Title" id="FJob_Title" required>
+              <input type="text" name="bid" id="bid" value=0 hidden>	
+        		</div>
+        		<div class="form-group row">
+        			<label class="control-label col-md-4">Name of Organization:</label>
+        		    <input type="text" class="form-control col-md-5"  name="FName_of_Organization" id="FName_of_Organization" required>
+        		</div>
+            <div class="form-group row">
+              <label class="control-label col-md-4">Company Profile:</label>
+                <input type="text" class="form-control col-md-5"  name="FCompany_Profile" id="FCompany_Profile" required>
+            </div>
+            <div class="form-group row">
+              <label class="control-label col-md-4">Employment Type:</label>
+                <input type="text" class="form-control col-md-5"  name="FEmployment_Type" id="FEmployment_Type" required>
+            </div>
+             <div class="form-group row">
+              <label class="control-label col-md-4">Job description :</label>
+                <input type="file" class=""  name="FJobdescription" id="FJobdescription">
+            </div>
+             <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+        	</form>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+</div>
+<script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+
+ $(function() {
+      $("#txtSearch").autocomplete({
+        source: "/university/Suggestionadminplacementportal",
+        minLength: 1,
+      });
+    })
+</script>
+{% endblock %}
+{% block script %}
+
+<script>
+	$(document).ready(function () {
+		
+	
+		
+
+		});
+
+			function show(x){
+				var a = x;
+
+	$.ajax({
+	
+	url:'showplacementportal',
+	type:'GET',
+	data:{
+	
+	  'uid':x
+	},
+	success:function(data){
+	  var datas = eval(data);
+	  
+	  $('#FJob_Title').val(datas[0].Job_Title);
+	  $('#FName_of_Organization').val(datas[0].Name_of_Organization);
+	  $('#FCompany_Profile').val(datas[0].Company_Profile);
+	  $('#FEmployment_Type').val(datas[0].Employment_Type);
+	  $('#FJobdescription').val(datas[0].Jobdescription);
+	$('#bid').val(datas[0].FormId);
+	
+	
+	
+	
+	}
+	});
+	}
+	
+	
+		</script>
+
+{% endblock %}

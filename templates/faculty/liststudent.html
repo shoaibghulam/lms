@@ -1,0 +1,145 @@
+{% extends 'faculty/vbase.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.shop_grid {
+    position: relative;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(237, 239, 247);
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    height: 266px;
+    margin-bottom: 30px;
+    padding: 20px;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+.shop_grid .details .price {
+    font-size: 18px;
+    font-family: "Nunito";
+    color: rgb(199, 85, 51);
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
+.shop_grid .cart_bag {
+    border-radius: 50%;
+    background-color: rgb(255, 16, 83);
+    height: 50px;
+     margin-top: 0px; 
+    opacity: 0;
+    text-align: center;
+    width: 50px;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+.okbtn
+{
+    width: 50%;
+    margin-top: 29px;
+}
+.tdp
+{
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+    
+}
+</style>
+	<!-- Our Dashbord -->
+	<div class="our-dashbord dashbord">
+		<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							 <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<a href="/faculty/liststudent"><h4 class="title float-left">Student List</h4></a>
+							 </nav>
+							  <form action="liststudent" method="POST">
+                                {% csrf_token %}
+                                <table class="table table-responsive">
+
+
+                                    <tbody class="table_body">
+                                        <tr>
+                                            <td class="tdo">
+                                                Select Course
+                                            </td>
+                                            <td>
+
+                                                <select class="form-control" name="courses">
+                                                    {% for d in course_data %}
+                                                   <option value="{{d.Cid}}">{{d.Course_name}}</option>
+                                                    {% endfor %}
+                                                   
+                                                </select>
+
+                                            </td>
+
+                                            <td>
+                                                <input type="submit" class="btn btn-primary btn" value="Show CourseWise" name="">
+
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+                            </form>
+
+						 </div>
+              <div class="col-lg-12">
+              <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th class="tdp">Student Seril No:</th>
+            <th class="tdp">Student Name</th>
+            <th class="tdp">Student Batch</th>
+            <th class="tdp">Student Shift</th>
+            <th class="tdp">Semester</th>
+            <th class="tdp">Courselist</th>
+          
+          </tr>
+        </thead>
+        <tbody>
+        {% for x in data  %}
+      
+        <tr>
+          <td>{{x.Student_Course_ID}}</td>
+          <td>{{x.Student_ID }}</td>
+          <td>{{x.Student_ID.StudenBatch}}</td>
+          <td>{{x.Student_ID.StudenShift}}</td>
+          <td>{{x.Semester_ID}}</td>
+          <td>{% for j in x.Courses.all|join:", " %}{{j}}{% endfor %}
+</td>
+      
+        </tr>
+             {% comment %} {% for j in d.Courses.all%} <option value="{{j}}">{{j}}</option>
+                                                    {% endfor %} {% endcomment %}
+        
+         {% endfor %}
+          
+        </tbody>
+      </table>
+                         </div>
+						
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  
+	  </div>
+	</div>
+  </div>
+{% endblock %}
+{% block script %}
+
+{% endblock  %}

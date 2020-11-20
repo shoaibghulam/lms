@@ -1,0 +1,226 @@
+{% load static %}
+{% include 'student/mininav.html' %}
+
+	<div class="col-lg-12">
+									<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+										<h4 class="title float-left">User Profile</h4>
+										<ol class="breadcrumb float-right">
+									    	<li class="breadcrumb-item"><a href="#">Home</a></li>
+									    	<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+										</ol>
+									</nav>
+								</div>
+								<div class="col-lg-12">
+									<div class="my_course_content_container">
+										<div class="my_setting_content mb30">
+											<div class="my_setting_content_header">
+												<div class="my_sch_title">
+													<h4 class="m0">Personal Details</h4>
+												</div>
+											</div>
+										<form action="studentprofile" method="POST" enctype="multipart/form-data">
+											{% csrf_token %}
+											<div class="row my_setting_content_details pb0">
+													<div class="col-xl-3">
+													<div class="wrap-custom-file">
+													    <input type="file" name="image" id="image1" required/>
+													    <label  for="image1">
+													      	<span>Browse</span>
+													    </label>
+													</div>
+												</div>
+										
+										
+												<div class="col-xl-9">
+													<div class="row">
+														<div class="col-xl-6">
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput1">First Name</label>
+														    	<input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" required>
+															</div>
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput2">Last Name</label>
+														    	<input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" required>
+															</div>
+														</div>
+														<div class="col-xl-6">
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput3">Batch</label>
+														    	<input type="text" class="form-control" id="Batch"  placeholder="Enter your Batch" name="batch" required>
+															</div>
+															<div class="my_profile_setting_input form-group">
+														    	<label for="exampleInputPhone">Address</label>
+														    	<input type="text" class="form-control" id="address" aria-describedby="phoneNumber" placeholder="Address" name="address" required>
+															</div>
+														</div>
+													</div>
+												</div>
+											<div class="col-lg-12">
+													<div class="my_resume_textarea">
+														<div class="form-group">
+														    <label for="exampleFormControlTextarea1">Phone Number</label>
+														    	<input type="text" class="form-control" id="phone" aria-describedby="phoneNumber" placeholder="Phone" name="phone" required>
+															
+															</textarea>
+														</div>
+													</div>
+												</div>
+											</div>
+										
+											
+											<div class="row my_setting_content_details">
+                                            <div class="col-lg-12">
+													<div class="my_resume_textarea">
+														<div class="form-group">
+														    <label for="exampleFormControlTextarea1">Shift</label>
+														    	<input type="text" class="form-control" id="shift" aria-describedby="phoneNumber" placeholder="Shift" name="shift" required>
+															
+															</textarea>
+														</div>
+													</div>
+												</div>
+											</div>
+										
+											
+											<div class="row my_setting_content_details">
+										
+											   
+											    <div class="col-xl-12">
+											    	<div class="my_profile_setting_input2">
+												      	<label for="validationServerUsername4">Date of Birth</label>
+												      	<div class="input-group">
+												        	<input type="date" class="form-control" id="birth" aria-describedby="inputGroupPrepend4" placeholder="Date of Birth" name="birth" required>
+												      	</div>
+											    	</div>
+											    </div>
+											    <div class="col-lg-12">
+												{% if thank %}
+												<button type="button" id="update" class="my_setting_savechange_btn btn btn-thm">Edit <span class="flaticon-right-arrow-1 ml15"></span></button>
+
+												{% else %}
+												<button type="submit" class="my_setting_savechange_btn btn btn-thm">Save <span class="flaticon-right-arrow-1 ml15"></span></button>
+
+												{% endif %}
+
+												</form>
+
+											    </div>
+											</div>
+										</div>
+									</div>
+								</div>
+<a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
+<a class="dn" id="countdown" href="#"></a>
+</div>
+ <!-- Wrapper End -->
+<script data-cfasync="false" src="{% static ''%}../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="{% static ''%}js/jquery-migrate-3.0.0.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/popper.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/jquery.mmenu.all.js"></script>
+<script type="text/javascript" src="{% static ''%}js/ace-responsive-menu.js"></script>
+<script type="text/javascript" src="{% static ''%}js/chart.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/chart-custome.js"></script>
+<script type="text/javascript" src="{% static ''%}js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/snackbar.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/simplebar.js"></script>
+<script type="text/javascript" src="{% static ''%}js/parallax.js"></script>
+<script type="text/javascript" src="{% static ''%}js/scrollto.js"></script>
+<script type="text/javascript" src="{% static ''%}js/jquery-scrolltofixed-min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/jquery.counterup.js"></script>
+<script type="text/javascript" src="{% static ''%}js/wow.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/progressbar.js"></script>
+<script type="text/javascript" src="{% static ''%}js/slider.js"></script>
+<script type="text/javascript" src="{% static ''%}js/timepicker.js"></script>
+<script type="text/javascript" src="{% static ''%}js/wow.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/dashboard-script.js"></script>
+<!-- Custom script for all pages --> 
+<script type="text/javascript" src="{% static ''%}js/script.js"></script>
+</body>
+</html>
+<script>
+$(document).ready(function(){
+	showdata();
+
+function showdata(){
+$.ajax({
+	url:'showstudent',
+    type:'GET',
+	success:function(data){
+		var datas = eval(data)
+		var mydata;
+		for (x=0;x<datas.length;x++){
+        firstname=`${datas[x].First_name}`;
+		lastname=`${datas[x].Last_name}`;
+		ContactNo=`${datas[x].ContactNo}`;
+		address=`${datas[x].Address}`;
+		DOB=`${datas[x].DOB}`;
+		StudenBatch=`${datas[x].StudenBatch}`;
+        StudenShift=`${datas[x].StudenShift}`;
+		
+		
+		
+	 }
+	$('#firstname').val(firstname)
+	$('#lastname').val(lastname)
+
+	$('#address').val(address)
+	$('#phone').val(ContactNo)
+	$('#birth').val(DOB)
+    $('#Batch').val(StudenBatch)
+    $('#shift').val(StudenShift)
+
+
+
+}
+
+});
+
+}
+$('#update').click(function(){
+
+var firstname=$('#firstname').val();
+var lastname=$('#lastname').val();
+var batch=$('#Batch').val();
+var address=$('#address').val();
+var phone=$('#phone').val();
+var birth=$('#birth').val();
+var shift=$('#shift').val();
+
+
+$.ajax({
+url:'editstudent',
+type:'POST',
+data:{
+  'firstname':firstname,
+  'lastname':lastname,
+  'batch':batch,
+  'address':address,
+  'phone':phone,
+  'birth':birth,
+  'shift':shift,
+  
+ 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+
+},
+success:function(data){
+
+ alert(data)
+ showdata();
+  
+}
+
+
+});
+
+
+});
+
+
+});
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
+

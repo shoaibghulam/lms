@@ -1,0 +1,74 @@
+{% extends 'student/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.faq_question_widget{
+	min-height: 83vh;
+}
+.okbtn
+{
+	width: 50%;
+    margin-top: 29px;
+}
+.tdp
+{
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+}
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+						<div class="row">
+							<div class="col-lg-12">
+							 <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Faculty Evaluation </h4>
+					
+							 </nav>
+						    </div> 
+   								 <div class="col-lg-12">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+           
+            <th class="tdp">Report Name</th>
+            <th class="tdp">Instructor</th>
+            <th class="tdp">Course</th>
+            <th class="tdp">Department</th>
+
+            <th class="tdp">Report Files</th>
+            <th class="tdp">Submit Report</th>
+          </tr>
+        </thead>
+        <tbody>
+         {% for f in faculty  %}
+           
+         <tr>
+         
+         <td>{{f.Report_Name}}</td>
+         <td>{{f.InstructerId}}</td>
+         <td>{{f.Course_id}}</td>
+         <td>{{f.Department_id}}</td>
+         	<td><a href="/upload/{{f.Report_File}}" class="btn btn-primary" >Download </a></td>
+          <td><a href="submitreport" class="btn btn-primary btn"name="" id="submit">Submit</a></td>
+
+            
+            
+          </tr>
+          {% endfor %}
+         
+          
+        </tbody>
+      </table>
+    							 </div>
+ 							
+						</div>
+				</div>
+			</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,257 @@
+{% extends 'student/vbase.html' %} {% load static %} {% block body %}
+<style type="text/css">
+    .shop_grid {
+        position: relative;
+        border-style: solid;
+        border-width: 2px;
+        border-color: rgb(237, 239, 247);
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        height: 266px;
+        margin-bottom: 30px;
+        padding: 20px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+    
+    .shop_grid .details .price {
+        font-size: 18px;
+        font-family: "Nunito";
+        color: rgb(199, 85, 51);
+        font-weight: bold;
+        line-height: 1.2;
+        text-align: center;
+    }
+    
+    .shop_grid .cart_bag {
+        border-radius: 50%;
+        background-color: rgb(255, 16, 83);
+        height: 50px;
+        margin-top: 0px;
+        opacity: 0;
+        text-align: center;
+        width: 50px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+    
+    .okbtn {
+        width: 50%;
+        margin-top: 29px;
+    }
+    
+    .tdp {
+        background: #8d35b4;
+        color: white;
+        font-weight: bold;
+    }
+</style>
+<div class="our-dashbord dashbord">
+    <div class="dashboard_main_content">
+        <div class="container-fluid">
+            <div class="main_content_container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30"></nav>
+                        <h4 class="title float-left">Application Assigment </h4>
+                        </nav>
+                        <div class="col-md-12">
+
+                            <div class="cart_page_form style2">
+                                <form action="application" method="post">
+                                    {% csrf_token %}
+                                    <ol class="breadcrumb float-right">
+                                        <li class="breadcrumb-item active" aria-current="page">
+                                            <a href="myclass" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="Back to Class Room" data-original-title="Left">
+											Back To Class
+										</a>
+
+                                        </li>
+                                        <li class="breadcrumb-item active" aria-current="page">
+                                            <a href="createapplication" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="Back to Class Room" data-original-title="Left">
+										Create Application
+										</a>
+
+                                        </li>
+                                    </ol>
+                                    <table class="table table-responsive">
+
+
+
+                                        <tbody class="table_body">
+                                            <tr>
+                                                <td class="tdo">
+                                                    Select Course
+                                                </td>
+                                                <td>
+
+                                                    <select class="form-control" name="courses">
+                                                        {% for d in data %}
+                                                        {% for j in d.Courses.all%} <option value="{{j.Cid}}">{{j}}</option>
+                                                        {% endfor %}
+                                                        {% endfor %}
+                                                    </select>
+
+
+                                                </td>
+
+                                                <td>
+                                                    <input type="submit" class="btn btn-primary btn" value="Show Application" name="">
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+
+                                        <th class="tdp">Title</th>
+                                        <th class="tdp">Message</th>
+                                        <th class="tdp">Date</th>
+                                        <th class="tdp">Status</th>
+                                        <th class="tdp">Course</th>
+                                        <th class="tdp">Teacher</th>
+
+                                        <th class="tdp">Attachment</th>
+                                        <th class="tdp">Teacher Response</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for data in course %}
+                                    <tr>
+
+                                        <td>{{data.ApplicationTitle}}</td>
+                                        <td>{{data.ApplicationMessage}}</td>
+                                        <td>{{data.ApplicationDate}}</td>
+                                        <td>{{data.ApplicationStatus}}</td>
+                                        <td>{{data.Course_id}}</td>
+                                        <td>{{data.Instructor_id}}</td>
+
+
+                                        <td><a href="/upload/{{data.ApplicationAttachment}}" class="btn btn-primary">Download </a></td>
+                                        <td>
+                                            <a href="#"><input type="submit" class="btn btn-primary btn" value="Teacher Response" name="" data-toggle="modal" data-target="#count" onclick="showstudent('{{data.ApplicationId}}')"></a>
+
+                                    </tr>
+                                    {% endfor %}
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="count" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Application Reply</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="/faculty/teacherreply" id="material" method="post">
+                        {% csrf_token %}
+
+                        <input type="hidden" name="csrfmiddlewaretoken" value="xa8MQBdMPLYTvRBmE1CQB5PbcK3C1TXBNgNLYNREasz0xwFnZxPnuhIDGQcE0S7R">
+
+
+                        <label>Application Reply</label>
+                        <textarea id="reply" name="Techer_Reply" rows="10" cols="50" maxlength="500" class="form-control"></textarea><br>
+
+                        <input type="hidden" id="sid" value="" name="sid">
+
+
+
+                        <div class="progress" style=" display:none" id="pbar">
+                            <div class="bar progress-bar">
+                                <div class="percent">0%</div>
+                            </div>
+                        </div>
+
+                        <div id="status"></div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    {% comment %} <button type="submit" class="btn btn-primary" id="uploadvideo">Reply</button> {% endcomment %}
+                </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+
+
+    function showstudent(x) {
+
+        $.ajax({
+
+            url: 'teacherreply',
+            type: 'GET',
+            data: {
+
+                'uid': x
+            },
+            success: function(data) {
+                var datas = eval(data);
+
+                $('#sid').val(x);
+                $('#reply').val(datas[0].Techer_Reply);
+
+
+
+
+
+
+            }
+        });
+
+    }
+</script>
+<script>
+    { %
+        if thank %
+    }
+
+    alert('{{msg}}')
+
+    { %
+        else %
+    } { % endif %
+    }
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+
+
+
+{% endblock %}

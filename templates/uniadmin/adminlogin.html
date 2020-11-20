@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- css file -->
+<link rel="stylesheet" href="{% static '' %}css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static '' %}css/style.css">
+<!-- Responsive stylesheet -->
+<link rel="stylesheet" href="{% static '' %}css/responsive.css">
+<!-- Title -->
+<title>DLS </title>
+<!-- Favicon -->
+<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
+<link href="images/favicon.ico" sizes="128x128" rel="shortcut icon" />
+</head>
+<body>
+<div class="wrapper">
+	
+	<!-- Our LogIn Register -->
+	<section class="our-log bgc-fa">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-lg-6 offset-lg-3">
+					<div class="login_form inner_page">
+ 						<form class="form-horizontal form-material" method="POST" id="loginform" action="login">
+                        {% csrf_token %}
+							<div class="heading">
+								<img src="{% static '' %}./images/loginlogo.png">
+								<h3 class="text-center">Login to Admin account</h3>
+							</div>
+							 <div class="form-group">
+								{% if messages %}
+
+                                {% for message in messages %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ message }}
+                                  </div>
+                              
+                                {% endfor %}
+
+                            {% endif %}
+						    	<input type="email" name="email" class="form-control" id="exampleInputEmail3" placeholder="Email Address" required>
+							</div>
+							<div class="form-group">
+						    	<input type="password" name="password" class="form-control" id="exampleInputPassword4" placeholder="Password" required>
+							</div>
+							<div class="form-group custom-control custom-checkbox">
+								<input type="checkbox" class="custom-control-input" id="exampleCheck3">
+								<label class="custom-control-label" for="exampleCheck3">Remember me</label>
+								
+							</div>
+							<button type="submit" class="btn btn-log btn-block btn-thm2">Login</button>
+							
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	
+</div>
+<!-- Wrapper End -->
+<!-- Wrapper End -->
+<a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
+<script data-cfasync="false" src="{% static ''%}../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/jquery-3.3.1.js"></script>
+ <script type="text/javascript" src="{% static '' %}faculty/js/jquery-migrate-3.0.0.min.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/popper.min.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/jquery.mmenu.all.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/ace-responsive-menu.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/isotop.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/snackbar.min.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/simplebar.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/parallax.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/scrollto.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/jquery-scrolltofixed-min.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/jquery.counterup.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/wow.min.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/progressbar.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/slider.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/timepicker.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{% static '' %}faculty/js/jquery.form.js"></script>
+<script type="text/javascript" src="{%static ''%}faculty/js/jquery.js"></script>
+<script type="text/javascript" src="{%static ''%}js/jquery.datetimepicker.full"></script>
+<!-- Custom script for all pages --> 
+<script type="text/javascript" src="{% static '' %}js/script.js"></script>
+</body>
+</html>

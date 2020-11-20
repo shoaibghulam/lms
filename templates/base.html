@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- css file -->
+<link rel="stylesheet" href="{% static ''%}css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static ''%}css/style.css">
+<!-- Responsive stylesheet -->
+<link rel="stylesheet" href="{% static ''%}css/responsive.css">
+<!-- Title -->
+<title>LMS</title>
+<!-- Favicon -->
+<link href="{% static ''%}favicon.ico" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
+<link href="{% static ''%}images/favicon.ico" sizes="128x128" rel="shortcut icon" />
+</head>
+<body>
+<div class="wrapper">
+	<div class="preloader"></div>
+	<!-- Main Header Nav -->
+    {% block navbar %}
+    {% include 'navbar.html' %}
+    {% endblock  %}
+
+{% block mytitle %}
+{% endblock  %}	
+{% block body %}
+{% endblock  %}
+
+
+{% block footer %}
+ {% include 'footer.html' %}
+ {% endblock  %}
+{% block message %}
+	
+	{% endblock message %}
+</div>
+</body>
+</html>

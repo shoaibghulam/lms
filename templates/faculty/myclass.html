@@ -1,0 +1,363 @@
+{% extends 'faculty/vbase.html' %} {% load static %} {% block body %}
+<style type="text/css">
+    .shop_grid {
+        position: relative;
+        border-style: solid;
+        border-width: 2px;
+        border-color: rgb(237, 239, 247);
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        height: 266px;
+        margin-bottom: 30px;
+        padding: 20px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+    
+    .modal-dialog {
+        max-width: 935px;
+    }
+    
+    .modal-body .row .col-md-4 .shop_grid {
+        position: relative;
+        border-style: solid;
+        border-width: 2px;
+        border-color: rgb(237, 239, 247);
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        height: 222px;
+        margin-bottom: 30px;
+        padding: 20px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+</style>
+<!-- Our Dashbord -->
+<!-- Our Dashbord -->
+<div class="our-dashbord dashbord">
+    <div class="dashboard_main_content">
+        <div class="container-fluid">
+            <div class="main_content_container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                            <h4 class="title float-left">Student VLE </h4>
+                        </nav>
+                    </div>
+                    {% comment %}
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-sm-6 col-lg-6 col-xl-4">
+                                <div class="shop_grid">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static ''%}images/shop/1.png" alt="1.png">
+                                    </div>
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">All VLE Options</h4>
+
+                                    </div>
+                                    <a class="cart_bag float-right" href="#" data-toggle="modal" data-target="#exampleModalCenter"><span class="fa fa-link"></span></a>
+                                </div>
+                            </div> {% endcomment %} {% comment %}
+                            <div class="col-sm-6 col-lg-6 col-xl-4">
+                                <div class="shop_grid">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static ''%}images/shop/1.png" alt="1.png">
+                                    </div>
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">All VLE Options</h4>
+
+                                    </div>
+                                    <a class="cart_bag float-right" href="#" data-toggle="modal" data-target="#exampleModalCenter"><span class="fa fa-link"></span></a>
+                                </div>
+                            </div> {% endcomment %}
+                            <div class="col-sm-6 col-lg-6 col-xl-4">
+                                <div class="shop_grid">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static ''%}images/shop/1.png" alt="1.png">
+                                    </div>
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">All VLE Options</h4>
+
+                                    </div>
+                                    <a class="cart_bag float-right" href="#" data-toggle="modal" data-target="#exampleModalCenter"><span class="fa fa-link"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Course Name tile here</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="liststudent">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">List of Student</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="classmaterial">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Class Material</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="onlinequiz">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Online Quiz</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="assignment">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Upload Assignments</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="midterm">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Upload Mid Term Exam</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="finalexam">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Upload Final Exam</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="mygrade">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Grade Book</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="notification">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Add Notification</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="classnotification">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Class Notification</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="creategradebook">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Quiz and Grade Book</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="syllabus">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Syllabus</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="createnotification">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Section Notification</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="app">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Student Application</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="studentassignment">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Student Assignment</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="studentmidterm">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Student Mid Term Exam</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="studentfinalexam">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Student Final Exam</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="createprogramnoti">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Programme Notification</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="application">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Application</h4>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="shop_grid">
+                                <a href="Appointment">
+                                    <div class="thumb text-center">
+                                        <img class="img-fluid" src="{% static '' %}faculty/images/shop/1.png" alt="1.png">
+                                    </div>
+
+                                    <div class="details float-left">
+                                        <h4 class="item-tile">Appointment</h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        { %
+            if thank %
+        }
+
+        alert('{{msg}}')
+
+        { % endif %
+        }
+    </script>
+    {% endblock %}
+    <!-- Wrapper End -->

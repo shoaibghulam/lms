@@ -1,0 +1,144 @@
+{% extends 'student/base.html' %}
+{% block body %}
+<style type="text/css">
+	.shop_grid {
+		height: 284px;
+	}
+	table caption {
+	padding: .5em 0;
+}
+
+table.dataTable th,
+table.dataTable td {
+  white-space: nowrap;
+}
+
+.p {
+  text-align: center;
+  padding-top: 140px;
+  font-size: 14px;
+}
+</style>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<script type="text/javascript"  src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+<script type="text/javascript">
+	$(document).ready(function() {
+    $('table').DataTable();
+} );
+</script>
+	<!-- Our Dashbord -->
+	<div class="our-dashbord dashbord">
+		<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Library </h4>
+								
+							</nav>
+						</div>
+						<div class="col-lg-12">
+            {% comment %} Search Bar {% endcomment %}
+							<form class="form-horizontal" action="library" method="POST">
+              {% csrf_token %}
+								<div class="form-group row">
+									
+									<div class="col-md-3">
+										<input type="text" class="form-control" placeholder="Book title" name="BookTitle">
+									</div>
+									
+									<div class="col-md-3">
+										<input type="text" class="form-control" placeholder="Book Author" name="BookAuthor">
+									</div>
+									<div class="col-md-3">
+										<input type="text" class="form-control" placeholder="Book Publisher" name="BookPublisher">
+									</div>
+									<div class="col-md-2">
+										<input type="text" class="form-control" placeholder="Book ISBN" name="BookIsbn">
+									</div>
+									<div class="col-md-1">
+										<input type="submit" class="btn btn-primary" value="Search" name="search">
+									</div>
+								</div>
+							</form>
+              {% comment %} Search Bar end {% endcomment %}
+						</div>
+					</div>
+					<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Account No</th>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Edition</th>
+            <th>Publisher</th>
+            <th>Year of Publisher</th>
+            <th>ISBN</th>
+          
+            <th>Download</th>
+          </tr>
+ 
+        </thead>
+        <tbody>
+        {% for book in data.object_list %}
+          <tr>
+            <td>{{book.BookId}}</td>
+            <td>{{book.BookAuthorid}}</td>
+            <td>{{book.BookTitle}}</td>
+            <td>{{book.BookEdition}}</td>
+            <td>{{book.BookPublisher}}</td>
+            <td>{{book.BookYearOfPublisher}}</td>
+           
+            <td>{{book.BookISBN}}</td>
+           
+           
+           
+           
+            <td> <a href="/upload/{{book.BookFile}}" class="btn btn-primary">Download</a> 	</td>
+          </tr>
+{% endfor %}
+          
+        </tbody>
+	  </table>
+	  
+	  <nav aria-label="..." style="margin: 0 auto;">
+		<ul class="pagination justify-content-center">
+		  <li class="page-item {% if not previouspage %}
+			
+		  disabled {% endif %} ">
+			<a class="page-link" href="{{previouspage}}" tabindex="-1">Previous</a>
+		  </li>
+		  
+		 
+		  {% for x in data.paginator.page_range  %}
+		  {% if data.number == x %}
+		  <li class="page-item active">
+			<a class="page-link" href="?page={{x}}">{{x}} <span class="sr-only">(current)</span></a>
+		  </li>
+		   {% else %}
+		  <li class="page-item"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
+		  {% endif %}
+		  {% endfor %}
+		
+		  <li class="page-item {% if not nextpage %}
+			
+		  disabled {% endif %} ">
+			<a class="page-link"  href="{{nextpage}}">Next</a>
+		  </li>
+		</ul>
+	  </nav>
+	
+    </div>
+  </div>
+</div>
+				</div>
+			</div>
+							  
+		</div>
+	</div>
+{% endblock  %}

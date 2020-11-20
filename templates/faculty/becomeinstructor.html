@@ -1,0 +1,169 @@
+{% load static %} {% include 'faculty/mininav.html' %}
+
+<div class="col-lg-12">
+    <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+        <h4 class="title float-left">User Profile</h4>
+        <ol class="breadcrumb float-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+        </ol>
+    </nav>
+</div>
+<div class="col-lg-12">
+    <div class="my_course_content_container">
+        <div class="my_setting_content mb30">
+            <div class="my_setting_content_header">
+                <div class="my_sch_title">
+                    <h4 class="m0">Personal Details</h4>
+                </div>
+            </div>
+            <form action="{% url 'editinstructor' %}" method="POST" enctype="multipart/form-data" id="updateform">
+                {% csrf_token %}
+                <div class="row my_setting_content_details pb0">
+                    <div class="col-xl-3">
+                        <div class="wrap-custom-file">
+                            <input type="file" name="image" id="image1" />
+                            <label for="image1">
+													      	<span>Browse</span>
+													    </label>
+                        </div>
+                    </div>
+
+
+                    <div class="col-xl-9">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="my_profile_setting_input form-group">
+                                    <label for="formGroupExampleInput1">First Name</label>
+                                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" required>
+                                </div>
+                                <div class="my_profile_setting_input form-group">
+                                    <label for="formGroupExampleInput2">Last Name</label>
+                                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" required>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="my_profile_setting_input form-group">
+                                    <label for="formGroupExampleInput3">Gender</label>
+                                    <input type="text" class="form-control" id="gender" placeholder="Gender" name="gender" required>
+                                </div>
+                                <div class="my_profile_setting_input form-group">
+                                    <label for="exampleInputPhone">Address</label>
+                                    <input type="text" class="form-control" id="address" aria-describedby="phoneNumber" placeholder="Address" name="address" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="my_resume_textarea">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Phone Number</label>
+                                <input type="text" class="form-control" id="phone" aria-describedby="phoneNumber" placeholder="Phone" name="phone" required>
+
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row my_setting_content_details">
+
+
+                    <div class="col-xl-6">
+                        <div class="my_profile_setting_input2">
+                            <label for="validationServerUsername4">Date of Birth</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="birth" aria-describedby="inputGroupPrepend4" placeholder="Date of Birth" name="birth" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        {% if thank %}
+                        <button type="submit" id="update" class="my_setting_savechange_btn btn btn-thm">Edit <span class="flaticon-right-arrow-1 ml15"></span></button> {% else %}
+                        <button type="submit" class="my_setting_savechange_btn btn btn-thm">Save <span class="flaticon-right-arrow-1 ml15"></span></button> {% endif %}
+
+            </form>
+
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
+<a class="dn" id="countdown" href="#"></a>
+</div>
+<!-- Wrapper End -->
+<script data-cfasync="false" src="{% static ''%}../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="{% static ''%}js/jquery-migrate-3.0.0.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/popper.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/jquery.mmenu.all.js"></script>
+<script type="text/javascript" src="{% static ''%}js/ace-responsive-menu.js"></script>
+<script type="text/javascript" src="{% static ''%}js/chart.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/chart-custome.js"></script>
+<script type="text/javascript" src="{% static ''%}js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/snackbar.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/simplebar.js"></script>
+<script type="text/javascript" src="{% static ''%}js/parallax.js"></script>
+<script type="text/javascript" src="{% static ''%}js/scrollto.js"></script>
+<script type="text/javascript" src="{% static ''%}js/jquery-scrolltofixed-min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/jquery.counterup.js"></script>
+<script type="text/javascript" src="{% static ''%}js/wow.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/progressbar.js"></script>
+<script type="text/javascript" src="{% static ''%}js/slider.js"></script>
+<script type="text/javascript" src="{% static ''%}js/timepicker.js"></script>
+<script type="text/javascript" src="{% static ''%}js/wow.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/dashboard-script.js"></script>
+<!-- Custom script for all pages -->
+<script type="text/javascript" src="{% static ''%}js/script.js"></script>
+</body>
+
+</html>
+<script src="http://malsup.github.com/jquery.form.js"></script> 
+<script>
+    $(document).ready(function() {
+        showdata();
+        $('#updateform').ajaxForm(function(data){
+            alert(data)
+        })
+        function showdata() {
+            $.ajax({
+                url: 'showteacher',
+                type: 'GET',
+                success: function(data) {
+                    var datas = eval(data)
+                    var mydata;
+                    for (x = 0; x < datas.length; x++) {
+                        firstname = `${datas[x].First_Name}`;
+                        lastname = `${datas[x].Last_Name}`;
+                        gender = `${datas[x].Gender}`;
+                        address = `${datas[x].Address}`;
+                        phone = `${datas[x].Phone_Number}`;
+                        Dob = `${datas[x].Dob}`;
+
+
+
+                    }
+                    $('#firstname').val(firstname)
+                    $('#lastname').val(lastname)
+                    $('#gender').val(gender)
+                    $('#address').val(address)
+                    $('#phone').val(phone)
+                    $('#birth').val(Dob)
+
+
+                }
+
+            });
+
+        }
+       
+       
+
+
+        
+
+    });
+</script>

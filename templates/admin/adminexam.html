@@ -1,0 +1,80 @@
+<?php include_once('header.php')?>
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.cart_page_form.style3 .table_body td {
+    padding: 24px 38px;
+}
+.table-responsive {
+    overflow-x: hidden;
+}
+.tdp
+{
+    width: 35%;
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+}
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Exam Schedule  Model</h4>
+								<ol class="breadcrumb float-right">
+							    	<li class="breadcrumb-item"><a href="page-dashboard-student.php">Home</a></li>
+							    	<li class="breadcrumb-item active" aria-current="page">Exam Schedule  Model</li>
+								</ol>
+							</nav>
+						</div>
+						<div class="col-lg-12">
+								<a href="addadminexam.php" class="btn btn-success pull-right"> + Add  Exam Schedule  </a>
+							</div>
+						<div class="col-lg-12">
+							
+							<div class="my_course_content_container">
+								<div class="my_setting_content">
+									<div class="my_setting_content_details">
+										<div class="cart_page_form style3">
+											<form action="#">
+												  <table class="table table-responsive">
+												  	<thead>
+												  		<tr class="carttable_row">
+												  			<th class="cartm_title"></th>
+												  			<th class="cartm_title">Exam Schedule </th>
+												  			<th class="cartm_title">Semester </th>
+												  			<th class="cartm_title">Department</th>
+												  			<th class="cartm_title">Year:</th>
+												  			<th class="cartm_title">Actions</th>
+												  		</tr>
+												  	</thead>
+												  	<tbody class="table_body">
+													    <tr>
+													    	<td>
+													    		<input type="checkbox" name="">
+													    	</td>
+													    	<td>1</td>
+													    	<td>Computer Science</td>
+													    	<td>3rd Semester</td>
+													    	<td>April 18, 2020, 6:31 p.m.</td>
+													    	<td colspan="2"><a href="admineditexam.php" class="btn btn-sm btn-success">Edit</a>
+													    		<a href="" class="btn btn-sm btn-danger">Delete</a>
+													    	</td> 	
+													    </tr>
+												  	</tbody>
+												</table>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+
+<?php include_once('footer.php')?>

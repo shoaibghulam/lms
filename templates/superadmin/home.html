@@ -1,0 +1,684 @@
+{% extends 'superadmin/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.shop_grid {
+		position: relative;
+		border-style: solid;
+		border-width: 2px;
+		border-color: rgb(237, 239, 247);
+		border-radius: 5px;
+		background-color: rgb(255, 255, 255);
+		height: 266px;
+		margin-bottom: 30px;
+		padding: 20px;
+		-webkit-transition: all 0.3s ease 0s;
+		-moz-transition: all 0.3s ease 0s;
+		-o-transition: all 0.3s ease 0s;
+		transition: all 0.3s ease 0s;
+	}
+
+	.modal-dialog {
+		max-width: 935px;
+	}
+
+	.modal-body .row .col-md-3 .shop_grid {
+		position: relative;
+		border-style: solid;
+		border-width: 2px;
+		border-color: rgb(237, 239, 247);
+		border-radius: 5px;
+		background-color: rgb(255, 255, 255);
+		height: 212px;
+		margin-bottom: 30px;
+		padding: 20px;
+		-webkit-transition: all 0.3s ease 0s;
+		-moz-transition: all 0.3s ease 0s;
+		-o-transition: all 0.3s ease 0s;
+		transition: all 0.3s ease 0s;
+	}
+
+	.shop_grid .details .item-tile {
+		font-size: 16px;
+		font-family: "Nunito";
+		color: #0a0a0a;
+		line-height: 1.333;
+		text-align: center;
+	}
+</style>
+<!-- Our Dashbord -->
+<div class="our-dashbord dashbord">
+	<div class="dashboard_main_content">
+		<div class="container-fluid">
+			<div class="main_content_container">
+				<div class="row">
+					<div class="col-lg-12">
+						<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+							<h4 class="title float-left">Welcome Super Admin </h4>
+						</nav>
+					</div>
+					<div class="col-lg-12">
+						<div class="row">
+							<div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+								<div class="ff_one">
+									<div class="icon"><span class="fa fa-graduation-cap"></span></div>
+									<div class="detais">
+										<p> Students</p>
+										<div class="timer">{{studentcount}}</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+								<div class="ff_one style2">
+									<div class="icon"><span class="fa fa-users"></span></div>
+									<div class="detais">
+										<p>Teachers</p>
+										<div class="timer">{{facultycount}}</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+								<div class="ff_one style3">
+									<div class="icon"><span class="fa fa-university"></span></div>
+									<div class="detais">
+										<p>University</p>
+										<div class="timer">{{universitycount}}</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+								<div class="ff_one style4">
+									<div class="icon"><span class="fa fa-building"></span></div>
+									<div class="detais">
+										<p>Branch</p>
+										<div class="timer">{{branchcount}}</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<br><br>
+					<div class="col-lg-12">
+						<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+							<h4 class="title float-left">Active Universtiy </h4>
+						</nav>
+					</div>
+					<div class="col-lg-12">
+
+						<div class="my_course_content_container">
+							<div class="my_setting_content">
+								<div class="my_setting_content_details">
+									<div class="cart_page_form style3 offset-1">
+										<form action="#">
+											<table class="table table-responsive">
+												<thead>
+													<tr class="carttable_row">
+														<th class="cartm_title">University Name</th>
+														<th class="cartm_title">Username</th>
+														<th class="cartm_title">Address</th>
+
+														<th class="cartm_title">Email</th>
+														<th class="cartm_title">Action</th>
+														<th class="cartm_title">Show Package Details</th>
+													</tr>
+												</thead>
+												<tbody class="table_body" id="active">
+
+
+
+												</tbody>
+											</table>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br><br>
+					<div class="col-lg-12">
+						<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+							<h4 class="title float-left">Not Active Universtiy </h4>
+						</nav>
+					</div>
+					<div class="col-lg-12">
+
+						<div class="my_course_content_container">
+							<div class="my_setting_content">
+								<div class="my_setting_content_details">
+									<div class="cart_page_form style3 offset-1">
+										<form action="#">
+											<table class="table table-responsive">
+												<thead>
+													<tr class="carttable_row">
+														<th class="cartm_title">University Name</th>
+														<th class="cartm_title">Username</th>
+														<th class="cartm_title">Address</th>
+
+														<th class="cartm_title">Email</th>
+														<th class="cartm_title">Action</th>
+														<th class="cartm_title">Show Package Details</th>
+
+													</tr>
+												</thead>
+												<tbody class="table_body" id="disable">
+
+
+
+												</tbody>
+											</table>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Create University -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Create University</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="my_course_content_container">
+							<div class="my_setting_content mb30">
+								<div class="my_setting_content_header">
+									<div class="my_sch_title">
+										<h4 class="m0">University info</h4>
+									</div>
+								</div>
+								<div class="row my_setting_content_details pb0">
+									<div class="col-xl-12">
+										<div class="row">
+											<div class="col-xl-6">
+												<div class="my_profile_setting_input form-group">
+													<label for="formGroupExampleInput1">University Name</label>
+													<input type="text" class="form-control" id="formGroupExampleInput1"
+														placeholder="Enter University Name">
+												</div>
+												<div class="my_profile_setting_input form-group">
+													<label for="formGroupExampleInput2">University User Name </label>
+													<input type="text" class="form-control" id="formGroupExampleInput2"
+														placeholder="">
+												</div>
+											</div>
+											<div class="col-xl-6">
+												<div class="my_profile_setting_input form-group">
+													<label for="formGroupExampleInput2">University Password </label>
+													<input type="text" class="form-control" id="formGroupExampleInput2"
+														placeholder="">
+												</div>
+												<div class="my_profile_setting_input form-group">
+													<label for="formGroupExampleInput2">University Address </label>
+													<input type="text" class="form-control" id="formGroupExampleInput2"
+														placeholder="">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row my_setting_content_details">
+									<div class="col-xl-5">
+										<div class="my_profile_setting_input form-group">
+											<label for="formGroupExampleInput1">Status</label>
+											<input type="text" class="form-control" id="faculty"
+												placeholder="Mention Status">
+										</div>
+									</div>
+									<div class="col-xl-5">
+										<div class="my_profile_setting_input form-group">
+											<label for="formGroupExampleInput1">Picture</label>
+											<input type="file" class="form-control" id="course"
+												placeholder="Mention Here Skills to Develop">
+										</div>
+									</div>
+									<div class="col-xl-2">
+										<label></label>
+										<input type="button" id="#add" class=" mt-4 w-50 btn btn-primary text-white"
+											value="Add">
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Create Branch -->
+<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Create Branch</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="my_course_content_container">
+							<div class="my_setting_content mb30">
+								<div class="my_setting_content_header">
+									<div class="my_sch_title">
+										<h4 class="m0">Branch info</h4>
+									</div>
+								</div>
+								<div class="row my_setting_content_details pb0">
+									<div class="col-xl-12">
+										<div class="row">
+											<div class="col-xl-6">
+												<div class="my_profile_setting_input form-group">
+													<label for="formGroupExampleInput1">Branch Name</label>
+													<input type="text" class="form-control" id="formGroupExampleInput1"
+														placeholder="Enter University Name">
+												</div>
+												<div class="my_profile_setting_input form-group">
+													<label for="formGroupExampleInput2">Branch User Name </label>
+													<input type="text" class="form-control" id="formGroupExampleInput2"
+														placeholder="">
+												</div>
+											</div>
+											<div class="col-xl-6">
+												<div class="my_profile_setting_input form-group">
+													<label for="formGroupExampleInput2">Branch Password </label>
+													<input type="text" class="form-control" id="formGroupExampleInput2"
+														placeholder="">
+												</div>
+												<div class="my_profile_setting_input form-group">
+													<label for="formGroupExampleInput2">Branch Address </label>
+													<input type="text" class="form-control" id="formGroupExampleInput2"
+														placeholder="">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row my_setting_content_details">
+									<div class="col-xl-5">
+										<div class="my_profile_setting_input form-group">
+											<label for="formGroupExampleInput1">Status</label>
+											<input type="text" class="form-control" id="faculty"
+												placeholder="Mention Status">
+										</div>
+									</div>
+									<div class="col-xl-5">
+										<div class="my_profile_setting_input form-group">
+											<label for="formGroupExampleInput1">Picture</label>
+											<input type="file" class="form-control" id="course"
+												placeholder="Mention Here Skills to Develop">
+										</div>
+									</div>
+									<div class="col-xl-2">
+										<label></label>
+										<input type="button" id="#add" class=" mt-4 w-50 btn btn-primary text-white"
+											value="Add">
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Create Admin -->
+<div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Create Admin</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="my_course_content_container">
+							<div class="my_setting_content mb30">
+								<div class="my_setting_content_header">
+									<div class="my_sch_title">
+										<h4 class="m0">Admin info</h4>
+									</div>
+								</div>
+								<div class="row my_setting_content_details pb0">
+									<div class="col-xl-12">
+										<div class="row">
+											<div class="col-xl-6">
+												<div class="my_profile_setting_input form-group">
+													<label for="formGroupExampleInput1">First Name</label>
+													<input type="text" class="form-control" id="formGroupExampleInput1"
+														placeholder="Enter University Name">
+												</div>
+												<div class="my_profile_setting_input form-group">
+													<label for="formGroupExampleInput2">Last Name </label>
+													<input type="text" class="form-control" id="formGroupExampleInput2"
+														placeholder="">
+												</div>
+											</div>
+											<div class="col-xl-6">
+												<div class="my_profile_setting_input form-group">
+													<label for="formGroupExampleInput2">Branch Password </label>
+													<input type="text" class="form-control" id="formGroupExampleInput2"
+														placeholder="">
+												</div>
+												<div class="my_profile_setting_input form-group">
+													<label for="formGroupExampleInput2">Username </label>
+													<input type="text" class="form-control" id="formGroupExampleInput2"
+														placeholder="">
+												</div>
+											</div>
+											<div class="col-xl-12">
+												<div class="my_profile_setting_input form-group">
+													<label for="formGroupExampleInput2">Email </label>
+													<input type="text" class="form-control" id="formGroupExampleInput2"
+														placeholder="">
+												</div>
+												<div class="my_profile_setting_input form-group">
+													<label for="formGroupExampleInput2">Contact </label>
+													<input type="text" class="form-control" id="formGroupExampleInput2"
+														placeholder="">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row my_setting_content_details">
+									<div class="col-xl-5">
+										<div class="my_profile_setting_input form-group">
+											<label for="formGroupExampleInput1">Status</label>
+											<input type="text" class="form-control" id="faculty"
+												placeholder="Mention Status">
+										</div>
+									</div>
+									<div class="col-xl-5">
+										<div class="my_profile_setting_input form-group">
+											<label for="formGroupExampleInput1">Picture</label>
+											<input type="file" class="form-control" id="course"
+												placeholder="Mention Here Skills to Develop">
+										</div>
+									</div>
+									<div class="col-xl-2">
+										<label></label>
+										<input type="button" id="#add" class=" mt-4 w-50 btn btn-primary text-white"
+											value="Add">
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+	aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">Package Detail</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<div class="my_profile_setting_input form-group">
+					<label for="packagename">Package Name</label>
+					<input type="text" class="form-control" id="upackagename" name="upackagename" placeholder=""
+						required>
+
+
+				</div>
+				<div class="my_profile_setting_input form-group">
+					<label for="price">Package Price </label>
+					<input type="text" class="form-control" id="uprice" name="uprice" placeholder="" required>
+
+				</div>
+				<div class="my_profile_setting_input form-group">
+					<label for="sdate">Start Date </label>
+					<input type="date" class="form-control" id="usdate" name="usdate" placeholder="" required>
+
+				</div>
+
+
+
+				<div class="my_profile_setting_input form-group">
+					<label for="edate">End Date </label>
+					<input type="date" class="form-control" id="uedate" name="uedate" placeholder="" required>
+
+				</div>
+				<div class="modal-footer">
+
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+
+	{% block script %}
+
+	<script>
+		$(document).ready(function () {
+
+
+			showactive();
+			showdisable();
+
+			window.setInterval(showactive, 1000);
+			window.setInterval(showdisable, 1000);
+			//show active unidata
+
+			function showactive() {
+				$.ajax({
+					url: 'activeuni',
+					type: 'GET',
+					success: function (data) {
+						var datas = eval(data)
+						var mydata;
+						for (x = 0; x < datas.length; x++) {
+							mydata += `
+        
+        <tr>
+			
+			<td>${datas[x].UniName}</td>
+		
+			<td>${datas[x].UniUsername}</td>
+			<td>${datas[x].UniAddress}</td>
+			
+			<td>${datas[x].UniEmail}</td>
+			
+			<td>
+				<button type="button" " class="btn btn-sm btn-danger" onclick="disableuni(${datas[x].UniId})">Disable</button>
+			</td> 
+
+			<td><button type="button"  class="btn btn-sm btn-success"  data-toggle="modal" data-target="#staticBackdrop" onclick="showpackagedetail(${datas[x].UniPackage})">Show</button>
+			
+			</td> 
+
+		</tr>
+																	
+        `;
+
+
+						}
+						$('#active').html(mydata)
+					}
+
+
+
+				});
+
+			}
+
+
+			//end active unidata
+
+		});
+
+
+		//show package detail
+		function showpackagedetail(x) {
+
+			$.ajax({
+
+				url: 'showpackagedetail',
+				type: 'GET',
+				data: {
+
+					'uid': x
+				},
+				success: function (data) {
+					var datas = eval(data);
+					$('#upackagename').val(datas[0].PackName);
+					$('#uprice').val(datas[0].PackPrice);
+					$('#usdate').val(datas[0].PackDurationStart);
+					$('#uedate').val(datas[0].PackDurationEnd);
+
+
+				}
+			});
+		}
+
+		//End package detail
+
+
+		//disable uni Status
+
+
+		function disableuni(x) {
+
+			$.ajax({
+
+				url: 'disableuni',
+				type: 'GET',
+				data: {
+					'uid': x
+
+
+				},
+				success: function (data) {
+					alert(data);
+					showactive();
+
+				}
+
+			});
+
+
+		}
+
+
+
+
+		//End disable uni status
+
+
+		//Enable Uni Status
+		function activeunistatus(x) {
+
+			$.ajax({
+
+				url: 'activeunistatus',
+				type: 'GET',
+				data: {
+					'uid': x
+
+
+				},
+				success: function (data) {
+					alert(data);
+					showactive();
+
+				}
+
+			});
+
+
+		}
+
+		//end Enable Uni status
+
+
+		//show disable uni
+
+
+
+		function showdisable() {
+			$.ajax({
+				url: 'disableunistatus',
+				type: 'GET',
+				success: function (data) {
+					var datas = eval(data)
+					var mydata;
+					for (x = 0; x < datas.length; x++) {
+						mydata += `
+        
+        <tr>
+			
+			<td>${datas[x].UniName}</td>
+		
+			<td>${datas[x].UniUsername}</td>
+			<td>${datas[x].UniAddress}</td>
+			
+			<td>${datas[x].UniEmail}</td>
+			
+			<td><button type="button" class="btn btn-sm btn-success" onclick="activeunistatus(${datas[x].UniId})">Active</button>
+				
+			</td> 
+
+			<td><button type="button"  class="btn btn-sm btn-success"  data-toggle="modal" data-target="#staticBackdrop" onclick="showpackagedetail(${datas[x].UniPackage})">Show</button>
+			
+			</td> 
+
+		</tr>
+																	
+        `;
+
+
+					}
+					$('#disable').html(mydata)
+				}
+
+
+
+			});
+
+		}
+		//end disable uni
+	</script>
+
+	{% endblock %}

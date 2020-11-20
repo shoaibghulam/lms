@@ -1,0 +1,177 @@
+{% extends 'faculty/base.html' %} {% load static %} {% block body %}
+<style type="text/css">
+    .shop_grid {
+        position: relative;
+        border-style: solid;
+        border-width: 2px;
+        border-color: rgb(237, 239, 247);
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        height: 266px;
+        margin-bottom: 30px;
+        padding: 20px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+    
+    .shop_grid .details .price {
+        font-size: 18px;
+        font-family: "Nunito";
+        color: rgb(199, 85, 51);
+        font-weight: bold;
+        line-height: 1.2;
+        text-align: center;
+    }
+    
+    .shop_grid .cart_bag {
+        border-radius: 50%;
+        background-color: rgb(255, 16, 83);
+        height: 50px;
+        margin-top: 0px;
+        opacity: 0;
+        text-align: center;
+        width: 50px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+    
+    .okbtn {
+        width: 50%;
+        margin-top: 29px;
+    }
+    
+    .tdp {
+        background: #8d35b4;
+        color: white;
+        font-weight: bold;
+    }
+    
+    .button_height {
+        margin-bottom: 10px;
+        margin-left: 10px;
+    }
+</style>
+<!-- Our Dashbord -->
+<div class="our-dashbord dashbord">
+    <div class="dashboard_main_content">
+        <div class="container-fluid">
+            <div class="main_content_container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                            <h4 class="title float-left">Student Attendence</h4>
+                        </nav>
+                        <form action="attendance" method="POST">
+                            {% csrf_token %}
+                            <table class="table table-responsive">
+
+
+                                <tbody class="table_body">
+                                    <tr>
+                                        <td class="tdo">
+                                            Select Course
+                                        </td>
+                                        <td>
+
+                                            <select class="form-control" name="courses">
+                                                    {% for d in course_data %}
+                                                   <option value="{{d.Cid}}">{{d.Course_name}}</option>
+                                                    {% endfor %}
+                                                   
+                                                </select>
+
+                                        </td>
+                                        <td>
+                                            <select class="form-control" name="month">
+                                                    {% for d in data2 %}
+                                                   <option value="{{d.StudentAttendenceMonth}}">{{d.StudentAttendenceMonth}}</option>
+                                                    {% endfor %}
+                                                   
+                                                </select>
+
+
+
+                                        </td>
+
+                                        <td>
+                                            <select class="form-control" name="year">
+                                                    {% for d in data2 %}
+                                                   <option value="{{d.StudentAttendenceYear}}">{{d.StudentAttendenceYear}}</option>
+                                                    {% endfor %}
+                                                   
+                                                </select>
+
+
+
+                                        </td>
+
+                                        <td>
+                                            <input type="submit" class="btn btn-primary btn" value="Show CourseWise Attendence" name="">
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+                        </form>
+                        <a href="attendance"><input type="submit" class="btn btn-primary btn button_height" value="AllStudent Attendence" name=""></a>
+
+                    </div>
+                    <div class="col-lg-12">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+
+                                    <th class="tdp">Student Name</th>
+                                    <th class="tdp">Student Departmet</th>
+                                    <th class="tdp">Course</th>
+                                    <th class="tdp">Total Attendence</th>
+                                    <th class="tdp">Present</th>
+                                    <th class="tdp">Absent</th>
+                                    <th class="tdp">Month</th>
+                                    <th class="tdp">Year</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for x in data %}
+
+                                <tr>
+                                    <td>{{x.Student_id}}</td>
+                                    <td>{{x.Department_id}}</td>
+                                    <td>{{x.Course_id}}</td>
+                                    <td>{{x.StudentAttendenceTotal}}</td>
+                                    <td>{{x.StudentAttendencePresent}}</td>
+                                    <td>{{x.StudentAttendenceAbsent}}</td>
+                                    <td>{{x.StudentAttendenceMonth}}</td>
+                                    <td>{{x.StudentAttendenceYear}}</td>
+
+
+
+
+                                </tr>
+                                {% comment %} {% for j in d.Courses.all%}
+                                <option value="{{j}}">{{j}}</option>
+                                {% endfor %} {% endcomment %} {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+</div>
+{% endblock %} {% block script %} {% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'uniadmin/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.shop_grid {
+		height: 284px;
+	}
+	.okbtn
+	{
+		width: 50%;
+		margin-top: 29px;
+	}
+	.tdp
+	{
+		background: #8d35b4;
+		color: white;
+		font-weight: bold;
+	}
+	.cart_page_form.style2 .table_body td {
+		width: 34%;
+	}
+	label.control-label {
+		font-weight: 700;
+		color: black;
+	}
+	textarea.form-control {
+		padding: 44px;
+	}
+
+</style>
+<div class="dashboard_main_content">
+	<div class="container-fluid">
+		<div class="main_content_container">
+			<div class="row">
+				<div class="col-lg-12">
+					<br><br>
+					<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+						<h4 class="title float-left">Faculty Evaluation</h4>
+						
+					</nav>
+				</div>
+			
+				<div class="col-lg-12">
+
+					<div class="my_course_content_container">
+						<div class="my_setting_content">
+							<div class="my_setting_content_details">
+								<div class="cart_page_form style3">
+									<form method="POST" action="/university/admineditfacultyeval/{{faculty.Faculty_Evaluation_ID}}" enctype="multipart/form-data">
+											{% csrf_token %}
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2"> Report Name</label>
+												<input class="col-md-5 form-control" type="" name="reportname" value='{{faculty.Report_Name}}'>
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Report File</label>
+												<input class="col-md-5 form-control" type="file" name="reportfile" id="reportfile" >
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Department</label>
+												<select class="col-md-5 form-control"name="depart">
+													{% for i in departlist  %}
+													<option value={{i.Did}}>{{i.Department_name}}</option>
+													{% endfor %}
+												</select>
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Course</label>
+												<select class="col-md-5 form-control"name="course">
+												{% for i in courselist %}
+													<option value={{i.Cid}}>{{i.Course_name}}</option>
+													{% endfor %}
+												</select>
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Instructor</label>
+												<select class="col-md-5 form-control" name="teacher">
+												{% for i in teacherlist  %}
+													<option value={{i.tid}}>Name : {{i.First_Name}} Email : {{i.username.email}}</option>
+													{% endfor %}
+												</select>
+											</div>
+
+										</div>
+										
+										
+											
+									
+										<div class="form-group row">
+											<div class="col-lg-12 offset-md-3">
+												<input type="submit" value="Save" class="btn-primary btn" name="">
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+
+  
+
+
+</script>
+{% endblock script %}

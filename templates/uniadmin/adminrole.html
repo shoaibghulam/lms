@@ -1,0 +1,294 @@
+{% extends 'uniadmin/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.cart_page_form.style3 .table_body td {
+    padding: 24px 38px;
+}
+.table-responsive {
+    overflow-x: hidden;
+}
+.tdp
+{
+    width: 35%;
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+}
+label.control-label {
+		font-weight: 700;
+		color: black;
+	}
+	textarea.form-control {
+		padding: 44px;
+	}
+		#ui-id-1{
+	font-weight: bold;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Roles</h4>
+							
+							</nav>
+						</div>
+						<div class="col-lg-12">
+								<a href="javascript:void(0)" class="btn btn-success pull-right" data-toggle="modal" data-target="#exampleModalCenter"> + Add  Roles  </a>
+								<form class="form-horizontal" action="/university/adminrole" method="POST">
+								{% csrf_token %}
+								<div class="form-group row">
+									
+									
+									<div class="col-md-4">
+							
+
+							<input type="text" class="form-control" placeholder="Instructor " name="teacher" required id="txtSearch">
+									</div>
+									<div class="col-md-1">
+										<input type="submit" class="btn btn-primary" value="Search" name="search">
+									</div>
+								</div>
+							</form>
+                {% for message in messages %}
+                        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                            <strong>Message:</strong> {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+        {% endfor %}
+							</div>
+						<div class="col-lg-12">
+							
+							<div class="my_course_content_container">
+								<div class="my_setting_content">
+									<div class="my_setting_content_details">
+										<div class="cart_page_form style3 offset-1">
+											<form action="#">
+												  <table class="table table-responsive">
+												  	<thead>
+												  		<tr class="carttable_row">
+												  			
+												  			<th class="cartm_title">Instructor Name</th>
+												  			<th class="cartm_title">Category</th>
+												  			<th class="cartm_title">Status / Active</th>
+												  			<th class="cartm_title">Date</th>
+												  			<th class="cartm_title">Edit</th>
+												  			<th class="cartm_title">Delete</th>
+												  		</tr>
+												  	</thead>
+												  	<tbody class="table_body">
+													   {% for d in data %}
+													  
+													  
+													    <tr>
+													    <td>{{d.Instructor_id}}</td>
+													    	<td>{{d.category}}</td>
+													    	<td>{{d.active}}</td>
+													    	<td>{{d.date}}</td>
+															
+													    	
+													    	
+													    	
+													    	</td>
+																<td><button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#exampleModalCenter12" onclick="show({{d.roleid}})">Edit</button> 
+															<td><a href="deleteadminrole/{{d.roleid}}" class="btn btn-sm btn-danger">Delete</a></td>
+													    </tr>
+														{% endfor %}
+												  	</tbody>
+												</table>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Roles </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+         <form action="addadminrole" method="POST" >
+       {% csrf_token %}
+        		<div class="form-group row">
+        			<label class="control-label col-md-4">Instructor Name</label>
+        			<select class="form-control col-md-5" name="teacher">
+              {% for t in teacherlist %}
+               
+             
+                <option value="{{t.tid}}">{{t.First_Name}} {{t.Last_Name}}</option>
+                 {% endfor %}
+              </select>
+        		</div>
+        		<div class="form-group row">
+        			<label class="control-label col-md-4">Category</label>
+        			<select class="form-control col-md-5" name="category">
+            
+                <option value="teacher">Teacher</option>
+                <option value="professor">Professor</option>
+                <option value="assistantprofessor">Assistant Professor</option>
+                <option value="hod">HOD</option>
+                <option value="registrar">Registrar</option>
+                <option value="dean">Dean</option>
+                <option value="viceChancelor">ViceChancelor</option>
+                <option value="librarian">Librarian</option>
+              </select>
+        		</div>
+        		<div class="form-group row">
+        			<label class="control-label col-md-4">Select Status</label>
+        			<select class="form-control col-md-5" name="active">
+              
+        				<option value="yes">YES</option>
+        				<option value="no">NO</option>
+        			</select>
+        		</div>
+            <div class="form-group row">
+              <label class="control-label col-md-4">Date</label>
+                <input type="date" class="form-control col-md-5" name="date" required>
+            </div>
+            <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+        	</form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!--Edit Modal -->
+<div class="modal fade" id="exampleModalCenter12" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Edit Roles Report</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+        	   <form action="/university/editrole" method="POST">
+       {% csrf_token %}
+        		<div class="form-group row">
+            <input type="text" name="bid" id="bid" value=0 hidden>	
+        			<label class="control-label col-md-4">Instructor Name</label>
+        			<select class="form-control col-md-5" name="Fteacher" id="Fteacher">
+              {% for t in teacherlist %}
+               
+             
+                <option value="{{t.tid}}">{{t.First_Name}} {{t.Last_Name}}</option>
+                 {% endfor %}
+              </select>
+        		</div>
+        		<div class="form-group row">
+        			<label class="control-label col-md-4">Category</label>
+        			<select class="form-control col-md-5" name="Fcategory" id="Fcategory">
+            
+                <option value="teacher">Teacher</option>
+                <option value="professor">Professor</option>
+                <option value="assistantprofessor">Assistant Professor</option>
+                <option value="hod">HOD</option>
+                <option value="registrar">Registrar</option>
+                <option value="dean">Dean</option>
+                <option value="viceChancelor">ViceChancelor</option>
+                <option value="librarian">Librarian</option>
+              </select>
+        		</div>
+        		<div class="form-group row">
+        			<label class="control-label col-md-4">Select Status</label>
+        			<select class="form-control col-md-5" name="Factive" id="Factive">
+              
+        				<option value="yes">YES</option>
+        				<option value="no">NO</option>
+        			</select>
+        		</div>
+            <div class="form-group row">
+              <label class="control-label col-md-4">Date</label>
+                <input type="date" class="form-control col-md-5" name="Fdate" id="Fdate" >
+            </div>
+            <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+        	</form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+
+ $(function() {
+      $("#txtSearch").autocomplete({
+        source: "/university/adminroleSuggestion",
+        minLength: 1,
+      });
+    })
+</script>
+{% endblock %}
+{% block script %}
+
+<script>
+	$(document).ready(function () {
+		
+	
+		
+
+		});
+
+			function show(x){
+				var a = x;
+
+	$.ajax({
+	
+	url:'showrole',
+	type:'GET',
+	data:{
+	
+	  'uid':x
+	},
+	success:function(data){
+	  var datas = eval(data);
+	  
+	  $('#Fcategory').val(datas[0].category);
+	  $('#Fteacher').val(datas[0].Instructor_id);
+	  $('#Factive').val(datas[0].active);
+	  $('#Fdate').val(datas[0].date);
+	  $('#bid').val(datas[0].roleid);
+	
+	
+	
+	
+	}
+	});
+	}
+	
+	
+		</script>
+
+{% endblock %}

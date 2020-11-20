@@ -1,0 +1,122 @@
+{% extends 'uniadmin/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.cart_page_form.style3 .table_body td {
+    padding: 24px 38px;
+}
+.table-responsive {
+    overflow-x: hidden;
+}
+.tdp
+{
+    width: 35%;
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+}
+#ui-id-1{
+	font-weight: bold;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Semester Schedule  Model</h4>
+								
+							</nav>
+						</div>
+						<div class="col-lg-12">
+								<a href="adminaddsemesterexm" class="btn btn-success pull-right"> + Add  Semester Schedule  </a>
+								<form class="form-horizontal" action="/university/adminsemester" method="POST">
+								{% csrf_token %}
+								<div class="form-group row">
+									
+									
+									<div class="col-md-4">
+							
+
+							<input type="text" class="form-control" placeholder="Semester" name="semester" required id="txtSearch">
+									</div>
+									<div class="col-md-1">
+										<input type="submit" class="btn btn-primary" value="Search" name="search">
+									</div>
+								</div>
+							</form>
+								{% for message in messages %}
+                        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                            <strong>Message:</strong> {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+        {% endfor %}
+							</div>
+						<div class="col-lg-12">
+							
+							<div class="my_course_content_container">
+								<div class="my_setting_content">
+									<div class="my_setting_content_details">
+										<div class="cart_page_form style3">
+											<form action="#">
+												  <table class="table table-responsive">
+												  	<thead>
+												  		<tr class="carttable_row">
+												  			<th class="cartm_title">Semester </th>
+												  			<th class="cartm_title">Department</th>
+												  			<th class="cartm_title">Year:</th>
+												  			<th class="cartm_title">Exam File</th>
+												  			<th class="cartm_title">Edit</th>
+												  			<th class="cartm_title">Delete</th>
+												  		</tr>
+												  	</thead>
+												  	<tbody class="table_body">
+													    {% for d in data %}
+													  
+													 
+													    <tr>
+													    	
+													    
+													    	<td>{{d.Semester_ID}}</td>
+													    	<td>{{d.Department_id}}</td>
+													    	<td>{{d.Year}}</td>
+													       <td><a href="{{d.Semester_Schedule_File.url}}" class="btn btn-sm btn-primary" >Download </a></td>
+													    	
+													    	<td ><a href="admineditsemeterexm/{{d.Semester_Schedule_Id}}" class="btn btn-sm btn-success">Edit</a>
+													    		
+													    	</td> 	
+															<td><a href="deleteadminsemester/{{d.Semester_Schedule_Id}}" class="btn btn-sm btn-danger">Delete</a></td>
+													    </tr>
+														 {% endfor %}
+												  	</tbody>
+												</table>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+<script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+
+ $(function() {
+      $("#txtSearch").autocomplete({
+        source: "/university/adminsemesterSuggestion",
+        minLength: 1,
+      });
+    })
+</script>
+{% endblock %}

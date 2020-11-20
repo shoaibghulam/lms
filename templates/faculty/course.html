@@ -1,0 +1,270 @@
+<?php include_once('vleheader.php')?>
+<style type="text/css">
+	.shop_grid {
+    position: relative;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(237, 239, 247);
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    height: 266px;
+    margin-bottom: 30px;
+    padding: 20px;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+.modal-dialog {
+    max-width: 935px;
+}
+.modal-body .row .col-md-3 .shop_grid{position: relative;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(237, 239, 247);
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    height: 212px;
+    margin-bottom: 30px;
+    padding: 20px;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+.shop_grid .details .item-tile {
+    font-size: 16px;
+    font-family: "Nunito";
+    color: #0a0a0a;
+    line-height: 1.333;
+    text-align: center;
+}
+</style>
+	<!-- Our Dashbord -->
+	<div class="our-dashbord dashbord">
+		<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							 <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Courses </h4>
+							 </nav>
+						</div>
+						<div class="col-lg-12">
+							<div class="row">
+								<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<img class="img-fluid" src="images/shop/1.png" alt="1.png">
+								</div>
+								<div class="details float-left">
+									<h4 class="price">Course title Here</h4>
+									
+								</div>
+								<a class="cart_bag float-right" href="#"><span class="fa fa-link"></span></a>
+							</div>
+						</div>
+								<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<img class="img-fluid" src="images/shop/1.png" alt="1.png">
+								</div>
+								<div class="details float-left">
+									<h4 class="price">Course title Here</h4>
+								
+								</div>
+								<a class="cart_bag float-right" href="#" data-toggle="modal" data-target="#exampleModalCenter"><span class="fa fa-link"></span></a>
+							</div>
+						</div>
+								<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<img class="img-fluid" src="images/shop/1.png" alt="1.png">
+								</div>
+								<div class="details float-left">
+									<h4 class="price">Course title Here</h4>
+								
+								</div>
+								<a class="cart_bag float-right" href="#"><span class="fa fa-link"></span></a>
+							</div>
+						</div>
+							</div>
+						</div>
+						<br><br>
+						<div class="col-lg-12">
+							 <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Other Actions </h4>
+							 </nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Course Name tile here</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        	<div class="col-md-3">
+        		<div class="shop_grid">
+        			<a href="liststudent.php">
+					<div class="thumb text-center">
+						<img class="img-fluid" src="images/shop/1.png" alt="1.png">
+					</div>
+					
+					<div class="details">
+						<h4 class="item-tile">List of Student</h4>
+					</div>
+					</a>
+				</div>
+        	</div>
+        	<div class="col-md-3">
+        		<div class="shop_grid">
+        			<a href="uploadclass%20material.php">
+					<div class="thumb text-center">
+						<img class="img-fluid" src="images/shop/1.png" alt="1.png">
+					</div>
+					
+					<div class="details">
+						<h4 class="item-tile">Class Material</h4>
+					</div>
+					</a>
+				</div>
+        	</div>
+        	<!-- <div class="col-md-3">
+        		<div class="shop_grid">
+        			<a href="refrencecontent.php">
+					<div class="thumb text-center">
+						<img class="img-fluid" src="images/shop/1.png" alt="1.png">
+					</div>
+					
+					<div class="details">
+						<h4 class="item-tile">Refrence Content</h4>
+					</div>
+					</a>
+				</div>
+        	</div> -->
+        	<!-- <div class="col-md-3">
+        		<div class="shop_grid">
+        			<a href="classmaterial.php">
+					<div class="thumb text-center">
+						<img class="img-fluid" src="images/shop/1.png" alt="1.png">
+					</div>
+					
+					<div class="details">
+						<h4 class="item-tile">Question Bank</h4>
+					</div>
+					</a>
+				</div>
+        	</div> -->
+        	<div class="col-md-3">
+        		<div class="shop_grid">
+        			<a href="createonlinequiz.php">
+					<div class="thumb text-center">
+						<img class="img-fluid" src="images/shop/1.png" alt="1.png">
+					</div>
+					<div class="details">
+						<h4 class="item-tile">Online Quiz</h4>
+					</div>
+					</a>
+				</div>
+        	</div>
+        	<div class="col-md-3">
+        		<div class="shop_grid">
+        			<a href="creategradebook.php">
+					<div class="thumb text-center">
+						<img class="img-fluid" src="images/shop/1.png" alt="1.png">
+					</div>
+					<div class="details">
+						<h4 class="item-tile">Quiz and Grade Book</h4>
+					</div>
+					</a>
+				</div>
+        	</div>
+        	<div class="col-md-3">
+        		<div class="shop_grid">
+        			<a href="createassignment.php">
+					<div class="thumb text-center">
+						<img class="img-fluid" src="images/shop/1.png" alt="1.png">
+					</div>
+					<div class="details">
+						<h4 class="item-tile">Assignment</h4>
+					</div>
+					</a>
+				</div>
+        	</div>
+        	<div class="col-md-3">
+        		<div class="shop_grid">
+        			<a href="creategrade.php">
+					<div class="thumb text-center">
+						<img class="img-fluid" src="images/shop/1.png" alt="1.png">
+					</div>
+					<div class="details">
+						<h4 class="item-tile">Grade Book</h4>
+					</div>
+				    </a>
+				</div>
+        	</div>
+        	<div class="col-md-3">
+        		<div class="shop_grid">
+        			<a href="mygrade.php">
+					<div class="thumb text-center">
+						<img class="img-fluid" src="images/shop/1.png" alt="1.png">
+					</div>
+					<div class="details">
+						<h4 class="item-tile">Syllabus</h4>
+					</div>
+				    </a>
+				</div>
+        	</div>
+        	<div class="col-md-3">
+        		<div class="shop_grid">
+        			<a href="createnotification.php">
+					<div class="thumb text-center">
+						<img class="img-fluid" src="images/shop/1.png" alt="1.png">
+					</div>
+					<div class="details">
+						<h4 class="item-tile">Section Notification</h4>
+					</div>
+					</a>
+				</div>
+        	</div>
+        	<div class="col-md-3">
+        		<div class="shop_grid">
+        			<a href="createprogramnoti.php">
+					<div class="thumb text-center">
+						<img class="img-fluid" src="images/shop/1.png" alt="1.png">
+					</div>
+					<div class="details">
+						<h4 class="item-tile">Program Notification</h4>
+					</div>
+					</a>
+				</div>
+        	</div>
+        	<div class="col-md-3">
+        		<div class="shop_grid">
+        			<a href="app.php">
+					<div class="thumb text-center">
+						<img class="img-fluid" src="images/shop/1.png" alt="1.png">
+					</div>
+					<div class="details">
+						<h4 class="item-tile">Student Application</h4>
+					</div>
+					</a>
+				</div>
+        	</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php include_once('footer.php')?>

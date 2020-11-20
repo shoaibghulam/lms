@@ -1,0 +1,132 @@
+{% extends 'student/vbase.html' %} {% load static %} {% block body %}
+<style type="text/css">
+    .shop_grid {
+        position: relative;
+        border-style: solid;
+        border-width: 2px;
+        border-color: rgb(237, 239, 247);
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        height: 266px;
+        margin-bottom: 30px;
+        padding: 20px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+    
+    .shop_grid .details .price {
+        font-size: 18px;
+        font-family: "Nunito";
+        color: rgb(199, 85, 51);
+        font-weight: bold;
+        line-height: 1.2;
+        text-align: center;
+    }
+    
+    .shop_grid .cart_bag {
+        border-radius: 50%;
+        background-color: rgb(255, 16, 83);
+        height: 50px;
+        margin-top: 0px;
+        opacity: 0;
+        text-align: center;
+        width: 50px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+</style>
+<!-- Our Dashbord -->
+<div class="our-dashbord dashbord">
+    <div class="dashboard_main_content">
+        <div class="container-fluid">
+            <div class="main_content_container">
+                <div class="row">
+                    <div class="col-lg-10">
+                        <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                            <h4 class="title float-left">My Videos </h4>
+                        </nav>
+
+                    </div>
+
+                    <div>
+
+
+                        <video width="1200" height="500" controls>
+                    {% for data in data %}
+  <source src="/upload/{{data.VideoFile}}" type="video/mp4">
+{% endfor %}
+  Your browser does not support the video tag.
+</video>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% comment %} model to add Materail {% endcomment %}
+    <!-- Show Course Video -->
+    <!-- The Modal -->
+    <!-- Modal -->
+
+</div>
+</div>
+</div>
+
+<!-- Shoe course  video model start -->
+<div class="modal" id="addModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Upload Assignment <i class="fa fa-upload"></i></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="assignment" id="inservideo" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="courseid" id="cid">
+                    <label> Title</label>
+                    <input type="text" name="title" class="form-control" placeholder="Enter Title" required><br>
+                    <label for="Description">Description</label>
+                    <textarea name="desct" cols="30" rows="10" class="form-control"></textarea>
+                    <label>Course</label>
+                    <select name="category" class="form-control">
+				{% for i in courses %}
+					<option value="{{i.Cid}}">{{i.Course_name}}<option>
+					{% endfor %}
+					{% comment %} <option value="lectures">Online Lecture</option> {% endcomment %}
+				</select>
+                    <label>File</label> <br>
+                    <input type="file" name="mfile"><br><br>
+
+
+                    <div class="progress" style=" display:none" id="pbar">
+                        <div class="bar progress-bar">
+                            <div class="percent">0%</div>
+                        </div>
+                    </div>
+
+                    <div id="status"></div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="uploadvideo">upload</button>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- Shoe course  video model end -->
+
+{% endblock %}

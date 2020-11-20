@@ -1,0 +1,186 @@
+{% extends 'faculty/base.html' %} {% load static %} {% block body %}
+<style type="text/css">
+    .shop_grid {
+        height: 284px;
+    }
+    
+    .okbtn {
+        width: 50%;
+        margin-top: 29px;
+    }
+    
+    .tdp {
+        background: #8d35b4;
+        color: white;
+        font-weight: bold;
+    }
+    
+    .cart_page_form.style2 .table_body td {
+        width: 34%;
+    }
+    
+    label.control-label {
+        font-weight: 700;
+        color: black;
+    }
+    
+    textarea.form-control {
+        padding: 44px;
+    }
+    
+    .button_height {
+        margin-left: 10px;
+    }
+</style>
+<!-- Our Dashbord -->
+<div class="our-dashbord dashbord">
+    <div class="dashboard_main_content">
+        <div class="container-fluid">
+            <div class="main_content_container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                            <h4 class="title float-left">Food Reservation System </h4>
+
+                        </nav>
+                    </div>
+                    <div class="col-lg-12">
+                        <form action="/faculty/menudata" method="POST" id="roombook" class="form-horizontal">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <input type="hidden" name="roomid" id="room">
+                                    <label class="control-label button_height">Date</label>
+                                    <input placeholder="Selected date" name="date" type="date" class="form-control button_height" disabled>
+
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="control-label">Number of Participants</label>
+                                    <input class="form-control" name="Participants" type="text" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <label class="control-label button_height">Start Time</label>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <input type="time" name="starttime" class="form-control button_height" disabled>
+
+                                        </div>
+
+
+
+
+                                    </div>
+                                    <br>
+                                    <label class="control-label button_height">End Time</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="time" name="Endtime" class="form-control button_height" disabled>
+
+                                        </div>
+
+
+
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="control-label">
+										Comments
+									</label>
+                                    <textarea class="form-control" name="Comments" disabled></textarea>
+                                </div>
+                            </div>
+
+                    </div>
+                    <div class="col-lg-9 ">
+
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="tdp">Hi Tea</th>
+                                    <th class="tdp"></th>
+                                    <th class="tdp">Lunch (Medium Course)</th>
+                                    <th class="tdp"></th>
+                                    <th class="tdp">Lunch (Normal Course)</th>
+                                    <th class="tdp"></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for x in data %}
+
+                                <tr>
+
+                                    {% if x.MenuType == 'Tea' %}
+                                    <td>
+                                        {{x.MenuTitle}}
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" class="form-control" id="formdata" name="food" value="{{x.MenuTitle}}">
+                                    </td>
+                                </tr>
+
+
+                                {% elif x.MenuType == 'lunchmedium' %}
+                                <tr>
+
+                                    <td>
+                                        {{x.MenuTitle}}
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" class="form-control" id="formdata" name="food" value="{{x.MenuTitle}}">
+                                    </td>
+                                </tr>
+                                {% elif x.MenuType == 'Lunchnormalcourse' %}
+
+                                <tr>
+                                    <td>
+                                        {{x.MenuTitle}}
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" class="form-control" id="formdata" name="food" value="{{x.MenuTitle}}">
+                                    </td>
+                                </tr>
+
+
+
+                                {% endif %} {% endfor %}
+
+
+                            </tbody>
+
+                            <tfoot>
+                                <tr>
+                                    <td colspan="6">
+                                        <input type="Submit" class="btn btn-primary offset-md-5" value="Reserve" name="" disabled>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block script %}
+<script>
+    $(document).ready(function() {
+        $('#formdata').click(function() {
+            $('input').attr('disabled', false);
+            $('textarea').attr('disabled', false);
+
+        });
+        $('#roombook').ajaxForm(function(data) {
+            alert(data)
+           $('#roombook').trigger('reset')
+        });
+
+
+    });
+</script>
+{% endblock %}

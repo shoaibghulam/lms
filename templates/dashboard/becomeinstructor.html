@@ -1,0 +1,237 @@
+{% load static %}
+{% include 'dashboard/mininav.html' %}
+
+	<div class="col-lg-12">
+									<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+										<h4 class="title float-left">User Profile</h4>
+										<ol class="breadcrumb float-right">
+									    	<li class="breadcrumb-item"><a href="#">Home</a></li>
+									    	<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+										</ol>
+									</nav>
+								</div>
+								<div class="col-lg-12">
+									<div class="my_course_content_container">
+										<div class="my_setting_content mb30">
+											<div class="my_setting_content_header">
+												<div class="my_sch_title">
+													<h4 class="m0">Personal Details</h4>
+												</div>
+											</div>
+										<form action="becomeinstructor" method="POST" enctype="multipart/form-data">
+											{% csrf_token %}
+											<div class="row my_setting_content_details pb0">
+												<div class="col-xl-3">
+													<div class="wrap-custom-file">
+													    <input type="file" name="image" id="image1" required/>
+													    <label  for="image1">
+													      	<span>Browse</span>
+													    </label>
+													</div>
+												</div>
+												<div class="col-xl-9">
+													<div class="row">
+														<div class="col-xl-6">
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput1">Full Name</label>
+														    	<input type="text" class="form-control" id="fullname" name="fullname" required>
+															</div>
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput2">Company Name</label>
+														    	<input type="text" class="form-control" id="Company" name="companyname" required>
+															</div>
+														</div>
+														<div class="col-xl-6">
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput3">Occupation</label>
+														    	<input type="text" class="form-control" id="Occupation"  placeholder="occupation" name="occupation" required>
+															</div>
+															<div class="my_profile_setting_input form-group">
+														    	<label for="exampleInputPhone">Phone</label>
+														    	<input type="text" class="form-control" id="phone" aria-describedby="phoneNumber" placeholder="phone no" name="phone" required>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-lg-12">
+													<div class="my_resume_textarea">
+														<div class="form-group">
+														    <label for="exampleFormControlTextarea1">Personal info</label>
+														    <textarea class="form-control" id="info" rows="7" placeholder="Personalinfo" name="Personalinfo" required>
+															
+															</textarea>
+														</div>
+													</div>
+												</div>
+											</div>
+										
+											<div class="my_setting_content_header style3">
+												<div class="my_sch_title">
+													<h4 class="m0">Social Links</h4>
+												</div>
+											</div>
+											<div class="row my_setting_content_details">
+											    <div class="col-xl-6">
+											    	<div class="my_profile_setting_input2">
+												      	<label for="validationServerUsername">Facebook</label>
+												      	<div class="input-group">
+												        	<input type="text" class="form-control" id="Facebook" aria-describedby="inputGroupPrepend3" placeholder="Facebook Url" name="fb" required>
+												      	</div>
+											    	</div>
+											    </div>
+											    <div class="col-xl-6">
+											    	<div class="my_profile_setting_input2">
+												      	<label for="validationServerUsername2">Twitter</label>
+												      	<div class="input-group">
+												        	<input type="text" class="form-control" id="Twitter" aria-describedby="inputGroupPrepend4" placeholder="Twitter Url" name="tw" required>
+												      	</div>
+											    	</div>
+											    </div>
+											    <div class="col-xl-6">
+											    	<div class="my_profile_setting_input2">
+												      	<label for="validationServerUsername3">Linkedin</label>
+												      	<div class="input-group">
+												        	<input type="text" class="form-control" id="linkdin" aria-describedby="inputGroupPrepend4" placeholder="linkdin Url" name="linkdin" required>
+												      	</div>
+											    	</div>
+											    </div>
+											    <div class="col-xl-6">
+											    	<div class="my_profile_setting_input2">
+												      	<label for="validationServerUsername4">Google Plus</label>
+												      	<div class="input-group">
+												        	<input type="text" class="form-control" id="googleplus" aria-describedby="inputGroupPrepend4" placeholder="Google plus Url" name="googleplus" required>
+												      	</div>
+											    	</div>
+											    </div>
+											    <div class="col-lg-12">
+												{% if thank %}
+												<button type="button" id="update" class="my_setting_savechange_btn btn btn-thm">Edit <span class="flaticon-right-arrow-1 ml15"></span></button>
+
+												{% else %}
+												<button type="submit" class="my_setting_savechange_btn btn btn-thm">Save <span class="flaticon-right-arrow-1 ml15"></span></button>
+
+												{% endif %}
+
+												</form>
+
+											    </div>
+											</div>
+										</div>
+									</div>
+								</div>
+<a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
+<a class="dn" id="countdown" href="#"></a>
+</div>
+ <!-- Wrapper End -->
+<script data-cfasync="false" src="{% static ''%}../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="{% static ''%}js/jquery-migrate-3.0.0.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/popper.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/jquery.mmenu.all.js"></script>
+<script type="text/javascript" src="{% static ''%}js/ace-responsive-menu.js"></script>
+<script type="text/javascript" src="{% static ''%}js/chart.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/chart-custome.js"></script>
+<script type="text/javascript" src="{% static ''%}js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/snackbar.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/simplebar.js"></script>
+<script type="text/javascript" src="{% static ''%}js/parallax.js"></script>
+<script type="text/javascript" src="{% static ''%}js/scrollto.js"></script>
+<script type="text/javascript" src="{% static ''%}js/jquery-scrolltofixed-min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/jquery.counterup.js"></script>
+<script type="text/javascript" src="{% static ''%}js/wow.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/progressbar.js"></script>
+<script type="text/javascript" src="{% static ''%}js/slider.js"></script>
+<script type="text/javascript" src="{% static ''%}js/timepicker.js"></script>
+<script type="text/javascript" src="{% static ''%}js/wow.min.js"></script>
+<script type="text/javascript" src="{% static ''%}js/dashboard-script.js"></script>
+<!-- Custom script for all pages --> 
+<script type="text/javascript" src="{% static ''%}js/script.js"></script>
+</body>
+</html>
+<script>
+$(document).ready(function(){
+showdata();
+
+function showdata(){
+$.ajax({
+	url:'showinstructor',
+    type:'GET',
+	success:function(data){
+		var datas = eval(data)
+		var mydata;
+		for (x=0;x<datas.length;x++){
+        name=`${datas[x].Name}`;
+		occupation=`${datas[x].Occupation}`;
+		company=`${datas[x].Company_Name}`;
+		phone=`${datas[x].Phone}`;
+		info=`${datas[x].Personal_info}`;
+		Facebook=`${datas[x].Facebook}`;
+		Twitter=`${datas[x].Twitter}`;
+		linkdin=`${datas[x].Linkedin}`;
+		googleplus=`${datas[x].Google_Plus}`;
+		image=`<img src="${datas[x].img}">`;
+		
+		
+	 }
+	$('#fullname').val(name)
+	$('#Occupation').val(occupation)
+	$('#Company').val(company)
+	$('#phone').val(phone)
+	$('#info').val(info)
+	$('#Facebook').val(Facebook)
+	$('#Twitter').val(Twitter)
+	$('#linkdin').val(linkdin)
+	$('#googleplus').val(googleplus)
+	$('#image1').html(img)
+
+}
+
+});
+
+}
+
+$('#update').click(function(){
+
+var fullname=$('#fullname').val();
+var Occupation=$('#Occupation').val();
+var Company=$('#Company').val();
+var phone=$('#phone').val();
+var info=$('#info').val();
+var Facebook=$('#Facebook').val();
+var Twitter=$('#Twitter').val();
+var linkdin=$('#linkdin').val();
+var googleplus=$('#googleplus').val();
+
+$.ajax({
+url:'editinstructor',
+type:'POST',
+data:{
+  'fullname':fullname,
+  'Occupation':Occupation,
+  'Company':Company,
+  'phone':phone,
+  'info':info,
+  'Facebook':Facebook,
+  'Twitter':Twitter,
+  'linkdin':linkdin,
+  'googleplus':googleplus,
+ 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+
+},
+success:function(data){
+
+ alert(data)
+ showdata();
+  
+}
+
+
+});
+
+
+});
+});
+
+</script>
+

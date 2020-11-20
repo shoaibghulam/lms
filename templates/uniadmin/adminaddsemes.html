@@ -1,0 +1,121 @@
+{% extends 'uniadmin/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.shop_grid {
+		height: 284px;
+	}
+	.okbtn
+	{
+		width: 50%;
+		margin-top: 29px;
+	}
+	.tdp
+	{
+		background: #8d35b4;
+		color: white;
+		font-weight: bold;
+	}
+	.cart_page_form.style2 .table_body td {
+		width: 34%;
+	}
+	label.control-label {
+		font-weight: 700;
+		color: black;
+	}
+	textarea.form-control {
+		padding: 44px;
+	}
+
+</style>
+<div class="dashboard_main_content">
+	<div class="container-fluid">
+		<div class="main_content_container">
+			<div class="row">
+				<div class="col-lg-12">
+					<br><br>
+					<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+						<a href="/university/adminsemes"><h4 class="title float-left">Admin Semester</h4></a>
+						
+					</nav>
+				</div>
+			
+				<div class="col-lg-12">
+					{% for message in messages %}
+                        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                            <strong>Message:</strong> {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+        {% endfor %}
+
+
+					<div class="my_course_content_container">
+						<div class="my_setting_content">
+							<div class="my_setting_content_details">
+								<div class="cart_page_form style3">
+									<form action="/university/adminaddsemes" method="POST"> 
+										{% csrf_token %}
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">  Semester Name</label>
+													<select class="col-md-5 form-control" name="sname">
+												
+													<option value="1st">1st</option>
+													<option value="2nd">2nd</option>
+													<option value="3rd">3rd</option>
+													<option value="4th">4th</option>
+													<option value="5th">5th</option>
+													<option value="6th">6th</option>
+													<option value="7th">7th</option>
+													<option value="8th">8th</option>
+												
+												
+													
+												
+												</select>											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">  Semester Code</label>
+												<input class="col-md-5 form-control" type="text" name="scode" required>
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">  Semester Year</label>
+												<input class="col-md-5 form-control" type="date" name="syear" required>
+											</div>
+
+										</div>
+									
+										
+										
+										
+										
+										
+									
+										
+										
+											
+									
+										<div class="form-group row">
+											<div class="col-lg-12 offset-md-3">
+												<input type="submit" value="Save" class="btn-primary btn" name="">
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'faculty/base.html' %} {% load static %} {% block body %}
+<style type="text/css">
+    .dashboard_main_content .main_content_container {
+        padding: 99px 0 0;
+    }
+    
+    .faq_question_widget {
+        min-height: 83vh;
+    }
+    
+    .okbtn {
+        width: 50%;
+        margin-top: 29px;
+    }
+</style>
+<div class="dashboard_main_content">
+ <form action="facultyevaluation" method="post" enctype="multipart/form-data">
+ {% csrf_token %}
+    <div class="container-fluid">
+        <div class="main_content_container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                        <h4 class="title float-left">Faculty Evaluation </h4>
+                     
+                    </nav>
+                </div>
+                <div class="col-lg-12">
+                	{% for message in messages %}
+                        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                            <strong>Message:</strong> {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                     {% endfor %}
+
+                    <div class="cart_page_form style2">
+                       
+                            <table class="table table-responsive">
+                                <tbody class="table_body">
+                                    <tr>
+
+                                        <td>
+                                            <label>Select Report</label>
+                                            <select name="report" class="form-control">
+												{% for i in report %}
+												<option value="{{i.Faculty_Evaluation_Report_ID}}">{{i.Report_Name}}</option>
+                                               
+												
+												{% endfor %}
+                                              
+											</select>
+                                            
+                                            </select>
+                                           
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                       
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Department</th>
+                                <th>Course</th>
+                                <th>Send Report</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <select name="depart" class="form-control">
+										{% for i in depart %}
+										<option value="{{i.Did}}">{{i.Department_name}}</option>
+										{% endfor %}
+									</select>
+                                </td>
+                                <td>
+                                    <select name="course" class="form-control">
+										{% for i in data %}
+										<option value="{{i.Cid}}">{{i.Course_name}}</option>
+										{% endfor %}
+									</select>
+                                </td>
+
+
+
+                              
+                                <td><button type="submit" class="btn btn-primary" >Send</button></td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+     </form>
+</div>
+{% endblock %}

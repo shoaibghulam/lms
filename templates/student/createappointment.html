@@ -1,0 +1,118 @@
+{% extends 'faculty/base.html' %} {% load static %} {% block body %}
+<style type="text/css">
+    .shop_grid {
+        position: relative;
+        border-style: solid;
+        border-width: 2px;
+        border-color: rgb(237, 239, 247);
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        height: 266px;
+        margin-bottom: 30px;
+        padding: 20px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+    
+    .shop_grid .details .price {
+        font-size: 18px;
+        font-family: "Nunito";
+        color: rgb(199, 85, 51);
+        font-weight: bold;
+        line-height: 1.2;
+        text-align: center;
+    }
+    
+    .shop_grid .cart_bag {
+        border-radius: 50%;
+        background-color: rgb(255, 16, 83);
+        height: 50px;
+        margin-top: 0px;
+        opacity: 0;
+        text-align: center;
+        width: 50px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+    
+    .okbtn {
+        width: 50%;
+        margin-top: 29px;
+    }
+    
+    .tdp {
+        background: #8d35b4;
+        color: white;
+        font-weight: bold;
+    }
+</style>
+<!-- Our Dashbord -->
+<div class="our-dashbord dashbord">
+    <div class="dashboard_main_content">
+        <div class="container-fluid">
+            <div class="main_content_container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                            <h4 class="title float-left">Create Appointment</h4>
+                        </nav>
+                        <ol class="breadcrumb float-right">
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <a href="student" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="Back to Class Room" data-original-title="Left">
+                                    Back To Dashbord
+                                </a>
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="col-lg-12">
+                        <form action="createappointment" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %} {% for name in studentname %}
+                            <div class="form-group">
+                                Name :
+
+                                <input type="text" class="form-control" name="Student_Name" value="{{name.First_name}} {{name.Last_name}}" readonly>
+                            </div>
+                            {% endfor %} {% for r in register %}
+                            <div class="form-group">
+                                Program:
+                                <input type="text" class="form-control" name="Program" value="{{r.Student_Program}}" readonly>
+                            </div>
+                            <div class="form-group">
+                                Department:
+                                <input type="text" class="form-control" name="depart" value="" readonly>
+                            </div>
+                            <div class="form-group">
+                                Course:
+                                <input type="text" class="form-control" name="Course" value="" readonly>
+                            </div>
+                            <div class="form-group">
+                                Teacher:
+                                <input type="text" class="form-control" name="teacher" value="" readonly>
+                            </div>
+                            {% endfor %}
+
+
+
+                            <div class="form-group">
+                                Date & Time
+                                <input type="datetime-local" class="form-control" name="time">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary " value="Submit" name="">
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

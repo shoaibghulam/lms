@@ -1,0 +1,91 @@
+{% extends 'uniadmin/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.cart_page_form.style3 .table_body td {
+    padding: 24px 38px;
+}
+.table-responsive {
+    overflow-x: hidden;
+}
+.tdp
+{
+    width: 35%;
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+}
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Semester </h4>
+								
+							</nav>
+						</div>
+						<div class="col-lg-12">
+								<a href="adminaddsemes" class="btn btn-success pull-right"> + Add Semester </a>
+							</div>
+						<div class="col-lg-12">
+							{% for message in messages %}
+                        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                            <strong>Message:</strong> {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+        {% endfor %}
+
+							
+							<div class="my_course_content_container">
+								<div class="my_setting_content">
+									<div class="my_setting_content_details">
+										<div class="cart_page_form style3 offset-0">
+											<form action="#">
+												  <table class="table table-responsive">
+												  	<thead>
+												  		<tr class="carttable_row">
+												  			<th class="cartm_title">ID</th>
+												  			<th class="cartm_title">Semester Name</th>
+												  			<th class="cartm_title">Semester Code</th>
+												  			<th class="cartm_title">Semester Year</th>
+												  			
+												  			<th class="cartm_title">Action</th>
+
+												  		</tr>
+												  	</thead>
+												  	<tbody class="table_body">
+													  {% for i in data %}
+													    <tr>
+													    	<td>{{i.SamesterId}}</td>
+													    	<td>{{i.Samester_Name}}</td>
+													    	<td>{{i.Samester_Code}}</td>
+													    	<td>{{i.Samester_Year}}</td>
+													    	
+													    	
+													    	<td>
+													    	<a href="deletesem/{{i.SamesterId}}" class="btn btn-sm btn-danger">Delete</a>
+													    	</td> 	
+													    </tr>
+														{% endfor %}
+													 
+													   
+												  	</tbody>
+												</table>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+{% endblock %}

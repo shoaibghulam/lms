@@ -1,0 +1,122 @@
+{% extends 'faculty/base.html' %}
+{% block body %}
+<style type="text/css">
+	.shop_grid {
+		height: 284px;
+	}
+	table caption {
+	padding: .5em 0;
+}
+
+table.dataTable th,
+table.dataTable td {
+  white-space: nowrap;
+}
+
+.p {
+  text-align: center;
+  padding-top: 140px;
+  font-size: 14px;
+}
+</style>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<script type="text/javascript"  src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
+<script type="text/javascript">
+	$(document).ready(function() {
+    $('table').DataTable();
+} );
+</script>
+	<!-- Our Dashbord -->
+	<div class="our-dashbord dashbord">
+		<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<a href="/faculty/library"><h4 class="title float-left">Library </h4></a>
+							
+							</nav>
+						</div>
+                        
+						<div class="col-lg-12">
+            {% comment %} Search Bar {% endcomment %}
+							<form class="form-horizontal" action="library" method="POST">
+              {% csrf_token %}
+								<div class="form-group row">
+									
+									<div class="col-md-3">
+										<input type="text" class="form-control" placeholder="Book title" name="BookTitle">
+									</div>
+									
+									<div class="col-md-3">
+										<input type="text" class="form-control" placeholder="Book Author" name="BookAuthor">
+									</div>
+									<div class="col-md-3">
+										<input type="text" class="form-control" placeholder="Book Publisher" name="BookPublisher">
+									</div>
+									<div class="col-md-2">
+										<input type="text" class="form-control" placeholder="Book ISBN" name="BookIsbn">
+									</div>
+									<div class="col-md-1">
+										<input type="Submit" class="btn btn-primary" value="Search" name="">
+									</div>
+								</div>
+							</form>
+              {% comment %} Search Bar end {% endcomment %}
+						</div>
+					</div>
+					<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Account No</th>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Edition</th>
+            <th>Publisher</th>
+            <th>Year of Publisher</th>
+            <th>ISBN</th>
+            <th>Category</th>
+          </tr>
+ 
+        </thead>
+        <tbody>
+        {% for book in data %}
+          <tr>
+            <td>{{book.BookId}}</td>
+            <td>{{book.BookAuthorid}}</td>
+            <td>{{book.BookTitle}}</td>
+            <td>{{book.BookEdition}}</td>
+            <td>{{book.BookPublisher}}</td>
+            <td>{{book.BookYearOfPublisher}}</td>
+           
+            <td>{{book.BookISBN}}</td>
+            <td>{{book.Bookcategory}}</td>
+           
+           
+           
+            <td><a href="/upload/{{book.BookFile}}" class="btn btn-primary">Download</a> </td>
+          </tr>
+{% endfor %}
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+				</div>
+			</div>
+							  
+		</div>
+	</div>
+	<script>
+	
+	if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+	</script>
+{% endblock  %}

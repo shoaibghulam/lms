@@ -1,0 +1,77 @@
+{% extends 'faculty/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.faq_question_widget{
+	min-height: 83vh;
+}
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+						<div class="row">
+							<div class="col-lg-12">
+							 <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Faculty Calendar </h4>
+							
+							 </nav>
+						    </div>
+							<div class="col-xl-12">
+					<div class="main_blog_post_content">
+								{% for i in data %}
+						
+						<div class="row event_lists p0">
+							<div class="col-xl-5 pr15-xl pr0">
+								<div class="blog_grid_post event_lists mb35">
+									<div class="thumb">
+										<img class="img-fluid w100 h300" src="/upload/{{i.Image}}" alt="el4.jpg">
+										
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-7 pl15-xl pl0">
+								<div class="blog_grid_post style2 event_lists mb35">
+									<div class="details">
+										<h3>{{i.FacultyCalendarTitle}}</h3>
+										<p>{{i.FacultyCalendarDesc}}</p>										<ul class="mb0">
+											<li><a href="#"><span class="flaticon-appointment"></span> Date: {{i.FacultyCalendarStartDate.date}} - {{i.FacultyCalendarEndDate.date}}</a></li>
+											<li><a href="#"><span class="flaticon-clock"></span>Time: {{i.FacultyCalendarStartDate.time}} - {{i.FacultyCalendarEndDate.timee}}</a></li>
+											<li><a href="#"><span class="flaticon-placeholder"></span>{{i.FacultyCalendarLocation}}</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="mbp_pagination mt20">
+									<ul class="page_navigation">
+									    <li class="page-item disabled">
+									    	<a class="page-link" href="#" tabindex="-1" aria-disabled="true"> <span class="flaticon-left-arrow"></span> Prev</a>
+									    </li>
+									    <li class="page-item"><a class="page-link" href="#">1</a></li>
+									    <li class="page-item active" aria-current="page">
+									    	<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+									    </li>
+									    <li class="page-item"><a class="page-link" href="#">3</a></li>
+									    <li class="page-item"><a class="page-link" href="#">...</a></li>
+									    <li class="page-item"><a class="page-link" href="#">14</a></li>
+									    <li class="page-item">
+									    	<a class="page-link" href="#">Next <span class="flaticon-right-arrow-1"></span></a>
+									    </li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+						</div>
+				</div>
+			</div>
+</div>
+
+{% endblock  %}

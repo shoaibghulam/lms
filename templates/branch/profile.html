@@ -1,0 +1,137 @@
+
+
+{% extends 'branch/base.html' %}
+{% load static %}
+{% block body %}
+<div class="our-dashbord dashbord">
+	<div class="dashboard_main_content">
+		<div class="container-fluid">
+			<div class="main_content_container">
+								<div class="col-lg-12">
+									<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+										<h4 class="title float-left">University Profile</h4>
+
+									</nav>
+								</div>
+								<div class="col-lg-12">
+									<div class="my_course_content_container">
+										<div class="my_setting_content mb30">
+											<div class="my_setting_content_header">
+												<div class="my_sch_title">
+													<h4 class="m0">Personal Details</h4>
+												</div>
+												{% for message in messages %}
+                        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                            <strong>Message:</strong> {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+        {% endfor %}
+											</div>
+											
+											<form action="profileshow" method="POST" id="profileupdate" enctype="multipart/form-data">
+											
+											<div class="row my_setting_content_details pb0">
+												<div class="col-xl-3">
+													<div class="wrap-custom-file">
+													{% for d in data %}
+													    <input type="file"  id="image1" accept=".gif, .jpg, .png"/ name="UniLogo">
+													    <label  for="image1">
+													      	<span>Browse</span>
+													    </label>
+													</div>
+													{% endfor %}
+												</div>
+												
+												{% csrf_token %}
+												<div class="col-xl-9">
+													<div class="row">
+														<div class="col-xl-6">
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput1">University Name</label>
+																{% for d in data %}
+																
+																
+														    	<input type="text" class="form-control" id="fname" value="{{d.UniName}}" name="UniName" readonly>
+																{% endfor %}
+															</div>
+														
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput3">User Name</label>
+																{% for d in data %}
+														    	<input type="text" class="form-control" id="uname" value="{{d.UniUsername}}" name="UniUsername" required>
+																{% endfor %}
+															</div>
+																<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput2">Email</label>
+																{% for d in data %}
+														    	<input type="email" class="form-control" id="email" value="{{d.UniEmail}}" name="UniEmail" readonly>
+																	{% endfor %}
+															</div>
+															<div class="my_profile_setting_input form-group">
+														    	<label for="exampleInputPhone">Package</label>
+																{% for d in data %}
+														    	<input type="text" class="form-control" id="phone" aria-describedby="phoneNumber" value="{{d.UniPackage}}" readonly>
+																{% endfor %}
+															</div>
+														</div>
+														<div class="col-xl-6">
+															<div class="my_profile_setting_input form-group">
+														    	<label for="formGroupExampleInput3">Address</label>
+																{% for d in data %}
+														    	<input type="text" class="form-control" id="lname" value="{{d.UniAddress}}" name="UniAddress" required>
+																	{% endfor %}
+															</div>
+															<div class="my_profile_setting_input form-group">
+														    	<label for="exampleInputPhone">Password</label>
+																	{% for d in data %}
+														    	<input type="password" class="form-control" id="phone" aria-describedby="phoneNumber" value="{{d.UniPassword}}" name="UniPassword" required>
+																	{% endfor %}
+															</div>
+															<div class="my_profile_setting_input form-group">
+														    	<label for="exampleInputPhone">Status</label>
+																{% for d in data %}
+														    	<input type="text" class="form-control" id="phone" aria-describedby="phoneNumber" value="{{d.UniStatus}}" readonly>
+																{% endfor %}
+															</div>
+
+														</div>
+														
+													</div>
+												</div>
+
+												<button type="submit" class="btn btn-primary">Update</button>
+												
+												</form>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row mt10 mb50">
+								<div class="col-lg-12">
+									<div class="copyright-widget text-center">
+										<p class="color-black2">Copyright Edumy © 2019. All Rights Reserved.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
+<a class="dn" id="countdown" href="#"></a>
+</div>
+
+</body>
+
+
+</html>
+
+
+
+{% endblock %}

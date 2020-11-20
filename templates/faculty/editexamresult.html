@@ -1,0 +1,343 @@
+{% extends 'faculty/base.html' %} {% load static %} {% block body %}
+<style type="text/css">
+    .dashboard_main_content .main_content_container {
+        padding: 99px 0 0;
+    }
+    
+    .faq_question_widget {
+        min-height: 83vh;
+    }
+    
+    .button-height {
+        margin-top: 31px;
+    }
+</style>
+<div class="dashboard_main_content">
+    <div class="container-fluid">
+        <div class="main_content_container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                        <h4 class="title float-left">Exam Result </h4>
+
+                    </nav>
+                    {% for message in messages %}
+                    <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                        <strong>Message:</strong> {{message}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+                    </div>
+                    {% endfor %}
+
+                </div>
+                <div class="col-lg-12">
+                    <div class="cart_page_form style2">
+                        <form action="/faculty/editexamresult" method="POST">
+                            {% csrf_token %}
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr class="carttable_row">
+
+                                        <th class="cartm_title">Select Course</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table_body">
+                                    <tr>
+                                        <td>
+                                            <label for="">Courses</label>
+                                            <select class="form-control" name="courses">
+
+												{% for i in courses %}
+								
+												<option value="{{i.Cid}}">{{i.Course_name}}</option>
+										
+												{% endfor %}
+											</select>
+                                        </td>
+                                        <br>
+                                        <td>
+                                            <label for="">Batch</label>
+                                            <select class="form-control" name="batch">
+
+												{% for i in batch %}
+									
+												<option value="{{i.Batch_id}}">
+													{{i.Batch_Name }}</option>
+											
+												{% endfor %}
+											</select>
+                                        </td>
+
+
+
+
+                                        <td>
+                                            <label for="">Semester</label>
+                                            <select class="form-control" name="semester">
+
+												{% for i in semester %}
+									
+												<option value="{{i.SamesterId}}">
+													{{i.Samester_Name }}</option>
+											
+												{% endfor %}
+											</select>
+                                        </td>
+                                        <td>
+                                            <input type="submit" class="btn btn-primary" value="Search" name="" required>
+                                        </td>
+
+
+                                        <td>
+                                            {% if status == True %} {% else %}
+                                            <input type="button" data-toggle="modal" data-target="#confirm" class="btn btn-primary" value="LockResult" name="" required> {% endif %}
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+
+
+                </form>
+
+                {% comment %} lock Result {% endcomment %}
+                <div class="modal" id="confirm">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Lock Result <i class="fa fa-upload"></i></h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <p>Do You Confirm to Lock Result If you lock the Result you not Edit Result Again</p>
+
+
+
+
+
+
+
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+
+                                <a href="/faculty/lockresult"><button type="submit" class="btn btn-primary">Confirm</button></a>
+                            </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                {% comment %} End lock Result {% endcomment %}
+
+
+
+                <form action="resultentry" method="post">
+                    {% csrf_token %}
+
+                    <div class="col-lg-12">
+                        <div class="my_setting_content_details">
+                            <div class="cart_page_form style3">
+
+                                <table class="table table-responsive">
+                                    <thead>
+                                        <tr class="carttable_row">
+                                            <th class="cartm_title">Course Weightage</th>
+                                        </tr>
+                                        <tr class="">
+                                            <th class="cartm_title">Student Name</th>
+                                            <th class="cartm_title">Project</th>
+                                            <th class="cartm_title">Quiz/Assignment</th>
+                                            <th class="cartm_title">Midterm</th>
+                                            <th class="cartm_title">Final</th>
+                                            <th class="cartm_title">Total</th>
+                                            <th class="cartm_title">Obtain</th>
+                                            <th class="cartm_title">Grade</th>
+                                            <th class="cartm_title">Edit Marks</th>
+
+                                            <th class="cartm_title"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table_body">
+                                        {% for data in data %}
+                                        <input type="hidden" name="sid" value='{{data.Student_ID.StudentId}}'>
+
+                                        <input type="hidden" name="depart" value='{{department}}'>
+
+
+                                        <input type="hidden" name="course" value='{{course}}'>
+
+                                        <tr>
+                                            <th scope="row">
+                                                <ul class="cart_list">
+                                                    <li class="list-inline-item"><a class="cart_title" href="#">{{data.Student_ID }}</a></li>
+                                                </ul>
+                                            </th>
+                                            <td>
+                                                <input style="width: 65px;" class="form-control" type="text" name="project" required value="{{data.Project_Marks}}" readonly>
+                                            </td>
+                                            <td>
+                                                <input style="width: 65px;" class="form-control" type="" name="q/a" required value="{{data.Quiz_Assignment_Marks}}" readonly>
+                                            </td>
+                                            <td>
+                                                <input style="width: 65px;" class="form-control" type="" name="midterm" required value="{{data.Midterm_Marks}}" readonly>
+                                            </td>
+                                            <td>
+                                                <input style="width: 65px;" class="form-control" type="" name="final" required value="{{data.Final_Marks}}" readonly>
+                                            </td>
+                                            <td>
+                                                <input style="width: 65px;" class="form-control" type="" name="total" required value="{{data.Total_Marks}}" readonly>
+
+                                            </td>
+                                            <td>
+                                                <input style="width: 63px;" class="form-control" type="" name="total" required value="{{data.Obtained_marks }}" readonly>
+
+                                            </td>
+
+
+                                            <td>
+                                                <input style="width: 63px;" class="form-control" type="" name="total" required value="{{data.Grade }}" readonly>
+
+                                            </td>
+                                            <td colspan="4">
+
+
+
+                                                {% if data.Status == "lock" %}
+
+                                                <input type="button" class="btn btn-danger" value="Disable"> {% else %}
+                                                <input type="button" class="btn btn-primary" value="Edit" name="" data-toggle="modal" data-target="#addModal" onclick="getstudent('{{data.Exam_Result_id}}')"> {% endif %}
+
+
+
+
+
+                                            </td>
+
+                                        </tr>
+
+                                        {% endfor %}
+
+
+
+                </form>
+                </tbody>
+                <tfoot>
+                    <tr>
+
+                    </tr>
+                </tfoot>
+                </table>
+
+
+                </div>
+                </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Insert Individual student marks  -->
+<div class="modal" id="addModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Upload Exam Marks <i class="fa fa-upload"></i></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="/faculty/ShowStudentMarks" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+
+                    <input type="hidden" name="ExamstudentId" id="studentId" value="">
+                    <br>
+
+                    <label>Project Marks</label>
+                    <input type="number" name="pmarks" id="projectmarks" class="form-control" placeholder="Enter Marks" required maxlength=50><br>
+
+                    <label>Quiz Marks</label>
+                    <input type="number" name="qmarks" id="quizmarks" class="form-control" placeholder="Enter Marks" required maxlength=50><br>
+
+                    <label>Mid Marks</label>
+                    <input type="number" name="mmarks" id="midmarks" class="form-control" placeholder="Enter Marks" required maxlength=50><br>
+
+                    <label>Final Marks</label>
+                    <input type="number" name="fmarks" id="finalmarks" class="form-control" placeholder="Enter Marks" required maxlength=50><br>
+
+
+
+
+
+
+                    <div id="status"></div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="uploadvideo">upload</button>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% comment %} End Individual student marks {% endcomment %}
+
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+
+    function getstudent(x) {
+
+        $.ajax({
+
+            url: 'ShowStudentMarks',
+            type: 'GET',
+            data: {
+
+                'uid': x
+            },
+            success: function(data) {
+                var datas = eval(data);
+
+
+                $('#studentId').val(x);
+                $('#projectmarks').val(datas[0].Project_Marks);
+                $('#midmarks').val(datas[0].Midterm_Marks);
+                $('#finalmarks').val(datas[0].Final_Marks);
+                $('#totalmarks').val(datas[0].Total_Marks);
+                $('#quizmarks').val(datas[0].Quiz_Assignment_Marks);
+
+
+
+
+
+
+            }
+        });
+
+
+    }
+</script>
+{% endblock %}

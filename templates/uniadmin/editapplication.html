@@ -1,0 +1,134 @@
+{% extends 'uniadmin/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.shop_grid {
+		height: 284px;
+	}
+
+	.okbtn {
+		width: 50%;
+		margin-top: 29px;
+	}
+
+	.tdp {
+		background: #8d35b4;
+		color: white;
+		font-weight: bold;
+	}
+
+	.cart_page_form.style2 .table_body td {
+		width: 34%;
+	}
+
+	label.control-label {
+		font-weight: 700;
+		color: black;
+	}
+
+	textarea.form-control {
+		padding: 44px;
+	}
+</style>
+<div class="dashboard_main_content">
+	<div class="container-fluid">
+		<div class="main_content_container">
+			<div class="row">
+				<div class="col-lg-12">
+					<br><br>
+					<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+						<h4 class="title float-left">Edit Application</h4>
+						
+					</nav>
+				</div>
+
+				<div class="col-lg-12">
+
+					<div class="my_course_content_container">
+						<div class="my_setting_content">
+							<div class="my_setting_content_details">
+								<div class="cart_page_form style3">
+									<form action="/university/editteacherapplication/{{data.ApplicationId}}"
+										method="POST">
+										{% csrf_token %}
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Application Title</label>
+												<input class="col-md-5 form-control" type="text" name="title"
+													value='{{data.ApplicationTitle}}' readonly>
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Application message</label>
+												<textarea class="col-md-5 form-control" name="message"
+													readonly>{{data.ApplicationMessage}}</textarea>
+											</div>
+
+										</div>
+
+
+
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Instructor</label>
+												<input class="col-md-5 form-control" type="text" name="teacher"
+													value={{data.Instructor_id}} readonly>
+											</div>
+
+										</div>
+
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Reply message</label>
+												<textarea class="col-md-5 form-control"
+													name="rmessage">{{data.ApplicationStatus}}</textarea>
+											</div>
+
+										</div>
+
+					
+
+											<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Date</label>
+												
+											 <input type="text" id="datepicker" value="{{data.ApplicationDate}}">
+
+
+
+
+											</div>
+										</div>
+
+
+
+										<div class="form-group row">
+											<div class="col-lg-12 offset-md-3">
+												<input type="submit" value="Edit" class="btn-primary btn" name="">
+											</div>
+										</div>
+									</form>
+									<br><br><br><br><br>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+ $("#datepicker").focus( function() {
+    $( "#datepicker" ).datetimepicker();
+  } );
+
+</script>
+
+
+
+{% endblock %}

@@ -1,0 +1,524 @@
+{% extends 'superadmin/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+		padding: 99px 0 0;
+	}
+.flx{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	
+	
+}
+	
+
+	.cart_page_form.style3 .table_body td {
+		padding: 24px 38px;
+	}
+
+	.table-responsive {
+		overflow-x: hidden;
+	}
+
+	.tdp {
+		width: 35%;
+		background: #8d35b4;
+		color: white;
+		font-weight: bold;
+	}
+
+	.modal-dialog {
+		max-width: 935px;
+	}
+
+	.modal-body .row .col-md-3 .shop_grid {
+		position: relative;
+		border-style: solid;
+		border-width: 2px;
+		border-color: rgb(237, 239, 247);
+		border-radius: 5px;
+		background-color: rgb(255, 255, 255);
+		height: 212px;
+		margin-bottom: 30px;
+		padding: 20px;
+		-webkit-transition: all 0.3s ease 0s;
+		-moz-transition: all 0.3s ease 0s;
+		-o-transition: all 0.3s ease 0s;
+		transition: all 0.3s ease 0s;
+	}
+
+	.instructor_pricing_widget.csv2 {
+		margin-top: 0px;
+		box-shadow: 0 42px 46px 0 rgba(0, 0, 0, 0.18);
+		border-width: 0px;
+	}
+
+	.inline{
+		display: flex;
+		flex-wrap: wrap;
+
+	}
+</style>
+
+
+
+
+
+
+
+<div class="dashboard_main_content">
+	<div class="container-fluid">
+		<div class="main_content_container">
+			<div class="row">
+				<div class="col-lg-12">
+					<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+						<h4 class="title float-left">Package</h4>
+						{% comment %} <ol class="breadcrumb float-right">
+							<li class="breadcrumb-item"><a href="page-dashboard-student.php">Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Package</li>
+						</ol> {% endcomment %}
+					</nav>
+				</div>
+				<div class="col-lg-12">
+					<a href="#" data-toggle="modal" data-target="#exampleModalCenter3"
+						class="btn btn-success pull-right"> + Add Package</a>
+				</div>
+				<div class="flx" id="showpackagedata">
+
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Create Package -->
+<div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Create Package</h5>
+				<button type="button" id="closepackage" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="my_course_content_container">
+							<div class="my_setting_content mb30">
+								<div class="my_setting_content_header">
+									<div class="my_sch_title">
+										<h4 class="m0">Package</h4>
+									</div>
+								</div>
+								<form action="insert" method="POST" id="pdata">
+									{% csrf_token %}
+									<div class="row my_setting_content_details pb0">
+										<div class="col-xl-12">
+											<div class="row">
+												<div class="col-xl-6">
+													<div class="my_profile_setting_input form-group">
+														<label for="packagename">Package Name</label>
+														<input type="text" class="form-control" id="packagename"
+															name="packagename" placeholder="Enter University Name"
+															required>
+													</div>
+													<div class="my_profile_setting_input form-group">
+														<label for="price">Package Price </label>
+														<input type="number" class="form-control" id="price" name="price"
+														 min="0"	placeholder="Price" required>
+													</div>
+													<div class="my_profile_setting_input form-group">
+														<label for="sdate">Start Date </label>
+														<input type="date" class="form-control" id="sdate" name="sdate"
+															placeholder="" required>
+													</div>
+												</div>
+												<div class="col-xl-6">
+													<div class="my_profile_setting_input form-group">
+														<label for="slimit">Student Limit</label>
+														<input type="number" min="0" class="form-control" id="slimit"
+															name="slimit" placeholder="" required>
+													</div>
+													<div class="my_profile_setting_input form-group">
+														<label for="flimit">Faculty Limit </label>
+														<input type="number" class="form-control" id="flimit"
+															name="flimit" placeholder="" required>
+													</div>
+													<div class="my_profile_setting_input form-group">
+														<label for="edate">End Date </label>
+														<input type="date" class="form-control" id="edate" name="edate"
+															placeholder="" required>
+													</div>
+
+
+												</div>
+												<div class="col-xl-6">
+
+													<div class="my_profile_setting_input form-group">
+														<label for="desc">Description </label>
+														<textarea class="form-control" name="desc" id="desc" cols="50"
+															rows="10" required></textarea>
+
+
+													</div>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row my_setting_content_details">
+										<div class="col-xl-2">
+											<label></label>
+											<input type="submit" value="Add"
+												class="btn-primary w-50 btn justify-content-center" id="insertbutton" name="">
+
+										</div>
+
+									</div>
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Update Package -->
+ <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Create Package</h5>
+				<button type="button" class="close" id="updagteclose"data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="my_course_content_container">
+							<div class="my_setting_content mb30">
+								<div class="my_setting_content_header">
+									<div class="my_sch_title">
+										<h4 class="m0">Package</h4>
+									</div>
+								</div>
+								<form action="update" method="POST" id="udata">
+									{% csrf_token %}
+									<div class="row my_setting_content_details pb0">
+										<div class="col-xl-12">
+											<div class="row">
+												<div class="col-xl-6">
+													<div class="my_profile_setting_input form-group">
+														<label for="packagename">Package Name</label>
+														<input type="text" class="form-control" id="upackagename"
+															name="upackagename" placeholder="Enter University Name"
+															required>
+													</div>
+													<div class="my_profile_setting_input form-group">
+														<label for="price">Package Price </label>
+														<input type="number" min="0" class="form-control" id="uprice" name="uprice"
+															placeholder="Price" required>
+													</div>
+													<div class="my_profile_setting_input form-group">
+														<label for="sdate">Start Date </label>
+														<input type="date" class="form-control" id="usdate" name="usdate"
+															placeholder="" required>
+													</div>
+												</div>
+												<div class="col-xl-6">
+													<div class="my_profile_setting_input form-group">
+														<label for="slimit">Student Limit</label>
+														<input type="number" min="0" class="form-control" id="uslimit"
+															name="uslimit" placeholder="" required>
+													</div>
+													<div class="my_profile_setting_input form-group">
+														<label for="flimit">Faculty Limit </label>
+														<input type="number" min="0" class="form-control" id="uflimit"
+															name="uflimit" placeholder="" required>
+													</div>
+													<div class="my_profile_setting_input form-group">
+														<label for="edate">End Date </label>
+														<input type="date" class="form-control" id="uedate" name="uedate"
+															placeholder="" required>
+													</div>
+
+
+												</div>
+												<div class="col-xl-6">
+
+													<div class="my_profile_setting_input form-group">
+														<label for="desc">Description </label>
+														<textarea class="form-control" name="udesc" id="udesc" cols="50"
+															rows="10" required></textarea>
+
+
+													</div>
+
+													
+
+												</div>
+
+												<div class="col-xl-6">
+
+													<div class="my_profile_setting_input form-group">
+														
+													<input type="text" class="form-control" id="uid" name="uid" hidden>
+
+
+
+													</div>
+
+													
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row my_setting_content_details">
+										<div class="col-xl-2">
+											<label></label>
+											<button type="submit" class="btn btn-primary">Update</button>
+
+										</div>
+
+									</div>
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> 
+
+{% block script %}
+
+<script>
+	$(document).ready(function () {
+		showdata();
+   // disable previs date start
+		var dtToday = new Date();
+    
+		var month = dtToday.getMonth() + 1;
+		var day = dtToday.getDate();
+		var year = dtToday.getFullYear();
+		if(month < 10)
+			month = '0' + month.toString();
+		if(day < 10)
+			day = '0' + day.toString();
+		
+		var maxDate = year + '-' + month + '-' + day;
+		
+		$('#sdate').attr('min', maxDate);
+		$('#edate').attr('min', maxDate);
+		$('#usdate').attr('min', maxDate);
+		$('#uedate').attr('min', maxDate);
+		
+		// previs date end
+
+		// end date start 
+
+		// end date stop
+		//insert data into table
+		$('#pdata').ajaxForm(function (data) {
+			//alert(data);
+			toastr.success(data, "Success", {
+				"closeButton": false,
+				"debug": false,
+				"newestOnTop": false,
+				"progressBar": false,
+				"positionClass": "toast-top-right",
+				"preventDuplicates": false,
+				"onclick": null,
+				"showDuration": "300",
+				"hideDuration": "1000",
+				"timeOut": "5000",
+				"extendedTimeOut": "1000",
+				"showEasing": "swing",
+				"hideEasing": "linear",
+				"showMethod": "fadeIn",
+				"hideMethod": "fadeOut"
+						});
+			showdata();
+			document.getElementById('packagename').value = '';
+			document.getElementById('price').value = '';
+			document.getElementById('sdate').value = '';
+			document.getElementById('edate').value = '';
+			document.getElementById('flimit').value = '';
+			document.getElementById('slimit').value = '';
+
+		
+           $("#closepackage").click();
+		})
+     
+
+
+	});
+//end
+
+//show data
+	function showdata() {
+		$.ajax({
+			url: 'show',
+			type: 'GET',
+			success: function (data) {
+				var datas = eval(data)
+				var mydata="";
+				for (x = 0; x < datas.length; x++) {
+					mydata += `
+        
+        <div class="instructor_pricing_widget csv2">
+
+						<h3>${datas[x].PackName}</h3>
+						<div class="price"><span>Price</span> ${datas[x].PackPrice} <small>${datas[x].PackPrice}</small></div>
+
+						<h5 class="subtitle text-left">Includes</h5>
+						<ul class="price_quere_list text-left">
+							<li><a href="#"><span class="flaticon-play-button-1"></span>${datas[x].PackStudent} Students</a></li>
+							<li><a href="#"><span class="flaticon-download"></span>${datas[x].PackTeacher} Students</a></li>
+							<li><a href="#"><span class="flaticon-key-1"></span> 4 Admin access</a></li>
+							<li><a href="#"><span class="fa fa-calendar"></span> ${datas[x].PackDurationStart} to ${datas[x].PackDurationEnd}</a></li>
+							
+						</ul>
+						<div class="row">
+							<div class="col-6">
+								<button type="button" class="cart_btnss btn-primary pr-4 pl-4"  data-toggle="modal" data-target="#exampleModalCenter4" onclick="updateshow(${datas[x].PackId})">Update</button>								</div>
+							<div class="col-6">
+								
+								<button type="button" class="cart_btnss btn-primary pr-4 pl-4" onclick="deletedata(${datas[x].PackId})">Delete</button>							</div>
+						</div>
+					</div>
+					</div>
+        `;
+
+
+				}
+				$('#showpackagedata').html(mydata)
+			}
+
+
+
+		});
+
+	}
+
+	//end show data
+
+
+	//delete data
+
+	function deletedata(x){
+
+		$.ajax({
+		
+		url:'delete',
+		type:'POST',
+		data:{
+		'uid':x,
+		'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+		},
+		success:function(data){
+			toastr.error(data, "Warning", {
+				"closeButton": false,
+				"debug": false,
+				"newestOnTop": false,
+				"progressBar": false,
+				"positionClass": "toast-top-right",
+				"preventDuplicates": false,
+				"onclick": null,
+				"showDuration": "300",
+				"hideDuration": "1000",
+				"timeOut": "5000",
+				"extendedTimeOut": "1000",
+				"showEasing": "swing",
+				"hideEasing": "linear",
+				"showMethod": "fadeIn",
+				"hideMethod": "fadeOut"
+						});
+		showdata();
+		}
+		
+		});
+		
+		}
+
+	//end delete data
+
+
+
+	//updateshow
+function updateshow(x){
+
+	$.ajax({
+	
+	url:'update',
+	type:'GET',
+	data:{
+	
+	  'uid':x
+	},
+	success:function(data){
+	  var datas = eval(data);
+	  $('#upackagename').val(datas[0].PackName);
+	  $('#uprice').val(datas[0].PackPrice);
+	  $('#usdate').val(datas[0].PackDurationStart);
+	  $('#uslimit').val(datas[0].PackStudent);
+	  $('#uflimit').val(datas[0].PackTeacher);
+	  $('#uedate').val(datas[0].PackDurationEnd);
+	  $('#udesc').val(datas[0].PackDescription);
+	  $('#uid').val(datas[0].PackId);
+	  
+	}
+	});
+	}
+	
+	//End update show
+
+
+	//update data
+
+	$('#udata').ajaxForm(function (data) {
+		toastr.success(data, "Success", {
+			"closeButton": false,
+			"debug": false,
+			"newestOnTop": false,
+			"progressBar": false,
+			"positionClass": "toast-top-right",
+			"preventDuplicates": false,
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+					});
+		showdata();
+		$("#updagteclose").click();
+
+
+	})
+	//end update data
+</script>
+{% endblock  %}
+
+
+
+
+
+{% endblock %};

@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- css file -->
+<link rel="stylesheet" href="{% static '' %}chat/css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static '' %}chat/css/style.css">
+<link rel="stylesheet" href="{% static '' %}chat/css/dashbord_navitaion.css">
+<!-- Responsive stylesheet -->
+<link rel="stylesheet" href="{% static '' %}chat/css/responsive.css">
+<link rel="stylesheet" type="text/css" href="{% static '' %}chat/chatstyle.css">
+<script src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"></script>
+<style type="text/css">
+	.inbox_user_list {
+    background-color: #ffffff;
+    border-right: 1px solid #eeeeee;
+    display: inline-block;
+    padding: 30px 30px 40px;
+    width: 100%;
+    overflow-y: scroll;
+    height: 99vh;
+}
+.inbox_user_list ul li {
+    padding: 15px 0;
+    border-bottom: 1px solid;
+}
+</style>
+</head>
+<body>
+<div>
+	
+	<div>
+		<div class="container-fluid">
+  
+			<div class="main_content_container">
+				<div class="row message_container">
+					<div class="col-sm-12 col-md-6 col-lg-5 col-xl-4 pr0 pl0">
+						<div class="inbox_user_list">
+							<div class="iu_heading">
+								<div class="candidate_revew_search_box">
+									<form class="form-inline my-2 my-lg-0">
+										<input class="form-control mr-sm-2" type="search" placeholder="Serach" aria-label="Search">
+										<button class="btn my-2 my-sm-0" type="submit"><span class="flaticon-magnifying-glass"></span></button>
+									</form>
+								</div>
+							</div>
+							<ul class="alluser">
+							
+								
+							</ul>
+						</div>
+					</div>
+					<div class="col-sm-12 col-md-6 col-lg-8">
+						<div class="msger">
+							<header class="msger-header">
+								<div class="msger-header-title">
+									<i class="fas fa-comment-alt"></i> Digital Learning System
+								</div>
+								<div class="msger-header-options">
+									<span><i class="fas fa-cog"></i></span>
+								</div>
+							</header>
+
+							<main class="msger-chat">
+							
+
+							
+							</main>
+
+							<form class="msger-inputarea" action="{% url 'sendmsg' %}" method="POST">
+								{% csrf_token %}
+								<input type="hidden" name="sender" value="{{request.session.senderid}}">
+								<input type="hidden" name="recever" id="rid">
+								<input type="text" name="msg" id="msgfield" class="msger-input" placeholder="Enter your message...">
+								<button type="submit" class="msger-send-btn">Send</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="https://js.pusher.com/6.0/pusher.min.js"></script>
+<script>
+	
+	var pusher = new Pusher('088b51ea5617a50f8ad0', {
+		cluster: 'ap2'
+	  });
+	var userrole='{{request.session.userrole}}';
+	var senderid='{{request.session.senderid}}';
+	var sendername='{{request.session.sendername}}';
+	var senderimg='{{request.session.senderimg}}';
+</script>
+
+<script src="{% static '' %}chat/jquery-3.3.1.js"></script>
+<script src="{% static '' %}chat/jquery.form.js"></script>
+<script src="{% static '' %}chat/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+{% extends 'faculty/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Semester Schedule</h4>
+							
+							</nav>
+						</div>
+						<div class="col-lg-12">
+							<div class="my_course_content_container">
+								<div class="my_setting_content">
+									<div class="my_setting_content_details">
+										<div class="cart_page_form style3">
+											<form action="#">
+											 <div class="col-lg-12">
+												<table class="table table-bordered table-hover">
+												  	<thead>
+													    <tr class="table table-bordered table-hover">
+													    	<th class="cartm_title">Department</th>
+													    	<th class="cartm_title">Semester</th>
+													    	<th class="cartm_title">Year</th>
+													    	<th class="cartm_title">Semester_Schedule_File </th>
+													    	
+													    	
+													    </tr>
+												  	</thead>
+												  	<tbody class="table table-bordered table-hover">
+													   	{% for data in data %}
+													    <tr>
+													    
+													    	<td>{{data.Department_id}}</td>
+													    	<td>{{data.Semester_ID}}</td>
+													    	<td>{{data.Year}}</td>
+															<td><a href="/upload/{{data.Semester_Schedule_File}}" class="btn btn-primary" >Download </a></td>
+													    	
+													    
+													    </tr>
+															{% endfor %}
+													   
+												  	</tbody>
+												</table>
+												<div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+
+{% endblock %}

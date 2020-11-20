@@ -1,0 +1,146 @@
+{% extends 'student/base.html' %} {% load static %} {% block body %}
+<style type="text/css">
+    .shop_grid {
+        height: 284px;
+    }
+    
+    .okbtn {
+        width: 50%;
+        margin-top: 29px;
+    }
+    
+    .tdp {
+        background: #8d35b4;
+        color: white;
+        font-weight: bold;
+    }
+    
+    .cart_page_form.style2 .table_body td {
+        width: 34%;
+    }
+    
+    label.control-label {
+        font-weight: 700;
+        color: black;
+    }
+    
+    textarea.form-control {
+        padding: 44px;
+    }
+    
+    .button_height {
+        margin-left: 10px;
+    }
+</style>
+<!-- Our Dashbord -->
+<div class="our-dashbord dashbord">
+    <div class="dashboard_main_content">
+        <div class="container-fluid">
+            <div class="main_content_container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                            <h4 class="title float-left">Scrunity Form </h4>
+
+                        </nav>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <form class="form-horizontal" action="Scrunityform" method="Post">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <div class="col-md-2">
+                                    <label class="control-label button_height">Student Name:</label>
+                                </div>
+                                <div class="col-md-3">
+                                    {% for name in studentname %} {% comment %}
+                                    <p name="Student_Name">{{name.First_name}} </p> {% endcomment %}
+                                    <input type="text" id="country" name="Student_Name" value="{{name.First_name}} {{name.Last_name}}" readonly> {% endfor %}
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="control-label">Program</label>
+                                </div>
+                                <div class="col-md-3" name="Program">
+                                    {% for r in register %}
+                                    <input type="text" id="country" name="Program" value="{{r.Student_Program}}" readonly> {% comment %}
+                                    <p>{{r.Student_Program}}</p> {% endcomment %} {% endfor %}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-2">
+                                    <label class="control-label button_height">Registration No:</label>
+                                </div>
+                                <div class="col-md-3" name="Registration_no">
+                                    {% for r in register %}
+                                    <input type="text" id="country" name="Registration_no" value="{{r.Student_Registration_Code}}" readonly> {% comment %}
+                                    <p>{{r.Student_Registration_Code}}</p> {% endcomment %} {% endfor %}
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="control-label">Date</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="datetime-local" name="Date" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+
+
+                                <div class="col-md-2">
+                                    <label class="control-label button_height">Re Checking</label>
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="checkbox" name="Scrunity_Rechecking" class="form-control" value="recheck" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-2">
+                                    <label class="control-label button_height">Select Course</label>
+                                </div>
+                                <div class="col-lg-6">
+                                    <select class="form-control" name="courses">
+                                            {% for d in data %}
+                                            {% ifchanged d.Courses %}
+                                            {% for j in d.Courses.all%} <option value="{{j}}">{{j}}</option>
+                                            
+                                            {% endfor %}
+                                            {% endifchanged %}
+                                            {% endfor %}
+                                            
+                                        </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-2">
+                                    <label class="control-label button_height">Research for Evalution</label>
+                                </div>
+                                <div class="col-lg-6">
+                                    <textarea class="form-control" name="Research_for_Evalution" required></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-2" name="Voucher_Number">
+
+                                    <label class="control-label button_height">Voucher Number</label>
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="text" name="Voucher_Number" class=" form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <input type="submit" value="submit" class="btn-primary btn pull-right" name="">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+{% endblock %}

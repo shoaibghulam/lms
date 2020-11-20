@@ -1,0 +1,231 @@
+{% extends 'student/base.html' %} {% load static %} {% block body %}
+<style type="text/css">
+    .dashboard_main_content .main_content_container {
+        padding: 99px 0 0;
+    }
+    
+    .faq_question_widget {
+        min-height: 83vh;
+    }
+    
+    .okbtn {
+        width: 50%;
+        margin-top: 29px;
+    }
+    
+    .tdp {
+        background: #8d35b4;
+        color: white;
+        font-weight: bold;
+    }
+    
+    .button_height {
+        margin-left: 30px;
+        margin-bottom: 10px;
+    }
+</style>
+<div class="container">
+    <h2>Modal Example</h2>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+                    <form action="events" id="material" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <label> Name</label> {% for d in data %}
+                        <input type="text" class="form-control" placeholder="Enter Title" required value='{{d.Student_ID}}' readonly><br>
+                        <input type="hidden" name="name" class="form-control" placeholder="Enter Title" required value='{{d.Student_ID.StudentId}}' readonly><br>
+
+                        <label>Department</label>
+
+                        <input type="text" class="form-control" placeholder="Enter Title" required value='{{d.Department_id}}' readonly><br>
+
+                        <input type="hidden" name="department" class="form-control" placeholder="Enter Title" required value='{{d.Department_id.Did}}' readonly><br>
+
+                        <label>Semester</label>
+
+                        <input type="text" class="form-control" placeholder="Enter Title" required value='{{d.Semester_ID}}' readonly><br>
+                        <input type="hidden" name="semester" class="form-control" placeholder="Enter Title" required value='{{d.Semester_ID.SamesterId}}' readonly><br> {% endfor %}
+                        <label>Course</label>
+                        <select name="course" class="form-control">
+				{% for d in data %}
+ {% for j in d.Courses.all%}<option value="{{j.Cid}}"> {{j}} </option>{% endfor %}
+						 {% endfor %}
+					
+					</select>
+                        <br>
+                        <label>Date</label>
+                        <input type="date" name="date" id="" required>
+                        <br>
+                        <label>Time</label>
+                        <input type="time" name="time" id="" required>
+
+
+                        <div class="progress" style=" display:none" id="pbar">
+                            <div class="bar progress-bar">
+                                <div class="percent">0%</div>
+                            </div>
+
+
+                            <div id="status"></div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="dashboard_main_content">
+    <div class="container-fluid">
+        <div class="main_content_container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                        <h4 class="title float-left">Events Meeting </h4>
+
+                    </nav>
+                </div>
+                <div class="col-lg-9 offset-md-2">
+                    <div class="cart_page_form style2">
+                        <form action="#">
+
+                        </form>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary button_height" data-toggle="modal" data-target="#myModal">Create Appointment</button>
+
+                <div class="col-lg-12">
+
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+
+                                <th class="tdp">Faculty</th>
+
+
+                                <th class="tdp">Department</th>
+                                <th class="tdp">Courses</th>
+                                <th class="tdp">Reply</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in meeting %}
+                            <tr>
+                                <td>{{i.Course_id.Instructor_id}}</td>
+
+
+                                <td>{{i.Department_id}}</td>
+
+
+                                <td>{{i.Course_id}}</td>
+                                <td>
+                                    <a href="#"><input type="submit" class="btn btn-primary btn" value="Teacher Reply" name="" data-toggle="modal" data-target="#count" onclick="showstudent('{{i.Appointment_id}}')"></a>
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="count" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Appointment Reply</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+            </div>
+            <!-- Modal body -->
+            <form action="/faculty/showevents" id="material" method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <label>Application Reply</label>
+                    <textarea id="reply" name="Techer_Reply" rows="10" cols="50" maxlength="500" class="form-control"></textarea><br>
+
+                    <input type="hidden" id="sid" value="" name="sid">
+
+
+
+                    <div class="progress" style=" display:none" id="pbar">
+                        <div class="bar progress-bar">
+                            <div class="percent">0%</div>
+                        </div>
+                    </div>
+
+                    <div id="status"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <!-- <button type="submit" class="btn btn-primary" id="uploadvideo">Reply</button> -->
+                </div>
+            </form>
+
+            <!-- Modal footer -->
+
+
+        </div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+
+
+    function showstudent(x) {
+
+        $.ajax({
+
+            url: 'showevents',
+            type: 'GET',
+            data: {
+
+                'uid': x
+
+            },
+            success: function(data) {
+                var datas = eval(data);
+
+                $('#sid').val(x);
+                $('#reply').val(datas[0].Techer_Reply);
+
+
+
+
+
+
+            }
+        });
+
+    }
+</script>
+
+{% endblock %}

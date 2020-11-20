@@ -1,0 +1,231 @@
+
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block body %}
+
+
+
+	<!-- Our Dashbord -->
+	<div class="our-dashbord dashbord">
+		<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+					
+						<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">My Courses</h4>
+								<ol class="breadcrumb float-right">
+							    	<li class="breadcrumb-item"><a href="#">Home</a></li>
+							    	<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+								</ol>
+							</nav>
+						</div>
+						<div class="col-lg-12">
+							<div class="my_course_content_container">
+								<div class="my_course_content mb30">
+								{% comment %} single course start  {% endcomment %}
+									{% for alldata in data  %}
+									<div class="my_course_content_list">
+											<div class="mc_content_list">
+											<div class="thumb">
+												<img class="img-whp" src="/upload/{{alldata.Course_Thumbnail}}" alt="t2.jpg" style="max-width:300px; max-height:200px;">
+												<div class="overlay">
+													<ul class="mb0">
+														<li class="list-inline-item">
+															<a class="mcc_edit" href="javascript:void(0)" data-toggle="modal" data-target="#addModal" onclick="addvideo({{alldata.course_id}})">Add Video</a>
+														</li>
+														<li class="list-inline-item">
+															<a class="mcc_view" href="javascript:void(0)"  data-toggle="modal" data-target="#videoModal" onclick="addvideo({{alldata.course_id}})">View</a>
+														</li>
+													</ul>
+												</div>
+											</div>
+											<div class="details">
+												<div class="mc_content">
+													<p class="subtitle">{{alldata.Course_category}}</p>
+													<h5 class="title">{{alldata.Course_title}}</h5>
+													<p>
+													 <button class="btn btn-primary" data-toggle="modal" data-target="#addModal" onclick="addvideo({{alldata.course_id}})"> Add Video</button>
+													 <button class="btn btn-primary" onclick="showcourse({{alldata.course_id}})" data-toggle="modal" data-target="#videoModal"> View </button>
+													
+													</p>
+												</div>
+											</div>
+											</div>
+										</div>
+										
+								
+									</div>
+									{% endfor %}
+									{% comment %} singel course end {% endcomment %}
+								</div>
+							
+							</div>
+						</div>
+					</div>
+					<div class="row mt10 pb50">
+						<div class="col-lg-12">
+							<div class="copyright-widget text-center">
+								<p class="color-black2">Copyright Edumy © 2019. All Rights Reserved.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<a class="scrollToHome" href="#"><i class="flaticon-up-arrow-1"></i></a>
+</div>
+
+<!-- add video model start -->
+<!-- The Modal -->
+<div class="modal" id="addModal">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+  
+		<!-- Modal Header -->
+		<div class="modal-header">
+		  <h4 class="modal-title">Add Video</h4>
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		</div>
+  
+		<!-- Modal body -->
+		<div class="modal-body">
+			<form action="{% url 'insertvideo' %}" id="inservideo" method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<input type="hidden" name="courseid" id="cid">
+				<label>Video Title</label>
+				<input type="text" name="title" id="vititle" class="form-control"placeholder="Enter Title" required><br>
+				<input type="file" name="video" id="vvideo"><br><br>
+				
+			
+			<div class="progress"  style=" display:none" id="pbar">
+				<div class="bar progress-bar">
+				<div class="percent">0%</div >
+				</div >
+			</div>
+			
+			<div id="status"></div>
+		</div>
+  
+		<!-- Modal footer -->
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		  <button type="submit" class="btn btn-primary" id="uploadvideo">upload</button>
+		</div>
+	</form>
+	  </div>
+	</div>
+  </div>
+<!-- add video model end -->
+<!-- Button trigger modal -->
+
+  
+  
+<!-- Show Course Video -->
+<!-- The Modal -->
+<!-- Modal -->
+<div class="modal fade bd-example-modal-xl" id="videoModal" tabindex="-1" role="dialog"
+aria-labelledby="myHugeModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-md">
+<div class="modal-content"><!-- Modal Header -->
+	<div class="modal-header">
+	  <h4 class="modal-title">Course Video</h4>
+	  <button type="button" class="close" data-dismiss="modal">&times;</button>
+	</div>
+<div class="modal-body">
+	<table class="table  table-striped">
+		<thead class="thead-dark">
+		  <tr>
+			<th scope="col">id</th>
+			<th scope="col">title</th>
+			<!-- <th scope="col">Duration</th> -->
+			<th scope="col">Action</th>
+		  </tr>
+		</thead>
+		<tbody id="videosList">
+		
+		  </tbody>
+		  </table>
+		</div>
+</div>
+</div>
+</div>
+
+<!-- Shoe course  video model end -->
+{% endblock body %}
+{% block script %}
+  <script> 
+  
+	 $(function() {
+
+var bar = $('.bar');
+var percent = $('.percent');
+var status = $('#status');
+
+$('#inservideo').ajaxForm({
+	beforeSend: function() {
+		status.empty();
+		var percentVal = '0%';
+		bar.width(percentVal);
+		percent.html(percentVal);
+	},
+	uploadProgress: function(event, position, total, percentComplete) {
+		var percentVal = percentComplete + '%';
+		bar.width(percentVal);
+		percent.html(percentVal);
+	},
+	complete: function(xhr) {
+		status.html(xhr.responseText);
+	}
+});
+}); 
+// upload video prgrasbar show
+$('#uploadvideo').click(function(){
+$('#pbar').show();
+});
+function addvideo(x){
+	
+	$('#cid').val(x);
+	$('#pbar').hide();
+	$('#vititle').val('');
+	$('#vvideo').val('');
+	
+
+}
+// show videos
+function showcourse(x){
+	var element="";
+	$.ajax({
+		url:'videosview',
+		type:'GET',
+		data:{
+			'vid':x
+		},
+		success:function(data){
+			alldata = eval(data);
+			
+			for(x=0; x<alldata.length; x++){
+				
+				element+=`
+				<tr>
+			<th scope="row">${alldata[x].vid}</th>
+			<td>${alldata[x].videoTitle}</td>
+			
+			<td><a  href="javascript:void(0)"><i class="fa fa-trash"></i></a><td> <a  href="javascript:void(0)"><i class="fa fa-edit"></i></a></td>
+		  </tr>
+
+				`;
+			}
+			$('#videosList').html(element);
+			
+		}
+
+	});
+}
+  </script>
+{% endblock  %}
+</body>
+</html>

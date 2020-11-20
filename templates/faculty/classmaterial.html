@@ -1,0 +1,197 @@
+{% extends 'faculty/vbase.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.shop_grid {
+    position: relative;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(237, 239, 247);
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    height: 266px;
+    margin-bottom: 30px;
+    padding: 20px;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+.shop_grid .details .price {
+    font-size: 18px;
+    font-family: "Nunito";
+    color: rgb(199, 85, 51);
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
+.shop_grid .cart_bag {
+    border-radius: 50%;
+    background-color: rgb(255, 16, 83);
+    height: 50px;
+     margin-top: 0px; 
+    opacity: 0;
+    text-align: center;
+    width: 50px;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+</style>
+
+	<!-- Our Dashbord -->
+	<div class="our-dashbord dashbord">
+		<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							 <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Class Material </h4>
+							 </nav>
+							{% for message in messages %}
+                        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                            <strong>Message:</strong> {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+    								{% endfor %}
+
+							 <ol class="breadcrumb float-right">
+							    	<li class="breadcrumb-item active" aria-current="page">
+							    		<a href="javascript:void(0)" class="btn btn-primary"   data-placement="left"  data-toggle="modal" data-target="#addModal" onclick="addvideo({{alldata.course_id}})">
+							    		Add Material
+							    		</a>
+							    	</li>
+							    	<li class="breadcrumb-item active" aria-current="page">
+							    		<a href="myclass" class="btn btn-primary"  data-toggle="tooltip" data-placement="left" title="Back to Class Room" data-original-title="Left">
+							    			Back to Class
+							    		</a>
+							    	</li>
+								</ol>
+						</div>
+						<div class="col-lg-12">
+							<div class="row">
+								<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<img class="img-fluid" src="{% static ''%}images/shop/folderIcon.png" style="height:153px" alt="1.png">
+								</div>
+								<div class="details">
+									<h4 class="price">Online Lecture</h4>
+								</div>
+								<a class="cart_bag float-right" href="onlinelecture"><span class="fa fa-link"></span></a>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6 col-xl-4">
+							<div class="shop_grid">
+								<div class="thumb text-center">
+									<img class="img-fluid" src="{% static ''%}images/shop/folderIcon.png" style="height:148px" alt="1.png">
+								</div>
+								<div class="details">
+									<h4 class="price">E-Book</h4>
+								</div>
+								<a class="cart_bag float-right" href="onlinebook"><span class="fa fa-link"></span></a>
+							</div>
+						</div>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	{% comment %} model to add Materail {% endcomment %}
+	<!-- Show Course Video -->
+<!-- The Modal -->
+<!-- Modal -->
+<div class="modal fade bd-example-modal-xl" id="videoModal" tabindex="-1" role="dialog"
+aria-labelledby="myHugeModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-md">
+<div class="modal-content"><!-- Modal Header -->
+	<div class="modal-header">
+	  <h4 class="modal-title">Class Meterial</h4>
+	  <button type="button" class="close" data-dismiss="modal">&times;</button>
+	</div>
+<div class="modal-body">
+	<table class="table  table-striped">
+		<thead class="thead-dark">
+		  <tr>
+			<th scope="col">id</th>
+			<th scope="col">title</th>
+			<!-- <th scope="col">Duration</th> -->
+			<th scope="col">Action</th>
+		  </tr>
+		</thead>
+		<tbody id="videosList">
+		
+		  </tbody>
+		  </table>
+		</div>
+</div>
+</div>
+</div>
+
+<!-- Shoe course  video model start -->
+<div class="modal" id="addModal">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+  
+		<!-- Modal Header -->
+		<div class="modal-header">
+		  <h4 class="modal-title">Upload Material </h4>
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		</div>
+  
+		<!-- Modal body -->
+		<div class="modal-body">
+			<form action="classmaterial" id="material" method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				
+				<label> Title</label>
+				<input type="text" name="title" class="form-control"placeholder="Enter Title" required><br>
+				<label>Category</label>
+				<select name="category" class="form-control">
+					<option value="ebooks"> E-Books</option>
+					<option value="lectures">Online Lecture</option>
+				</select>
+				<label>Course</label>
+				<select name="course" class="form-control">
+					{% for i in data %}
+					<option value="{{i.Cid}}">{{i.Course_name}}</option>
+					{% endfor %}
+				</select>
+				<label>File</label> <br>
+				<input type="file" name="file"><br><br>
+				
+			
+			<div class="progress"  style=" display:none" id="pbar">
+				<div class="bar progress-bar">
+				<div class="percent">0%</div >
+				</div >
+			</div>
+			
+			<div id="status"></div>
+		</div>
+  
+		<!-- Modal footer -->
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		  <button type="submit" class="btn btn-primary" id="uploadvideo">upload</button>
+		</div>
+	</form>
+	  </div>
+	</div>
+  </div>
+<!-- Shoe course  video model end -->
+<script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
+
+{% endblock %}

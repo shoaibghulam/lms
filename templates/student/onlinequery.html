@@ -1,0 +1,171 @@
+{% extends 'student/vbase.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.shop_grid {
+    position: relative;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(237, 239, 247);
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    height: 266px;
+    margin-bottom: 30px;
+    padding: 20px;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+.shop_grid .details .price {
+    font-size: 18px;
+    font-family: "Nunito";
+    color: rgb(199, 85, 51);
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
+.shop_grid .cart_bag {
+    border-radius: 50%;
+    background-color: rgb(255, 16, 83);
+    height: 50px;
+     margin-top: 0px; 
+    opacity: 0;
+    text-align: center;
+    width: 50px;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+.okbtn
+{
+    width: 50%;
+    margin-top: 29px;
+}
+.tdp
+{
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+    
+}
+</style>
+<div class="our-dashbord dashbord">
+    <div class="dashboard_main_content">
+        <div class="container-fluid">
+            <div class="main_content_container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                            <h4 class="title float-left">Online Query </h4>
+                        </nav>
+	 <div class="col-md-12">
+
+                        <div class="cart_page_form style2">
+                            <form action="onlinequery" method="post">
+                                {% csrf_token %}
+                                <ol class="breadcrumb float-right">
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="fvledashboard" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="Back to Class Room" data-original-title="Left">
+											Back To Dashboard
+										</a>
+
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="createquery" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="Back to Class Room" data-original-title="Left">
+										Create Query
+										</a>
+
+                                    </li>
+                                </ol>
+                                <table class="table table-responsive">
+
+
+                           
+                                    <tbody class="table_body">
+                                        <tr>
+                                            <td class="tdo">
+                                                Select Course
+                                            </td>
+                                            <td>
+
+                                                <select class="form-control" name="courses">
+                                                    {% for d in data %}
+                                                    {% for j in d.Courses.all%} <option value="{{j}}">{{j}}</option>
+                                                    {% endfor %}
+                                                    {% endfor %}
+                                                </select>
+
+                                            </td>
+
+                                            <td>
+                                                <input type="submit" class="btn btn-primary btn" value="Show Query" name="">
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                         <div class="col-lg-12">
+                               <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            
+            <th class="tdp">Title</th>
+            <th class="tdp">Message</th>
+            <th class="tdp">Date</th>
+            <th class="tdp">Status</th>
+            <th class="tdp">Course</th>
+            <th class="tdp">Student</th>
+            
+           
+            
+          </tr>
+        </thead>
+        <tbody>
+                             {% for data in course %}
+                                <tr>
+
+                                    <td>{{data.querytitle}}</td>
+                                    <td>{{data.querymessage}}</td>
+                                    <td>{{data.querydate}}</td>
+                                    <td>{{data.querystatus}}</td>
+                                    <td>{{data.Course_id}}</td>
+                                    <td>{{data.Student_ID}}</td>
+
+                               
+								
+
+                                </tr>
+                                {% endfor %}
+
+
+
+                            </tbody>
+      </table>
+                         </div>
+						
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <script>
+	 {% if thank %}
+
+  alert('{{msg}}')
+  
+  {% else %}
+  {% endif %}
+ 
+  </script>
+<script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
+{% endblock %}

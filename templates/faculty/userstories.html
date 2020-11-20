@@ -1,0 +1,120 @@
+{% extends 'faculty/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.faq_question_widget{
+	min-height: 83vh;
+}
+.okbtn
+{
+	width: 50%;
+    margin-top: 29px;
+}
+.tdp
+{
+    width: 35%;
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+}
+.cart_page_form.style2 .table_body td {
+    width: 34%;
+}
+</style>
+<form action="userstories" method="post">
+{% csrf_token %}
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+						<div class="row">
+							<div class="col-lg-12">
+							 <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">User Stories </h4>
+				
+							 </nav>
+						    </div>
+                 
+   								 <div class="col-lg-12">
+                    		{% for message in messages %}
+                        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                            <strong>Message:</strong> {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                          {% endfor %}
+                    <table class="table table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <th class="tdp">I want to </th>
+                          <th class="tdp">So that I can</th>
+                          <th class="tdp">Current/New</th>
+                          <th class="tdp">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                       
+                          <td>
+                            <input type="text" class="form-control" name="I_want_to">
+                          </td>
+                          <td>
+                          	<input type="text" class="form-control" name="So_that_I_can">
+                          </td>
+                          <td>
+                          	
+				                      <select name="category" class="form-control">
+				            	          <option value="new"> New</option>
+				          	          <option value="old">Old</option>
+				                        </select>
+                          </td>
+                          <td>
+                            <button type="submit" class="btn btn-primary" id="uploadvideo">Add</button>
+
+                          </td>
+                        </tr>
+                     
+                        
+                      </tbody>
+                    </table>
+    							 </div>
+                 
+ 							 <div class="col-lg-12">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+
+                                    <th class="tdp">Teacher Name</th>
+                                    <th class="tdp">I_want_to</th>
+                                    <th class="tdp">So_that_I_can</th>
+                                    <th class="tdp">New/Old</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for data in data %}
+                                <tr>
+
+                                    <td>{{data.Instructor_id}}</td>
+                                    <td>{{data.I_want_to}}</td>
+                                    <td>{{data.So_that_I_can}}</td>
+                                    <td>{{data.Category}}</td>
+                                  
+
+                                </tr>
+                                {% endfor %}
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+						</div>
+				</div>
+			</div>
+</div>
+</form>
+{% endblock  %}

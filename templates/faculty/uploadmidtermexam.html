@@ -1,0 +1,207 @@
+{% extends 'faculty/vbase.html' %} {% load static %} {% block body %}
+<style type="text/css">
+.shop_grid {
+        position: relative;
+        border-style: solid;
+        border-width: 2px;
+        border-color: rgb(237, 239, 247);
+        border-radius: 5px;
+        background-color: rgb(255, 255, 255);
+        height: 266px;
+        margin-bottom: 30px;
+        padding: 20px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+    
+    .shop_grid .details .price {
+        font-size: 18px;
+        font-family: "Nunito";
+        color: rgb(199, 85, 51);
+        font-weight: bold;
+        line-height: 1.2;
+        text-align: center;
+    }
+    
+    .shop_grid .cart_bag {
+        border-radius: 50%;
+        background-color: rgb(255, 16, 83);
+        height: 50px;
+        margin-top: 0px;
+        opacity: 0;
+        text-align: center;
+        width: 50px;
+        -webkit-transition: all 0.3s ease 0s;
+        -moz-transition: all 0.3s ease 0s;
+        -o-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+}
+</style>
+<!-- Our Dashbord -->
+<div class="our-dashbord dashbord">
+    <div class="dashboard_main_content">
+        <div class="container-fluid">
+            <div class="main_content_container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+                            <h4 class="title float-left">Online Mid Term Exam</h4>
+                        </nav>
+
+                        {% for message in messages %}
+                        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                            <strong>Message:</strong> {{message}}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+                        </div>
+                        {% endfor %}
+                        <ol class="breadcrumb float-right">
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <a href="javascript:void(0)" class="btn btn-primary" data-placement="left" data-toggle="modal" data-target="#addModal" onclick="addvideo({{alldata.course_id}})">
+									Add Mid Term Exam
+								</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <a href="myclass" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="Back to Class Room" data-original-title="Left">
+									Back To Class
+								</a>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+
+                                    <th class="tdp">Midterm Title</th>
+                                    <th class="tdp">Midterm Desc</th>
+                                    <th class="tdp">Start Date</th>
+                                    <th class="tdp">End Date</th>
+                                    <th class="tdp">Midterm File</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for data in assignment %}
+                                <tr>
+
+                                    <td>{{data.MidtermTitle}}</td>
+                                    <td>{{data.MidtermDesc|slice:":100"}}...</td>
+                                    <td>{{data.StartDate}}</td>
+                                    <td>{{data.EndDate}}</td>
+                                    {% comment %}
+                                    <td>{{data.AssigmentFile}}</td> {% endcomment %}
+                                    <td><a href="/upload/{{data.MidtermFile}}" class="btn btn-primary">Download </a>
+                                    </td>
+
+                                </tr>
+                                {% endfor %}
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% comment %} model to add Materail {% endcomment %}
+<!-- Show Course Video -->
+<!-- The Modal -->
+<!-- Modal -->
+<div class="modal fade bd-example-modal-xl" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="myHugeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Course Video</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <table class="table  table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">title</th>
+                            <!-- <th scope="col">Duration</th> -->
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="videosList">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Shoe course  video model start -->
+<div class="modal" id="addModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Upload Mid Term Exam <i class="fa fa-upload"></i></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="midterm" id="inservideo" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="courseid" id="cid">
+                    <label> Title</label>
+                    <input type="text" name="title" class="form-control" placeholder="Enter Title" required maxlength=100><br>
+                    <label>Marks</label>
+                    <input type="text" name="marks" class="form-control" placeholder="Enter Marks" required maxlength=50><br>
+                    <label>Start Date</label>
+                    <input type="date" name="startdate" id="" class="form-control" required>
+
+                    <label>End Date</label>
+                    <input type="date" name="enddate" id="" class="form-control" required>
+                    <label for="Description">Description</label>
+                    <textarea name="desct" cols="30" rows="10" class="form-control" maxlength=350></textarea>
+                    <label>Course</label>
+                    <select name="category" class="form-control">
+						{% for i in courses %}
+						<option value="{{i.Cid}}">{{i.Course_name}}
+						<option>
+							{% endfor %}
+							{% comment %}
+						<option value="lectures">Online Lecture</option> {% endcomment %}
+					</select>
+                    <label>File</label> <br>
+                    <input type="file" name="mfile"><br><br>
+
+
+                    <div class="progress" style=" display:none" id="pbar">
+                        <div class="bar progress-bar">
+                            <div class="percent">0%</div>
+                        </div>
+                    </div>
+
+                    <div id="status"></div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="uploadvideo">upload</button>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- Shoe course  video model end -->
+
+{% endblock %}

@@ -1,0 +1,145 @@
+{% extends 'uniadmin/base.html' %}
+{% load static %}
+{% block body %}
+
+<style type="text/css">
+	.shop_grid {
+		height: 284px;
+	}
+	.okbtn
+	{
+		width: 50%;
+		margin-top: 29px;
+	}
+	.tdp
+	{
+		background: #8d35b4;
+		color: white;
+		font-weight: bold;
+	}
+	.cart_page_form.style2 .table_body td {
+		width: 34%;
+	}
+	label.control-label {
+		font-weight: 700;
+		color: black;
+	}
+	textarea.form-control {
+		padding: 44px;
+	}
+
+</style>
+<div class="dashboard_main_content">
+	<div class="container-fluid">
+		<div class="main_content_container">
+			<div class="row">
+				<div class="col-lg-12">
+					<br><br>
+					<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+						<h4 class="title float-left">Books</h4>
+					
+					</nav>
+				</div>
+			
+				<div class="col-lg-12">
+                   <form action="adminaddbook" method="POST" enctype="multipart/form-data">
+				   {% csrf_token %}
+					<div class="my_course_content_container">
+						<div class="my_setting_content">
+							<div class="my_setting_content_details">
+								<div class="cart_page_form style3">
+									<form>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Book title</label>
+												<input class="col-md-5 form-control" type="" name="BookTitle" required> 
+											</div>
+
+										</div>
+											<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Author</label>
+												<select class="col-md-5 form-control" name="BookAuthorname" id="BookAuthorname" required>
+												{% for d in data %}
+												
+											
+													<option value="{{d.BookAuthorId}}">{{d.BookAuthorFirstName}} {{d.BookAuthorLastName}}</option>
+														{% endfor %}
+
+												</select>
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2"> Book Edition</label>
+												<input class="col-md-5 form-control" type="" name="BookEdition" required>
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2"> Book Publisher</label>
+												<input class="col-md-5 form-control" type="" name="BookPublisher" required>
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2"> Book Year of Publish</label>
+												<input class="col-md-5 form-control" type="date" name="BookYearOfPublisher" required>
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2"> Book ISBN</label>
+												<input class="col-md-5 form-control" type="" name="BookISBN" required>
+											</div>
+
+										</div>
+											<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Book Category</label>
+												<select class="col-md-5 form-control" name="Bookcategory">
+													<option>Digital Library</option>
+													<option>Digital Library Phd</option>
+												</select>
+											</div>
+
+										</div>
+											
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2"> Book Cover Page</label>
+												<input class="col-md-5 form-control" type="file" name="BookCoverPage" required>
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2"> Book File</label>
+												<input class="col-md-5 form-control" type="file" name="BookFile" required>
+											</div>
+
+										</div>
+									
+									
+										<div class="form-group row">
+											<div class="col-lg-12 offset-md-3">
+												<input type="submit" value="Save" class="btn-primary btn" name="">
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

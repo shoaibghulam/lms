@@ -1,0 +1,133 @@
+<?php include_once('header.php')?>
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.faq_question_widget{
+	min-height: 83vh;
+}
+.okbtn
+{
+	width: 70%;
+    /*margin-top: 29px;*/
+}
+label.control-label {
+    font-weight: 700;
+    color: black;
+}
+.tdp
+{
+    background: #8d35b4;
+    color: white;
+    font-weight: bold;
+}
+.cart_page_form.style2 .table_body td {
+    width: 24%;
+}
+.form-control {
+    font-size: 14px;
+    font-family: 'Nunito', sans-serif;
+    padding: 0 36px;
+}
+.tdo{
+    float: right;
+    width: 57%;
+    font-weight: 800;
+    color: black;
+}
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+						<div class="row">
+							<div class="col-lg-12">
+							 <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Faculty Attendance</h4>
+								<ol class="breadcrumb float-right">
+							    	<li class="breadcrumb-item"><a href="#">Home</a></li>
+							    	<li class="breadcrumb-item active" aria-current="page">Faculty Attendance</li>
+								</ol>
+							 </nav>
+						    </div>
+							<div class="col-md-12">
+								<div class="cart_page_form style2">
+											<form action="#">
+												<table class="table table-responsive">
+												  	<tbody class="table_body">
+													    <tr>
+						      							    <td class="tdo">
+                                                                Select Month                             
+                                                            </td>
+															<td>
+																<select class="form-control">
+																	<option value=""> Select Name</option>
+																	<option>Januarary </option>
+																	<option>Feburary </option>
+																</select>
+															</td>
+															<td>
+																<select class="form-control">
+																	<option value=""> Select Year </option>
+																	<option>2020 </option>
+																	<option>2019 </option>
+																</select>
+															</td>												   
+															<td>
+																<input type="submit" class="btn btn-primary okbtn" value="Attendance" name="">
+															</td>	
+													    </tr>
+													    
+												  	</tbody>
+												</table>
+											</form>
+										</div>
+							</div>
+							 
+   								 <div class="col-lg-12">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th class="tdp">Month Name</th>
+            <th class="tdp">Year</th>
+            <th class="tdp">Present</th>
+            <th class="tdp">Absent</th>
+            <th class="tdp">Total Percentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+                Januarary	
+            </td>
+            <td>2020</td>
+            <td>23 Present</td>
+            <td>7 Absent</td>
+            <td>
+            	<a href="" class="btn btn-sm  btn-success">
+            		<i class="fa fa-check"></i> 90%
+            	</a>
+            </td>
+          </tr>
+           <tr>
+            <td>
+                Feburary   
+            </td>
+            <td>2020</td>
+            <td>7 Present</td>
+            <td>23 Absent</td>
+            <td>
+                <a href="" class="btn btn-sm  btn-danger">
+                    <i class="fa fa-times"></i> -10%
+                </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    		</div>
+ 							
+			</div>
+				</div>
+			</div>
+</div>
+
+<?php include_once('footer.php')?>

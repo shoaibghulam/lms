@@ -2,7 +2,7 @@ from django.shortcuts import render,HttpResponse,redirect
 from student.models import Student_Course,Student_Profile,Student_Signup,SerStudent,Application,Student_Query_Admin,Student_Survey,Registration,ScrunityForm,Job_Apply,Student_Submit_Evaluation,MeetingAppointment,Student_Assigment,Ser_Assigment,Ser_App,SerMeeting,Student_Midterm,Ser_Midterms,Student_FinalExam,Ser_FinalExams
 from faculty.models import Course,Materialclass,AssigmentModel,NotificationModel,CourseVideos,Faculty_Evaluation,Semester,Exam_Result,Department,onlinequiz,Ser_AssigmentStudent,MidtermModel,FinalExamModel,Ser_FinalExam,Ser_Midterm
 from administrator.models import AcademicCalendarModel,Form,StudentAttendence,Exam_Schedule,onlinesurvey,Semester_Schedule,Placement_Portal
-from library.models import Books
+from library.models import Books,BookAuthor
 from django.core.paginator import Paginator
 from UniversityApp.models import UniversityAccount,UniversityBranch
 import json
@@ -45,16 +45,20 @@ def examresultstudent(request):
         return redirect('/')
 
 
+
 def registration(request):
     try:
         if request.session['role']=="Student":
-            student_signupname=Student_Signup.objects.get(user_id=request.session['userid'],uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])  
+            student_signupname=Student_Signup.objects.get(user_id=request.session['userid'],uniId__in=request.session['uniid'],branchId__in=request.session['branchid']) 
+           
             student=Student_Profile.objects.get(User_id=student_signupname.user_id)
+        
             depart = student.Department_id.Did
+
             course_data = Course.objects.filter(Department_id = depart,uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])
             firstname=student.First_name
             lastname=student.Last_name
-            Reg=Registration.objects.get(Student_id=student.StudentId)
+            Reg=Registration.objects.get(Student_id=student)
             regno=Reg.Student_Registration_Code
             program=Reg.Student_Program
             return render(request,'student/registration.html',{'firstname':firstname,'lastname':lastname,'regno':regno,'program':program,'course':course_data})
@@ -64,7 +68,6 @@ def registration(request):
             msg='Your are not a Student'
             return render(request,'index.html',{'thank':thank,'msg':msg})
 
-    
             
             
     except:
@@ -82,6 +85,7 @@ def transcript(request):
         if request.session['role']=="Student":
             student_signupname=Student_Signup.objects.get(user_id=request.session['userid'],uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])  
             data=Exam_Result.objects.filter(Student_ID=Student_Profile.objects.get(User_id=student_signupname.user_id)).order_by('-Exam_Result_id')[:] 
+            print(data)
             return render(request,'student/transcript.html',{'data':data})
             
         else:
@@ -158,10 +162,22 @@ def library(request):
             # end library page data
             if request.method=="POST":
                 books=request.POST['BookTitle']
-                BookAuthor=request.POST['BookAuthor']
+                BookAuthorName=request.POST['BookAuthor']
                 BookPublisher=request.POST['BookPublisher']
                 BookIsbn=request.POST['BookIsbn']
-                data=Books.objects.filter(BookTitle__icontains=books , BookPublisher__icontains=BookPublisher ,BookISBN__icontains=BookIsbn,BookAuthorid__BookAuthorFirstName__icontains=BookIsbn)
+                if books:
+                    data=Books.objects.filter(Q(BookTitle__icontains=books))
+                if BookAuthorName:
+                    ids=list()
+                    author=BookAuthor.objects.filter(Q(BookAuthorFirstName__icontains=BookAuthorName)|Q(BookAuthorLastName__icontains=BookAuthorName))
+                    for getid in author:
+                        ids.append(getid.BookAuthorId)
+
+                    data=Books.objects.filter(BookAuthorid__in=ids)
+                if BookPublisher:
+                    data=Books.objects.filter(Q(BookPublisher__icontains=BookPublisher))
+                if BookIsbn:
+                    data=Books.objects.filter(Q(BookISBN__icontains=BookIsbn))
 
                 alldata={
                     'data':data
@@ -359,10 +375,10 @@ def startquiz(request):
 
 
 def studentprofile(request):
-    try:
+    # try:
         if request.session['role']=="Student":
             if request.method=="POST":
-                img=request.FILES['image']
+                img=request.FILES.get('image',False)
                 firstname=request.POST['firstname']
                 lastname=request.POST['lastname']
                 batch=request.POST['batch']
@@ -371,15 +387,26 @@ def studentprofile(request):
                 birth=request.POST['birth']
                 shift=request.POST['shift']
                 username=request.session['username']
+                
                 user=Student_Signup.objects.get(username=username,uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])
-                data=Student_Profile(First_name=firstname,Last_name=lastname,ContactNo=phone,Address=address,DOB=birth,StudenBatch=batch,StudenShift=shift,Profile=img,User_id=user)
+                
+                data=Student_Profile.objects.get(User_id=request.session['userid'])
+
+                data.First_name=firstname
+                data.Last_name=lastname
+                data.ContactNo=phone
+                data.Address=address
+                data.DOB=birth
+                data.StudenShift=shift
+                if img:
+                    data.Profile=img
                 data.save()
                 images=Student_Profile.objects.get(User_id=request.session['userid'])
                 request.session['senderimg']= str(images.Profile)
-                    
+                        
                 thank=True
-                msg="Your Profile Sucessfully Created"
-                return redirect('/student/')
+                msg="Your Profile Sucessfully update"
+                return HttpResponse(msg)
                 # return render(request,'student/page-dashboard-student.html',{'thank':thank,'msg':msg})
             
             username=request.session['username']
@@ -397,8 +424,9 @@ def studentprofile(request):
             msg='Your are not a Student'
             return render(request,'index.html',{'thank':thank,'msg':msg})
 
-    except:
-        return redirect('/')
+    # except:
+    #     # return redirect('/')
+    #     return HttpResponse("hello")
     
     
 def showstudent(request):
@@ -532,6 +560,7 @@ def assignments(request):
         result_str = result.decode('utf-8')
         present=result_str[:10]
         present = pd.to_datetime(present).date()
+        print(present)
         return render(request,'student/assignments.html',{'data':courses,'name':studentname,'course':data})
 
     #     else:
@@ -803,8 +832,8 @@ def createquery(request):
                 data=Student_Query_Admin(querytitle=querytitle,querymessage=querymessage,Course_id=course_id,Student_ID=studentname,uniId=UniversityAccount.objects.get(UniId__in=request.session['uniid']),branchId=UniversityBranch.objects.get(BranchId__in=request.session['branchid']))
                 data.save()
                 thank=True
-                msg="Successfully Uploaded"
-                return render(request,'student/myclass.html',{'thank':thank,'msg':msg})
+                messages.error(request,"Successfully Uploaded")
+                return redirect('/student/onlinequery')
                 
 
 
@@ -1056,9 +1085,8 @@ def jobapply(request):
                 
                 data.save()
                 thank=True
-                msg="Successfully Applied"
-                return render(request,'student/page-dashboard-student.html',{'thank':thank,'msg':msg}) 
-        
+                messages.success(request,"Applied successfuly")
+                return redirect('/student/placement')
 
 
             student_signupname=Student_Signup.objects.get(user_id=request.session['userid'])  

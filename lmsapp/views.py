@@ -9,8 +9,6 @@ from faculty.models import User_Signup,Instructor
 from UniversityApp.models import UniversityAccount,UniversityBranch
 import json
 import random
-from django.contrib.sessions.backends.db import SessionStore
-sessions= SessionStore()
 
 # Create your views here.
 def home(request):
@@ -343,7 +341,7 @@ def Facultylogin(request,name,username):
                 BranchId = []
                 for i in Branch:
                     BranchId.append(i.BranchId)
-                sessions['facultybranchid'] = BranchId
+                request.session['facultybranchid'] = BranchId
                 request.session['facultyuniid'] = Uniid
                 return render(request,'teacherlogin.html',{'name':uniName,'username':branchUsername})
                     
@@ -394,9 +392,3 @@ def logoutfaculty(request):
         uni = request.session['facultyUniversity']
         branch = request.session['facultyBranch']
         return redirect('Facultylogin',uni,branch)
-
-
-    
-
-
-

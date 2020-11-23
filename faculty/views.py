@@ -757,7 +757,8 @@ def deletequiz(request,id):
             courses=Course.objects.filter(Instructor_id=Instructor_id.tid)
             data=onlinequiz.objects.filter(Instructor_id=Instructor_id.tid)
             messages.error(request,"Delete Quiz Successfully")
-            return render(request,'faculty/onlinequiz.html',{'courses':courses,'data':data})
+            # return render(request,'faculty/onlinequiz.html',{'courses':courses,'data':data})
+            return redirect('/faculty/onlinequiz')
         else:
             thank=True
             msg='Your are not a Teacher'
@@ -1325,14 +1326,14 @@ def createsyllabus(request):
                 data=Teacher_syllabus(semester=title,outline=img,Course_id=Course.objects.get(Cid=coursename),Department_id=Department.objects.get(Did=department),Instructor_id=Instructor.objects.get(username=request.session['facultyuserid']),uniId=UniversityAccount.objects.get(UniId__in=request.session['facultyuniid']),branchId=UniversityBranch.objects.get(BranchId__in=request.session['facultybranchid']))
                 data.save()
                 messages.success(request,"Add Syllabus Sucessfully")
-                return redirect('/faculty/createsyllabus')
+                return redirect('/faculty/syllabus')
               
                 
-        
+            semester=Semester.objects.filter(uniId__in=request.session['facultyuniid'],branchId__in=request.session['facultybranchid'])
             Instructor_id=Instructor.objects.get(username=request.session['facultyuserid'],uniId__in=request.session['facultyuniid'],branchId__in=request.session['facultybranchid'])
             courses=Course.objects.filter(Instructor_id=Instructor_id.tid)
             department=Department.objects.filter(Instructor_id=Instructor_id.tid)
-            return render(request,'faculty/createsyllabus.html',{'courses':courses,'department':department})
+            return render(request,'faculty/createsyllabus.html',{'courses':courses,'department':department,'semester':semester})
         
         else:
             thank=True
@@ -1379,7 +1380,7 @@ def createquery(request):
                 querytitle=request.POST['querytitle']
                 querymessage=request.POST['querymessage']
                 instructor_id=Instructor.objects.get(username=request.session['facultyuserid'])
-                data=Query_Admin(querytitle=querytitle,querymessage=querymessage,Instructor_id=instructor_id)
+                data=Query_Admin(querytitle=querytitle,querymessage=querymessage,Instructor_id=instructor_id,uniId=UniversityAccount.objects.get(UniId__in=request.session['facultyuniid']),branchId=UniversityBranch.objects.get(BranchId__in=request.session['facultybranchid']))
                 data.save()
                 thank=True
                 msg="Query Send Successfully"
@@ -1837,9 +1838,9 @@ def editinstructor(request):
             image=request.FILES.get('image',False)
             if image:
                 data.img=request.FILES['image']
-                
+          
             data.save()
-            
+            request.session['senderimg']= str(data.img)  
             return HttpResponse("Profile has been Update")
     # except:
     #     return HttpResponse(request.session['facultyusername'])
@@ -1896,7 +1897,7 @@ def liststudent(request):
     try:
         if request.session['role']=="Teacher":
             if request.method=="POST":
-                instructer_data=Instructor.objects.get(username=request.session['facultyuserid'],uniId__in=request.session['facultyuniid'],branchId__in=request.session['branchid'])  
+                instructer_data=Instructor.objects.get(username=request.session['facultyuserid'],uniId__in=request.session['facultyuniid'],branchId__in=request.session['facultybranchid'])  
                 course_data=Course.objects.filter(Instructor_id=instructer_data.tid)
                 courses=request.POST['courses']
                 data=Student_Course.objects.filter(Courses=courses).distinct()

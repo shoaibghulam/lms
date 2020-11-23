@@ -162,9 +162,8 @@
             <form action="/faculty/showevents" id="material" method="POST">
                 {% csrf_token %}
                 <div class="modal-body">
-                    <label>Application Reply</label>
-                    <textarea id="reply" name="Techer_Reply" rows="10" cols="50" maxlength="500" class="form-control"></textarea><br>
-
+                   
+                    <p id="reply"></p>
                     <input type="hidden" id="sid" value="" name="sid">
 
 
@@ -215,7 +214,7 @@
                 var datas = eval(data);
 
                 $('#sid').val(x);
-                $('#reply').val(datas[0].Techer_Reply);
+                $('#reply').text(datas[0].Techer_Reply);
 
 
 

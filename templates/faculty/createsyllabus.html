@@ -66,14 +66,7 @@
                                 <h4 class="title float-left">My Syllabus</h4>
                             </a>
                         </nav>
-                        {% for message in messages %}
-                        <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
-                            <strong>Message:</strong> {{message}}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        {% endfor %}
+                       
 
                         <ol class="breadcrumb float-right">
                             <li class="breadcrumb-item active" aria-current="page">
@@ -88,14 +81,19 @@
                             {% csrf_token %}
                             <div class="form-group button_height">
                                 Semester :
-                                <input type="text" class="form-control button_height" name="semester">
+                                <select class="form-control button_height" name="semester">
+                                    {% for s in semester %}
+                                    <option value="{{s.Samester_Name}}">{{s.Samester_Name}}</option>
+                                    {% endfor %}
+                                </select>
+                              
                             </div>
 
                             <div class="form-group button_height">
                                 Courses:
                                 <select name="category" class="form-control button_height">
 				                   {% for i in courses %}
-					            <option value="{{i.Cid}}">{{i.Course_name}}<option>
+					            <option value="{{i.Cid}}">{{i.Course_name}}</option>
 					             {% endfor %}
 					            
 				                    </select>
@@ -106,7 +104,7 @@
                                 Department:
                                 <select name="department" class="form-control button_height">
 				                     {% for i in department %}
-					            <option value="{{i.Did}}">{{i.Department_name}}<option>
+					            <option value="{{i.Did}}">{{i.Department_name}}</option>
 					              {% endfor %}
 					            
 				                    </select>

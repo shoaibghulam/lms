@@ -18,12 +18,12 @@
 													<h4 class="m0">Personal Details</h4>
 												</div>
 											</div>
-										<form action="studentprofile" method="POST" enctype="multipart/form-data">
+										<form action="studentprofile" method="POST" enctype="multipart/form-data" id="studentform">
 											{% csrf_token %}
 											<div class="row my_setting_content_details pb0">
 													<div class="col-xl-3">
 													<div class="wrap-custom-file">
-													    <input type="file" name="image" id="image1" required/>
+													    <input type="file" name="image" id="image1" />
 													    <label  for="image1">
 													      	<span>Browse</span>
 													    </label>
@@ -46,7 +46,7 @@
 														<div class="col-xl-6">
 															<div class="my_profile_setting_input form-group">
 														    	<label for="formGroupExampleInput3">Batch</label>
-														    	<input type="text" class="form-control" id="Batch"  placeholder="Enter your Batch" name="batch" required>
+														    	<input type="text" class="form-control" id="Batch"  placeholder="Enter your Batch" name="batch" readonly>
 															</div>
 															<div class="my_profile_setting_input form-group">
 														    	<label for="exampleInputPhone">Address</label>
@@ -95,7 +95,7 @@
 											    </div>
 											    <div class="col-lg-12">
 												{% if thank %}
-												<button type="button" id="update" class="my_setting_savechange_btn btn btn-thm">Edit <span class="flaticon-right-arrow-1 ml15"></span></button>
+												<button type="submit" id="update" class="my_setting_savechange_btn btn btn-thm">Edit <span class="flaticon-right-arrow-1 ml15"></span></button>
 
 												{% else %}
 												<button type="submit" class="my_setting_savechange_btn btn btn-thm">Save <span class="flaticon-right-arrow-1 ml15"></span></button>
@@ -139,6 +139,8 @@
 <script type="text/javascript" src="{% static ''%}js/script.js"></script>
 </body>
 </html>
+<script src="http://malsup.github.com/jquery.form.js"></script> 
+
 <script>
 $(document).ready(function(){
 	showdata();
@@ -178,47 +180,13 @@ $.ajax({
 });
 
 }
-$('#update').click(function(){
-
-var firstname=$('#firstname').val();
-var lastname=$('#lastname').val();
-var batch=$('#Batch').val();
-var address=$('#address').val();
-var phone=$('#phone').val();
-var birth=$('#birth').val();
-var shift=$('#shift').val();
 
 
-$.ajax({
-url:'editstudent',
-type:'POST',
-data:{
-  'firstname':firstname,
-  'lastname':lastname,
-  'batch':batch,
-  'address':address,
-  'phone':phone,
-  'birth':birth,
-  'shift':shift,
-  
- 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
-
-},
-success:function(data){
-
- alert(data)
+});
+$('#studentform').ajaxForm(function(data){
+	alert(data)
  showdata();
-  
-}
-
-
-});
-
-
-});
-
-
-});
+})
 if ( window.history.replaceState ) {
   window.history.replaceState( null, null, window.location.href );
 }

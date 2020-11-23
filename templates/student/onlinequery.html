@@ -79,10 +79,18 @@
 
                                     </li>
                                 </ol>
+                               
                                 <table class="table table-responsive">
 
-
-                           
+                                    {% for message in messages %}
+                                    <div class="alert alert-primary mb-0 alert-dismissible fade show" role="alert">
+                                        <strong>Message:</strong> {{message}}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    {% endfor %}
+                                      
                                     <tbody class="table_body">
                                         <tr>
                                             <td class="tdo">

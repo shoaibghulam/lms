@@ -107,9 +107,10 @@
                                         <td>
 
                                             <select name="category" class="form-control">
+                                                
                                                 {% for i in courses %}
                                                 <option value="{{i.Cid}}">{{i.Course_name}}
-                                                <option>
+                                            
                                                     {% endfor %}
                                                     {% comment %}
                                                 <option value="lectures">Online Lecture</option> {% endcomment %}

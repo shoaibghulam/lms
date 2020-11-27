@@ -10,8 +10,10 @@ from django.db.models import Q
 import pandas as pd
 from urllib.request import urlopen
 from django.contrib import messages
+from datetime import datetime
+
 # Create your views here.
-def studentdashboard(request):
+def studentdashboard(request): 
     try:
         if request.session['role']=="Student":
             student_signupname=Student_Signup.objects.get(user_id=request.session['userid'],uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])
@@ -561,7 +563,7 @@ def assignments(request):
         present=result_str[:10]
         present = pd.to_datetime(present).date()
         print(present)
-        return render(request,'student/assignments.html',{'data':courses,'name':studentname,'course':data})
+        return render(request,'student/assignments.html',{'data':courses,'name':studentname,'course':data,'present':present})
 
     #     else:
     #         thank=True
@@ -775,8 +777,10 @@ def createapplication(request):
                 data=Application(ApplicationTitle=ApplicationTitle,ApplicationMessage=ApplicationMessage,ApplicationAttachment=ApplicationAttachment,Course_id=course_id,Student_id=studentname,Instructor_id=id,uniId=UniversityAccount.objects.get(UniId__in=request.session['uniid']),branchId=UniversityBranch.objects.get(BranchId__in=request.session['branchid']))
                 data.save()
                 thank=True
-                msg="Successfully Uploaded"
-                return render(request,'student/myclass.html',{'thank':thank,'msg':msg})
+            
+                # return render(request,'student/myclass.html',{'thank':thank,'msg':msg})
+                messages.error(request,"Successfully Uploaded")
+                return redirect('/student/application')
             
             student_signupname=Student_Signup.objects.get(user_id=request.session['userid'])  
             student=Student_Profile.objects.get(User_id=student_signupname.user_id)
@@ -1385,9 +1389,11 @@ def finalexam(request):
             courses=Student_Course.objects.filter(Student_ID=student.StudentId)
             result = urlopen('http://just-the-time.appspot.com/')
             result = result.read().strip()
+           
             result_str = result.decode('utf-8')
             present=result_str[:10]
             present = pd.to_datetime(present).date()
+          
             return render(request,'student/finalexam.html',{'course':data,'data':courses,'name':studentname,'present':present})
             # return render(request,'student/finalexam.html',{'course':data,'data':courses,'name':studentname})
 
@@ -1403,9 +1409,13 @@ def finalexam(request):
         result = urlopen('http://just-the-time.appspot.com/')
         result = result.read().strip()
         result_str = result.decode('utf-8')
+       
         present=result_str[:10]
+        
         present = pd.to_datetime(present).date()
-        return render(request,'student/finalexam.html',{'data':courses,'name':studentname,'course':data})
+      
+        
+        return render(request,'student/finalexam.html',{'data':courses,'name':studentname,'course':data,'present':present})
 
     #     else:
     #         thank=True

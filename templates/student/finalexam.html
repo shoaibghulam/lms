@@ -94,7 +94,7 @@
                                             </td>
 
                                             <td>
-                                                <input type="finalexam" class="btn btn-primary btn" value="Search Final Exam" name="">
+                                                <input type="submit" class="btn btn-primary btn" value="Search Final Exam" name="">
                                             </td>
                                             <td>
 
@@ -114,6 +114,7 @@
 
                     <div class="col-lg-12">
                         <table class="table table-bordered table-hover">
+                           
                             <thead>
                                 <tr>
                                     <th class="tdp">Course</th>
@@ -129,7 +130,7 @@
                             </thead>
                             <tbody>
                                 {% for data in course %}
-
+                                   
                                 <tr>
 
                                     <td>{{data.Course_id}}</td>

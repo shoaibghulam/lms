@@ -1383,9 +1383,8 @@ def createquery(request):
                 data=Query_Admin(querytitle=querytitle,querymessage=querymessage,Instructor_id=instructor_id,uniId=UniversityAccount.objects.get(UniId__in=request.session['facultyuniid']),branchId=UniversityBranch.objects.get(BranchId__in=request.session['facultybranchid']))
                 data.save()
                 thank=True
-                msg="Query Send Successfully"
-                return render(request,'faculty/myclass.html',{'thank':thank,'msg':msg})
-        
+                messages.error(request,"Query Send Successfully")
+                return redirect('/faculty/onlinequery')
         
             return render(request,'faculty/createquery.html')
     

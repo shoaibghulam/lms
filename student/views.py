@@ -1057,7 +1057,8 @@ def Scrunityform(request):
     
     
     except:
-        return redirect('/')
+        messages.error(request,"Please submit your Enrollment For rechecking")
+        return redirect('/student/')
 
 
 def placement(request):

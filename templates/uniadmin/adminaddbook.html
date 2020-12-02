@@ -112,14 +112,14 @@
 										<div class="form-group ">
 											<div class="row">
 												<label class="control-label col-md-2"> Book Cover Page</label>
-												<input class="col-md-5 form-control" type="file" name="BookCoverPage" required>
+												<input class="col-md-5 form-control" type="file" name="BookCoverPage" onchange="imagesfun(this)"  required>
 											</div>
 
 										</div>
 										<div class="form-group ">
 											<div class="row">
 												<label class="control-label col-md-2"> Book File</label>
-												<input class="col-md-5 form-control" type="file" name="BookFile" required>
+												<input class="col-md-5 form-control" type="file" name="BookFile" onchange="show(this)" required>
 											</div>
 
 										</div>
@@ -141,5 +141,84 @@
 		</div>
 	</div>
 </div>
-
+<script>
+	function show(input) {
+        debugger;
+        var validExtensions = ['pdf']; //array of valid extensions
+        var fileName = input.files[0].name;
+        var fileNameExt = fileName.substr(fileName.lastIndexOf('.') + 1);
+        if ($.inArray(fileNameExt, validExtensions) == -1) {
+            input.type = ''
+            input.type = 'file'
+            $('#user_img').attr('src',"");
+			
+			toastr.warning("Only these file types are accepted Pdf", "Success", {
+				"closeButton": false,
+				"debug": false,
+				"newestOnTop": false,
+				"progressBar": false,
+				"positionClass": "toast-top-right",
+				"preventDuplicates": false,
+				"onclick": null,
+				"showDuration": "300",
+				"hideDuration": "1000",
+				"timeOut": "5000",
+				"extendedTimeOut": "1000",
+				"showEasing": "swing",
+				"hideEasing": "linear",
+				"showMethod": "fadeIn",
+				"hideMethod": "fadeOut"
+						});
+        }
+        else
+        {
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#user_img').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+        }
+	}
+	function imagesfun(input) {
+        debugger;
+        var validExtensions =['jpg','png','jpeg','gif']; //array of valid extensions
+        var fileName = input.files[0].name;
+        var fileNameExt = fileName.substr(fileName.lastIndexOf('.') + 1);
+        if ($.inArray(fileNameExt, validExtensions) == -1) {
+            input.type = ''
+            input.type = 'file'
+            $('#user_img').attr('src',"");
+			
+			toastr.warning("Only these file types are accepted jpg , png , gif", "Success", {
+				"closeButton": false,
+				"debug": false,
+				"newestOnTop": false,
+				"progressBar": false,
+				"positionClass": "toast-top-right",
+				"preventDuplicates": false,
+				"onclick": null,
+				"showDuration": "300",
+				"hideDuration": "1000",
+				"timeOut": "5000",
+				"extendedTimeOut": "1000",
+				"showEasing": "swing",
+				"hideEasing": "linear",
+				"showMethod": "fadeIn",
+				"hideMethod": "fadeOut"
+						});
+        }
+        else
+        {
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#user_img').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+        }
+    }
+</script>
 {% endblock %}

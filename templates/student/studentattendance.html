@@ -83,27 +83,28 @@
                                             </td>
                                             <td>
 
-                            <select class="form-control" name="Month">
-                        {% for d in attendence %}
+                            <select class="form-control" id="monthlist" name="Month" >
+                         {% comment %} {% for d in attendence %}
                         <option value="{{d.StudentAttendenceMonth}}">
                           {{d.StudentAttendenceMonth}}</option>
-                        {% endfor %}
+                        {% endfor %} {% endcomment %}
                       </select>
 
                                             </td>
                                             <td>
 
-                            <select class="form-control" name="Year">
-                        {% for d in attendence %}
+                            <select class="form-control " id="yearlist" name="Year">
+                      {% comment %} {% for d in attendence %}
                         {% ifchanged d.StudentAttendenceYear %}
                         <option value="{{d.StudentAttendenceYear}}">{{d.StudentAttendenceYear}}
                         </option>
                         {% endifchanged %}
-                        {% endfor %}
+                        {% endfor %}  {% endcomment %}
                       </select>
 
                                             </td>
                                             <td>
+                                                <h1></h1>
                                                 <input type="submit" class="btn btn-primary btn" value="Attendance" name="">
                                             </td>
                                         </tr>
@@ -160,6 +161,22 @@
     </div>
 </div>
 <script>
+var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+let month="";
+let year="";
+ for (i = 0 ; i <  12; i++) {
+      month += `<option value="${monthNames[i]}">${monthNames[i]}</option>`;
+  }
+
+$('#monthlist').html(month);
+ var currentYear = new Date().getFullYear();
+
+ //var   startYear =2018;  
+ 
+for(let startYear=currentYear;startYear>=2010;startYear--){
+  year += `<option value="${startYear}">${startYear}</option>`;
+}
+$('#yearlist').html(year)
 if ( window.history.replaceState ) {
   window.history.replaceState( null, null, window.location.href );
 }

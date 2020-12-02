@@ -65,7 +65,7 @@ def formguidline(request):
 #semester library
 def library(request):
     # libary html page data
-    # try:
+    try:
         if request.session['role']=="Teacher":
             datas= Books.objects.filter(uniId__in=request.session['facultyuniid'],branchId__in=request.session['facultybranchid']).order_by('-BookId')
             paginator = Paginator(datas,3)
@@ -117,8 +117,8 @@ def library(request):
             msg='Your are not a Teacher'
             return render(request,'index.html',{'thank':thank,'msg':msg})
 
-    # except:
-    #     return redirect('/')
+    except:
+       return redirect('/faculty/library')
     
 #semester library
 def digitallibrary(request):

@@ -79,7 +79,7 @@
 													<th class="cartm_title">Branch Name</th>
 													<th class="cartm_title">Branch Username</th>
 													<th class="cartm_title">Email</th>
-													<th class="cartm_title">Password</th>
+													<th class="cartm_title">Password <i id="passwordicon"class="fa fa-eye color-success" style="font-size:20px; cursor:pointer"></i></th>
 													<th class="cartm_title"> Address</th>
 													<th class="cartm_title">Created At</th>
 													<th class="cartm_title">Update</th>
@@ -94,7 +94,10 @@
 													<td>{{d.BranchName}}</td>
 													<td>{{d.BranchUsername}}</td>
 													<td>{{d.BranchEmail}}</td>
-													<td>{{d.BranchPassword}}</td>
+													<td style="cursor: ;">
+														<span class="realpassword" style="display:none;">{{d.BranchPassword}}</span>
+													<span class="starpassword">************</span>
+													</td>
 													<td>{{d.BranchAddress}}</td>
 													<td>{{d.BranchCreatedDate}}</td>
 
@@ -315,7 +318,17 @@
 
 <script>
 	$(document).ready(function () {
+		$('#passwordicon').click(function(){
+		$('.starpassword').toggle();
+		$('.realpassword').toggle();
 		
+		
+		})
+		//$('#realpassword').click(function(){
+		//$(this).hide();
+		//$('#starpassword').show();
+		
+		//})
 	
 		
 

@@ -61,6 +61,7 @@ def registration(request):
             firstname=student.First_name
             lastname=student.Last_name
             Reg=Registration.objects.get(Student_id=student)
+            
             regno=Reg.Student_Registration_Code
             program=Reg.Student_Program
             return render(request,'student/registration.html',{'firstname':firstname,'lastname':lastname,'regno':regno,'program':program,'course':course_data})
@@ -73,7 +74,8 @@ def registration(request):
             
             
     except:
-        return redirect('/')
+        messages.error(request,'Please Submit your Enrollment form')
+        return redirect('studentdashboard')
   
         
 
@@ -137,7 +139,8 @@ def curriculum(request):
             
             
     except:
-        return redirect('/')
+        messages.error(request,"Please submit your Enrollment For Curriculum")
+        return redirect('/student/')
  
 def library(request):
     # libary html page data
@@ -733,10 +736,11 @@ def application(request):
         if request.method=="POST":
             course_id=request.POST['courses']
          
-            data=Application.objects.filter(Course_id=course_id,uniId__in=request.session['uniid'],branchId__in=request.session['branchid']).order_by('-ApplicationId')[:] 
             student_signupname=Student_Signup.objects.get(user_id=request.session['userid'],uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])  
             student=Student_Profile.objects.get(User_id=student_signupname.user_id)
             courses=Student_Course.objects.filter(Student_ID=student.StudentId)
+            data=Application.objects.filter(Student_id=student.StudentId,Course_id=course_id,uniId__in=request.session['uniid'],branchId__in=request.session['branchid']).order_by('-ApplicationId')[:] 
+           
             return render(request,'student/application.html',{'course':data,'data':courses})
         
         student_signupname=Student_Signup.objects.get(user_id=request.session['userid'],uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])  
@@ -768,13 +772,16 @@ def createapplication(request):
             if request.method=="POST":
                 ApplicationTitle=request.POST['ApplicationTitle']
                 ApplicationMessage=request.POST['ApplicationMessage']
-                ApplicationAttachment=request.FILES['ApplicationAttachment']
+                ApplicationAttachment=request.FILES.get('ApplicationAttachment',False)
                 course_id=Course.objects.get(Course_name=request.POST['courses'])
                 id=course_id.Instructor_id
                 student_signupname=Student_Signup.objects.get(user_id=request.session['userid'])  
                 studentname=Student_Profile.objects.get(User_id=student_signupname.user_id,uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])
-                
-                data=Application(ApplicationTitle=ApplicationTitle,ApplicationMessage=ApplicationMessage,ApplicationAttachment=ApplicationAttachment,Course_id=course_id,Student_id=studentname,Instructor_id=id,uniId=UniversityAccount.objects.get(UniId__in=request.session['uniid']),branchId=UniversityBranch.objects.get(BranchId__in=request.session['branchid']))
+                if ApplicationAttachment:
+                  data=Application(ApplicationTitle=ApplicationTitle,ApplicationMessage=ApplicationMessage,ApplicationAttachment=ApplicationAttachment,Course_id=course_id,Student_id=studentname,Instructor_id=id,uniId=UniversityAccount.objects.get(UniId__in=request.session['uniid']),branchId=UniversityBranch.objects.get(BranchId__in=request.session['branchid']))
+                else:
+                    data=Application(ApplicationTitle=ApplicationTitle,ApplicationMessage=ApplicationMessage,Course_id=course_id,Student_id=studentname,Instructor_id=id,uniId=UniversityAccount.objects.get(UniId__in=request.session['uniid']),branchId=UniversityBranch.objects.get(BranchId__in=request.session['branchid']))
+              
                 data.save()
                 thank=True
             
@@ -803,10 +810,11 @@ def onlinequery(request):
             if request.method=="POST":
                 course_name=request.POST['courses']
                 course_id=Course.objects.get(Course_name=course_name)
-                data=Student_Query_Admin.objects.filter(Course_id=course_id.Cid,uniId__in=request.session['uniid'],branchId__in=request.session['branchid']).order_by('-queryid')[:] 
                 student_signupname=Student_Signup.objects.get(user_id=request.session['userid'])  
+               
                 student=Student_Profile.objects.get(User_id=student_signupname.user_id,uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])
-                courses=Student_Course.objects.filter(Student_ID=student.StudentId)
+                data=Student_Query_Admin.objects.filter(Student_ID=student.StudentId,Course_id=course_id.Cid,uniId__in=request.session['uniid'],branchId__in=request.session['branchid']).order_by('-queryid')[:] 
+                courses=Student_Course.objects.filter(Student_ID=student.StudentId,uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])
                 return render(request,'student/onlinequery.html',{'course':data,'data':courses})
     
             student_signupname=Student_Signup.objects.get(user_id=request.session['userid'],uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])  
@@ -1044,6 +1052,12 @@ def Scrunityform(request):
             courses=Student_Course.objects.filter(Student_ID=student.StudentId)
             studentname=Student_Profile.objects.filter(StudentId=student.StudentId)
             register=Registration.objects.filter(Student_id=student.StudentId)
+            y=0
+            for x in register:
+                y=x.Student_Registration_Code
+            if y== 0:
+                 messages.error(request,"Please submit your Enrollment For rechecking")
+                 return redirect('/student/')
             return render(request,'student/Scrunityform.html',{'data':courses,'studentname':studentname,'register':register})   
             
         

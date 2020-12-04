@@ -81,7 +81,7 @@
                             {% csrf_token %}
                             <div class="form-group button_height">
                                 Semester :
-                                <select class="form-control button_height" name="semester">
+                                <select class="form-control button_height" name="semester" required>
                                     {% for s in semester %}
                                     <option value="{{s.Samester_Name}}">{{s.Samester_Name}}</option>
                                     {% endfor %}
@@ -91,7 +91,7 @@
 
                             <div class="form-group button_height">
                                 Courses:
-                                <select name="category" class="form-control button_height">
+                                <select name="category" class="form-control button_height" required>
 				                   {% for i in courses %}
 					            <option value="{{i.Cid}}">{{i.Course_name}}</option>
 					             {% endfor %}
@@ -102,7 +102,7 @@
 
                             <div class="form-group button_height">
                                 Department:
-                                <select name="department" class="form-control button_height">
+                                <select name="department" class="form-control button_height" required>
 				                     {% for i in department %}
 					            <option value="{{i.Did}}">{{i.Department_name}}</option>
 					              {% endfor %}
@@ -115,7 +115,7 @@
 
                             <div class="form-group button_height">
                                 Outline:
-                                <input type="file" class="form-control button_height" name="file">
+                                <input type="file" class="form-control button_height" name="file" onchange="show(this)" required>
                             </div>
                             <div class="form-group">
                                 <input type="submit" class="btn btn-primary button_height" value="Create" name="">
@@ -130,5 +130,47 @@
     </div>
 </div>
 
+<script>
+    function show(input) {
+        debugger;
+        var validExtensions = ['doc',,'docx','pdf','epub','fb2']; //array of valid extensions
+        var fileName = input.files[0].name;
+        var fileNameExt = fileName.substr(fileName.lastIndexOf('.') + 1);
+        if ($.inArray(fileNameExt, validExtensions) == -1) {
+            input.type = ''
+            input.type = 'file'
+            $('#user_img').attr('src',"");
+            
+            toastr.warning("Only these file types are accepted Pdf doc epub fb2", "Success", {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+                        });
+        }
+        else
+        {
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#user_img').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+        }
+    }
+
+</script>
 
 {% endblock %}

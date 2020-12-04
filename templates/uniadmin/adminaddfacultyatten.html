@@ -93,21 +93,21 @@
                                         <div class="form-group ">
                                             <div class="row">
                                                 <label class="control-label col-md-2">Attendence Present</label>
-                                                <input class="col-md-5 form-control" type="" name="FacultyAttendencePresent" required>
+                                                <input class="col-md-5 form-control" type="number" min="0" onkeyup="present(this)" onchange="present(this)" name="FacultyAttendencePresent" required>
                                             </div>
 
                                         </div>
                                         <div class="form-group ">
                                             <div class="row">
                                                 <label class="control-label col-md-2">Attendence Absent</label>
-                                                <input class="col-md-5 form-control" type="" name="FacultyAttendenceAbsent" required>
+                                                <input class="col-md-5 form-control" type="number" min="0" onkeyup="absent(this)" onchange="absent(this)" name="FacultyAttendenceAbsent" required>
                                             </div>
 
                                         </div>
                                         <div class="form-group ">
                                             <div class="row">
-                                                <label class="control-label col-md-2">Attendence Total</label>
-                                                <input class="col-md-5 form-control" type="" name="FacultyAttendenceTotal" required>
+                                                <label class="control-label col-md-2"></label>
+                                                <input class="col-md-5 form-control" type="hidden" id="total" name="FacultyAttendenceTotal" required>
                                             </div>
 
                                         </div>
@@ -129,5 +129,23 @@
         </div>
     </div>
 </div>
+<script>
+    let p=0;
+    let  a=0;
+    total=0;
+    const present=(e)=>{
+     p=parseInt(e.value) ? parseInt(e.value):0
+     
+     document.getElementById('total').value= p+a;
+     return 0;
+       
+    }
+    const absent=(e)=>{
+         a=parseInt(e.value) ? parseInt(e.value):0
 
+        document.getElementById('total').value= p+a;
+        return 0;
+    } 
+     
+</script>
 <{% endblock %}

@@ -54,8 +54,30 @@
 						<div class="my_setting_content">
 							<div class="my_setting_content_details">
 								<div class="cart_page_form style3">
-									<form action="adminaddusersign" method="POST">
+									<form action="adminaddusersign" method="POST" enctype="multipart/form-data">
 									{% csrf_token %}
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">First Name</label>
+												<input class="col-md-5 form-control" type="text" name="fname"  pattern="[A-Za-z]+" required>
+											</div>
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Last Name</label>
+												<input class="col-md-5 form-control" type="text" name="lname"  pattern="[A-Za-z]+" required>
+											</div>
+										<div class="form-group ">
+											<br>
+											<div class="row">
+												<label class="control-label col-md-2">Gender</label>
+												<select name="gender" id="" class="col-md-5 form-control" required>
+													<option value="Male">Male</option>
+													<option value="female">female</option>
+												</select>
+											</div>
+
+										</div>
 										<div class="form-group ">
 											<div class="row">
 												<label class="control-label col-md-2">Username</label>
@@ -63,10 +85,18 @@
 											</div>
 
 										</div>
+									
 										<div class="form-group ">
 											<div class="row">
 												<label class="control-label col-md-2"> Email</label>
 												<input class="col-md-5 form-control" type="email" name="email" required>
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Contact No</label>
+												<input class="col-md-5 form-control" type="text" name="contact"  pattern="[0-9]+" required>
 											</div>
 
 										</div>
@@ -77,18 +107,39 @@
 											</div>
 
 										</div>
+											<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Address</label>
+												<input class="col-md-5 form-control" type="text" name="address" required>
+											</div>
+
+										</div>
+											<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Date of Birth</label>
+												<input class="col-md-5 form-control" type="date" name="dob" required>
+											</div>
+
+										</div>
 											
 											<div class="form-group ">
 											<div class="row">
-												<label class="control-label col-md-2">Role</label>
-												<input class="col-md-5 form-control" type="" name="role" value="Teacher" readonly>
+												<label class="control-label col-md-2"></label>
+												<input class="col-md-5 form-control" type="hidden" name="role" value="Teacher" readonly>
 											</div>
 
 										</div>
 										<div class="form-group ">
 											<div class="row">
-												<label class="control-label col-md-2">Verify</label>
-												<input class="col-md-5 form-control" type="" name="verify" value="yes" readonly>
+												<label class="control-label col-md-2"></label>
+												<input class="col-md-5 form-control" type="hidden" name="verify" value="yes" readonly>
+											</div>
+
+										</div>
+										<div class="form-group ">
+											<div class="row">
+												<label class="control-label col-md-2">Image</label>
+												<input class="col-md-5 form-control" type="file" name="image" onchange="show(this)" required>
 											</div>
 
 										</div>
@@ -109,5 +160,45 @@
 		</div>
 	</div>
 </div>
-
+<script>
+	function show(input) {
+        debugger;
+        var validExtensions = ['jpg','png','jpeg']; //array of valid extensions
+        var fileName = input.files[0].name;
+        var fileNameExt = fileName.substr(fileName.lastIndexOf('.') + 1);
+        if ($.inArray(fileNameExt, validExtensions) == -1) {
+            input.type = ''
+            input.type = 'file'
+            $('#user_img').attr('src',"");
+			
+			toastr.warning("Only these file types are accepted jpg png jpeg", "Success", {
+				"closeButton": false,
+				"debug": false,
+				"newestOnTop": false,
+				"progressBar": false,
+				"positionClass": "toast-top-right",
+				"preventDuplicates": false,
+				"onclick": null,
+				"showDuration": "300",
+				"hideDuration": "1000",
+				"timeOut": "5000",
+				"extendedTimeOut": "1000",
+				"showEasing": "swing",
+				"hideEasing": "linear",
+				"showMethod": "fadeIn",
+				"hideMethod": "fadeOut"
+						});
+        }
+        else
+        {
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#user_img').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+        }
+    }
+</script>
 {% endblock %}

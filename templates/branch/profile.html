@@ -30,18 +30,18 @@
         {% endfor %}
 											</div>
 											
-											<form action="profileshow" method="POST" id="profileupdate" enctype="multipart/form-data">
+											<form action="{% url 'profile' %}" method="POST" id="profileupdate" enctype="multipart/form-data">
 											
 											<div class="row my_setting_content_details pb0">
 												<div class="col-xl-3">
-													<div class="wrap-custom-file">
-													{% for d in data %}
+								<div class="wrap-custom-file">
+													
 													    <input type="file"  id="image1" accept=".gif, .jpg, .png"/ name="UniLogo">
 													    <label  for="image1">
 													      	<span>Browse</span>
 													    </label>
 													</div>
-													{% endfor %}
+													
 												</div>
 												
 												{% csrf_token %}
@@ -50,50 +50,46 @@
 														<div class="col-xl-6">
 															<div class="my_profile_setting_input form-group">
 														    	<label for="formGroupExampleInput1">University Name</label>
-																{% for d in data %}
+															
 																
 																
-														    	<input type="text" class="form-control" id="fname" value="{{d.UniName}}" name="UniName" readonly>
-																{% endfor %}
+														    	<input type="text" class="form-control" id="fname" value="{{data.UniName}}" name="UniName" >
+															
 															</div>
 														
 															<div class="my_profile_setting_input form-group">
 														    	<label for="formGroupExampleInput3">User Name</label>
-																{% for d in data %}
-														    	<input type="text" class="form-control" id="uname" value="{{d.UniUsername}}" name="UniUsername" required>
-																{% endfor %}
+																
+														    	{{data.UniUsername}}
 															</div>
 																<div class="my_profile_setting_input form-group">
 														    	<label for="formGroupExampleInput2">Email</label>
-																{% for d in data %}
-														    	<input type="email" class="form-control" id="email" value="{{d.UniEmail}}" name="UniEmail" readonly>
-																	{% endfor %}
+																<p>{{data.UniEmail}}</p>
+														    		
 															</div>
 															<div class="my_profile_setting_input form-group">
 														    	<label for="exampleInputPhone">Package</label>
-																{% for d in data %}
-														    	<input type="text" class="form-control" id="phone" aria-describedby="phoneNumber" value="{{d.UniPackage}}" readonly>
-																{% endfor %}
+															  <p>{{data.UniPackage}}</p>
+														    	
 															</div>
 														</div>
 														<div class="col-xl-6">
 															<div class="my_profile_setting_input form-group">
 														    	<label for="formGroupExampleInput3">Address</label>
-																{% for d in data %}
-														    	<input type="text" class="form-control" id="lname" value="{{d.UniAddress}}" name="UniAddress" required>
-																	{% endfor %}
+																
+														    	<input type="text" class="form-control" id="lname" value="{{data.UniAddress}}" name="UniAddress" required>
+																	
 															</div>
 															<div class="my_profile_setting_input form-group">
 														    	<label for="exampleInputPhone">Password</label>
-																	{% for d in data %}
-														    	<input type="password" class="form-control" id="phone" aria-describedby="phoneNumber" value="{{d.UniPassword}}" name="UniPassword" required>
-																	{% endfor %}
+																	
+														    	<input type="password" class="form-control" id="phone" aria-describedby="phoneNumber" value="{{data.UniPassword}}" name="UniPassword" required>
+																	
 															</div>
 															<div class="my_profile_setting_input form-group">
 														    	<label for="exampleInputPhone">Status</label>
-																{% for d in data %}
-														    	<input type="text" class="form-control" id="phone" aria-describedby="phoneNumber" value="{{d.UniStatus}}" readonly>
-																{% endfor %}
+																
+														      <p>{{data.UniStatus}}</p>
 															</div>
 
 														</div>

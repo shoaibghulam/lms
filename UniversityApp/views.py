@@ -1574,9 +1574,21 @@ def adminaddusersign(request):
             verify=request.POST['verify']
             data=User_Signup(username=username,email=email,password=password,verify=verify,role=role,uniId=uniid,branchId=branchid)
             data.save()
+            user=User_Signup.objects.get(user_id=data.pk)
+            firstname=request.POST['fname']
+            lastname=request.POST['lname']
+            gender=request.POST['gender']
+            contact=request.POST['contact']
+            address=request.POST['address']
+            dob=request.POST['dob']
+            image=request.FILES['image']
+            profilesave=Instructor(First_Name=firstname,Last_Name=lastname,Gender=gender,Address=address,Phone_Number=contact,Dob=dob,img=image,username=user,uniId=uniid,branchId=branchid)
+            
+          
+            profilesave.save()
             messages.success(request,"Save Successfully")
             return redirect('adminusersignup')
-
+          
     except:
         return redirect('/university/')
     return render(request,'uniadmin/adminaddusersign.html')

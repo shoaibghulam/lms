@@ -126,8 +126,8 @@
 													<div class="my_profile_setting_input form-group">
 														<label for="packagename">Package Name</label>
 														<input type="text" class="form-control" id="packagename"
-															name="packagename" placeholder="Enter University Name"
-															required>
+															name="packagename" onkeydown="return alphaOnly(event);" placeholder="Enter Package Name"
+															 required>
 													</div>
 													<div class="my_profile_setting_input form-group">
 														<label for="price">Package Price </label>
@@ -223,7 +223,7 @@
 													<div class="my_profile_setting_input form-group">
 														<label for="packagename">Package Name</label>
 														<input type="text" class="form-control" id="upackagename"
-															name="upackagename" placeholder="Enter University Name"
+															name="upackagename"  onkeydown="return alphaOnly(event);"  placeholder="Enter University Name"
 															required>
 													</div>
 													<div class="my_profile_setting_input form-group">
@@ -308,7 +308,12 @@
 {% block script %}
 
 <script>
+	function alphaOnly(event) {
+		var key = event.keyCode;
+		return ((key >= 65 && key <= 90) || key == 8);
+	  };
 	$(document).ready(function () {
+
 		showdata();
    // disable previs date start
 		var dtToday = new Date();

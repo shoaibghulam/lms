@@ -98,7 +98,20 @@ def universitybranch(request):
 def profile(request):
     if not request.session.has_key('UniId'):
         return redirect('/branch/login')
-    return render(request, 'branch/profile.html')
+    if request.method == 'POST':
+        dataupdate = UniversityAccount.objects.get(UniId=request.session['UniId'])
+        dataupdate.UniName= request.POST['UniName']
+        dataupdate.UniPassword= request.POST['UniPassword']   
+        dataupdate.UniAddress= request.POST['UniAddress']
+        img=request.FILES.get('UniLogo',False)
+        if img:
+            dataupdate.UniLogo=request.FILES['UniLogo']
+        dataupdate.save()
+        if img:
+            request.session['Uniimage'] = str(dataupdate.UniLogo)
+        return redirect('profile')
+    data = UniversityAccount.objects.get(UniId=request.session['UniId'])
+    return render(request, 'branch/profile.html', {'data': data})
     # result = urlopen('http://just-the-time.appspot.com/')
     # result = result.read().strip()
     # result_str = result.decode('utf-8')

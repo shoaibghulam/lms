@@ -73,8 +73,8 @@ def index(request):
 def universitybranch(request):
     if not request.session.has_key('UniId'):
         return redirect('/branch/login')
-    data = UniversityBranch.objects.filter(UniversityId=UniversityAccount.objects.get(
-        UniId=request.session['UniId'])).order_by('-BranchId')[:]
+    unidata=UniversityAccount.objects.get(UniId=request.session['UniId'])
+    data = UniversityBranch.objects.filter(UniversityId=unidata.UniId).order_by('-BranchId')[:]
     return render(request, 'branch/branch.html', {'data': data})
     # result = urlopen('http://just-the-time.appspot.com/')
     # result = result.read().strip()

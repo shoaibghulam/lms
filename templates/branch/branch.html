@@ -57,7 +57,7 @@
 					{% for message in messages %}
 					<div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
 						<strong>Message:</strong> {{message}}
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<button type="button"  class="close alertclose" data-dismiss="alert" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
@@ -159,13 +159,13 @@
 													<div class="my_profile_setting_input form-group">
 														<label for="formGroupExampleInput1">Branch Name</label>
 														<input type="text" class="form-control"
-															id="formGroupExampleInput1" placeholder="" name="BranchName"
+															 placeholder="Enter Banch Name" name="BranchName"
 															required>
 													</div>
 													<div class="my_profile_setting_input form-group">
 														<label for="formGroupExampleInput2">Branch User Name </label>
 														<input type="text" class="form-control"
-															id="formGroupExampleInput2" placeholder=""
+															 placeholder="Enter Username"
 															name="BranchUsername" required>
 													</div>
 												</div>
@@ -173,13 +173,13 @@
 													<div class="my_profile_setting_input form-group">
 														<label for="formGroupExampleInput2">Branch Password </label>
 														<input type="password" class="form-control"
-															id="formGroupExampleInput2" placeholder=""
-															name="BranchPassword">
+														 placeholder="Enter Password"
+															name="BranchPassword" required>
 													</div>
 													<div class="my_profile_setting_input form-group">
 														<label for="formGroupExampleInput2">Branch Address </label>
 														<input type="text" class="form-control"
-															id="formGroupExampleInput2" placeholder=""
+															placeholder="Enter Adress"
 															name="BranchAddress" required>
 													</div>
 												</div>
@@ -190,7 +190,7 @@
 										<div class="col-xl-5">
 											<div class="my_profile_setting_input form-group">
 												<label for="formGroupExampleInput1">Email</label>
-												<input type="email" class="form-control" id="faculty"
+												<input type="email" class="form-control" 
 													name="BranchEmail">
 											</div>
 										</div>

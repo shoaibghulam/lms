@@ -74,9 +74,12 @@ def login(request):
 
 
 def logout(request):
-    del request.session['adminid']
-    del request.session['adminimage']
-    return redirect('/superadmin/login')
+    if  request.session.has_key('adminid'):
+        del request.session['adminid']
+        del request.session['adminimage']
+        return redirect('/superadmin/login')
+    else:
+        return redirect('/superadmin/login')
 
 
 def insert(request):
@@ -314,3 +317,5 @@ def Count(request):
     userdata.append(data)
     userdata.append(data2)
     return HttpResponse(json.dumps(userdata))
+
+

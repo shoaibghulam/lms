@@ -41,7 +41,7 @@
 														<div class="col-xl-6">
 															<div class="my_profile_setting_input form-group">
 														    	<label for="formGroupExampleInput1">First Name</label>
-														    	<input type="text" class="form-control" id="fname" name="fname">
+														    	<input type="text" class="form-control" id="fname" pattern="[a-zA-Z]+" title="Please input alphabet characters only"  name="fname">
 															</div>
 															<div class="my_profile_setting_input form-group">
 														    	<label for="formGroupExampleInput2">Email</label>
@@ -55,11 +55,11 @@
 														<div class="col-xl-6">
 															<div class="my_profile_setting_input form-group">
 														    	<label for="formGroupExampleInput3">Last Name</label>
-														    	<input type="text" class="form-control" id="lname" name="lname">
+														    	<input type="text" class="form-control" id="lname"  id="fname" pattern="[a-zA-Z]+" title="Please input alphabet characters only" name="lname">
 															</div>
 															<div class="my_profile_setting_input form-group">
 														    	<label for="exampleInputPhone">Phone</label>
-														    	<input type="number" class="form-control" id="phone" aria-describedby="phoneNumber" name="phone">
+														    	<input type="number" class="form-control" id="phone" min="7" aria-describedby="phoneNumber"  id="fname" pattern="(5000|([1-4][0-9][0-9][0-9])|([1-9][0-9][0-9])|([1-9][0-9])|[1-9])" title="Please input Number only" name="phone" required>
 															</div>
 														
 
@@ -101,6 +101,7 @@
 {% block script %}
 
 <script>
+	
 
 $(document).ready(function () {
 	

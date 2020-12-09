@@ -53,6 +53,13 @@
 <script type="text/javascript" src="{% static '' %}faculty/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="{% static '' %}faculty/js/jquery.form.js"></script>
 <script type="text/javascript" src="{%static ''%}faculty/js/jquery.js"></script>
+<script>
+    $(document).ready(function(){
+        setInterval(function(){
+            $('.alertclose').click();
+        },4000)
+    })
+</script>
 {% block script %}
 {% endblock  %}
 <!-- Custom script for all pages --> 

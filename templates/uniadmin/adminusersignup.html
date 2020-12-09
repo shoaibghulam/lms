@@ -89,7 +89,7 @@
                                             <tbody class="table_body">
                                                 {% for i in data %}
                                                 <tr>
-                                                    <td>{{i.user_id}}</td>
+                                                    <td>{{forloop.counter}}</td>
                                                     <td>{{i.username}}</td>
                                                     <td>{{i.email}}</td>
                                                     <td>{{i.password }}</td>

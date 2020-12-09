@@ -1,7 +1,7 @@
-from django.shortcuts import render , HttpResponse,redirect,HttpResponseRedirect
+from django.shortcuts import render , HttpResponse,redirect,HttpResponseRedirect , reverse
 from UniversityApp.models import UniversityAccount,UniversityBranch
 from passlib.hash import pbkdf2_sha256
-from student.models import Student_Course,Student_Profile,Student_Signup,SerStudent,Application,Student_Query_Admin,Student_Survey,Registration,ScrunityForm,Job_Apply,Student_Submit_Evaluation,MeetingAppointment,Student_Assigment,Batch
+from student.models import Student_Course,Student_Profile,Student_Signup,SerStudent,Application,Student_Query_Admin,Student_Survey,Registration,ScrunityForm,Job_Apply,Student_Submit_Evaluation,MeetingAppointment,Student_Assigment,Batch,Ser_Batch
 from administrator.models import AcademicCalendarModel,FacultyCalendarModel,Form,Admin_Notification,role,RoomReservation,Rooms,menu,MenuOrders, menuSer,FacultyAttendence,Faculty_Evaluation_Report,Semester_Schedule,Exam_Schedule,StudentAttendence,SerFaculty_Evaluation_Report,Placement_Portal,onlinesurvey,SerForm,Sermenu,Serrole,Serroom,SerPlacement_Portal
 from faculty.models import User_Signup,Instructor,Department,Semester,Course,CourseVideos,AssigmentModel,Faculty_Development,Materialclass,Exam_Result,Faculty_Evaluation,NotificationModel,onlinequiz,Query_Admin,TeacherApplication,Teacher_syllabus,User_Stories,SerDepartment
 from library.models import BookAuthor,Books
@@ -14,9 +14,15 @@ from student.models import Student_Signup,Student_Profile
 import json
 from urllib.request import urlopen
 import pandas as pd
+from rest_framework.response import Response
+from rest_framework.renderers import JSONRenderer
+
 
 # Create your views here.
-
+# session login checker
+def loginstatus(request):
+    if not request.session.has_key('universitybranchid'):
+        return redirect('/university/login')
 # faculty
 
 def login(request):
@@ -3133,14 +3139,37 @@ def adminaddsignup(request):
             verify=request.POST['verify']
             data=Student_Signup(username=username,email=email,password=password,verify=verify,role=role,uniId=uniid,branchId=branchid)
             data.save()
+            firstname=request.POST['fname']
+            lastname=request.POST['lname']
+            address=request.POST['address']
+            contact=request.POST['contact']
+            batch=request.POST['batch']
+            department=request.POST['department']
+            dob=request.POST['dob']
+            shift=request.POST['shift']
+            sem=request.POST['semester']
+            image = request.FILES.get('image',False)
+            depart=Department.objects.get(Did=department,uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+            semesterid=Semester.objects.get(SamesterId=sem,uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+            userid=Student_Signup.objects.get(pk=data.user_id)
+            batchid = Batch.objects.get(Batch_id=batch,uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+            profiledata=Student_Profile(First_name=firstname,Last_name=lastname,ContactNo=contact,Address=address,DOB=dob,StudenBatch=batchid,StudenShift=shift,Profile=image,
+Department_id=depart,Semester_ID=semesterid,uniId=uniid,branchId=branchid,
+User_id=userid)
+            profiledata.save()
+
+
             messages.success(request,"Save Successfully")
             return redirect('adminsignup')
+            
 
     except:
         return redirect('/university/')
-
-    return render(request,'uniadmin/adminaddsignup.html')
-
+    batch = Batch.objects.filter(uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+    department=Department.objects.filter(uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+    semester=Semester.objects.filter(uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+    return render(request,'uniadmin/adminaddsignup.html',{'batch':batch,'department':department,'semester':semester})
+    
 
 def editadminsignup(request,id):
     try:
@@ -6368,5 +6397,72 @@ def admineditsurvey(request,id):
         return redirect('/university/')
     
 
-
+# add batch section by shoaib ghulam
+def adminbatch(request):
     
+    if not request.session.has_key('universitybranchid'):
+        return redirect('/university/login')
+    
+    uniid=UniversityAccount.objects.get(UniId=request.session['universityuniid'])
+    branchid=UniversityBranch.objects.get(BranchId=request.session['universitybranchid'])
+     
+    if request.method == "POST":
+        batchname=request.POST['batch']
+        query=Batch.objects.filter(Batch_Name=batchname)
+        if query:
+            messages.error(request,"Batch Name is Already Inserted")
+            return redirect("adminbatch")
+        else:
+            batchdata=Batch(Batch_Name=batchname,uniId=uniid,branchId=branchid)
+            batchdata.save()
+            messages.success(request,'Batach has been Inserted')
+            return redirect('adminbatch')
+
+          
+    data=Batch.objects.filter(uniId=uniid,branchId=branchid)
+    return render(request,'uniadmin/adminbatch.html',{'data':data})
+
+    # get batch data through ajax
+def getbatchdata(request):
+    if not request.session.has_key('universitybranchid'):
+        return redirect('/university/login')
+    
+    uniid=UniversityAccount.objects.get(UniId=request.session['universityuniid'])
+    branchid=UniversityBranch.objects.get(BranchId=request.session['universitybranchid'])
+    if request.method == "GET":
+            
+        id=request.GET['id']
+        data=Batch.objects.filter(Batch_id=id,uniId=uniid,branchId=branchid)[0]
+       
+        serdata=Ser_Batch(data , many=False)
+        
+        return HttpResponse(json.dumps(serdata.data))
+    if request.method =="POST":
+        uid=request.POST['uid']
+        ubatch=request.POST['ubatch']
+        udata = Batch.objects.get(Batch_id=uid,uniId=uniid,branchId=branchid)
+        udata.Batch_Name=ubatch
+        udata.save()
+        messages.success(request,"Batch has been Update")
+        return redirect('adminbatch')
+
+def deletebatch(request ,id):
+     if not request.session.has_key('universitybranchid'):
+        return redirect('/university/login')
+     uniid=UniversityAccount.objects.get(UniId=request.session['universityuniid'])
+     branchid=UniversityBranch.objects.get(BranchId=request.session['universitybranchid'])
+     deldata=Batch.objects.get(Batch_id=id,uniId=uniid,branchId=branchid)
+     deldata.delete()
+     messages.error(request,"Batch has been Deleted")
+     return redirect('adminbatch')
+
+
+def searchbatch(request):
+    if not request.session.has_key('universitybranchid'):
+        return redirect('/university/login')
+    uniid=UniversityAccount.objects.get(UniId=request.session['universityuniid'])
+    branchid=UniversityBranch.objects.get(BranchId=request.session['universitybranchid'])   
+    query=request.POST.get('query','Batch')
+    data=Batch.objects.filter(Batch_Name__icontains=query,uniId=uniid,branchId=branchid)
+    return render(request,'uniadmin/adminbatch.html',{'data':data})
+    # return rredirect('adminbatch'),{'data':data})

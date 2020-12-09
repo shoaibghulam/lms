@@ -303,7 +303,12 @@ urlpatterns = [
     
 
 
-    
+# add urls by shoaib ghulam
+    path('adminbatch',views.adminbatch,name="adminbatch"),
+    path('getbatchdata',views.getbatchdata,name="getbatchdata"),
+    path('deletebatch/<int:id>',views.deletebatch,name="deletebatch"),
+    path('searchbatch',views.searchbatch,name="searchbatch"),
+
 
     
 

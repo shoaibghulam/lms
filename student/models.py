@@ -26,7 +26,10 @@ class Batch(models.Model):
     def __str__(self):
         return self.Batch_Name 
 
-
+class Ser_Batch(serializers.ModelSerializer):
+    class Meta:
+        model = Batch
+        fields = '__all__'
 class Section(models.Model):
     Section_id=models.AutoField(primary_key=True)
     Section_Name=models.CharField(max_length=100,choices=Category)

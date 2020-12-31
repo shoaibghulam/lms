@@ -56,8 +56,76 @@
 <script type="text/javascript" src="{% static '' %}faculty/js/jquery.form.js"></script>
 {% block script %} {% endblock %}
 <!-- Custom script for all pages -->
-<script type="text/javascript" src="{% static '' %}faculty/js/script.js"></script>
 
+
+<script type="text/javascript" src="{% static '' %}faculty/js/script.js"></script>
+<!-- meeting data -->
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="meetingmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Class Invitation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="classinfo">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="join" class="btn btn-primary">join</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://js.pusher.com/6.0/pusher.min.js"></script>
+<script>
+	
+	var pusher = new Pusher('088b51ea5617a50f8ad0', {
+		cluster: 'ap2'
+	  });
+
+</script>
+<script>
+  
+// pusher app setting
+var channel = pusher.subscribe('chat{{request.session.userid}}'); // recevier
+let x=0;
+channel.bind('myevent', function(data) {
+  $('#meetingmodal').modal('show'); 
+   $('#classinfo').html(`${data['instructor']} ${data['course']} class is now going to start click join`)
+   $('#join').click(function(){
+    localStorage.setItem("mid", data['mid']);
+    localStorage.setItem("password", data['password']);
+      $.ajax({
+        url:'{% url 'studentmeeting' %}',
+        type:'GET',
+        success: function(data){
+          let alldata=JSON.parse(data)
+          localStorage.setItem("fname",alldata.fname);
+          localStorage.setItem("lname", alldata.lname);
+          localStorage.setItem("role", alldata.role);
+        
+         window.location.href="{% url 'joinmeetingstudent' %}";
+ 
+        }
+      })
+     
+      // windows.location.href="{% url 'joinmeetingstudent' %}"; 
+
+   })
+    
+  });
+ 
+
+Pusher.logToConsole = true;
+
+</script>
+<!-- /meeting data -->
 </body>
 
 </html>

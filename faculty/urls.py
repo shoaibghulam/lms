@@ -88,7 +88,13 @@ urlpatterns = [
     path('showmidterm',views.showmidterm,name="showmidterm"),
     path('showfinalexam',views.showfinalexam,name="showfinalexam"),
     path('lockresult',views.lockresult,name="lockresult"),
-
+# blow url defined by shoaib ghulam
+    path('meeting', views.classmeetingdata,name="meeting"),
+    path('meetingnotification', views.meetingnotification,name="meetingnotification"),
+    path('onlineclass', views.onlineclass,name="onlineclass"),
+    path('coursedata', views.coursedatafatching,name="coursedata"),
+    path('startmeeting', views.startmeeting,name="startmeeting"),
+    path('meetingdata', views.meetingdata,name="meetingdata"),
     
 
 

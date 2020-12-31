@@ -9,6 +9,7 @@ from faculty.models import User_Signup,Instructor
 from UniversityApp.models import UniversityAccount,UniversityBranch
 import json
 import random
+from django.contrib import messages
 
 # Create your views here.
 def home(request):
@@ -394,3 +395,26 @@ def logoutfaculty(request):
         uni = request.session['facultyUniversity']
         branch = request.session['facultyBranch']
         return redirect('Facultylogin',uni,branch)
+
+# Finance Logins by shoaib ghulam
+def FinanceLogin(request,uniuser,unibranch):
+    # try:
+    
+    
+    #  request.session['UniId'] 
+     
+        Uni = UniversityAccount.objects.get(UniUsername=uniuser)
+        branch=UniversityBranch.objects.get(BranchUsername=unibranch)
+        # x=str(Uni +" this is branch "+ branch)
+        if branch.UniversityId.UniId==Uni.UniId:
+            if Uni.UniStatus=="Active":
+
+                request.session['financeuni'] = Uni.UniId
+                request.session['financebranch'] = branch.BranchId
+                return render(request,'finance/login.html')
+              
+            else:
+                messages.error(request,"University account is disabled")
+        return HttpResponse(branch)
+    # except:
+    #     return HttpResponse("this is excetption")

@@ -23,6 +23,7 @@ urlpatterns = [
     path('superadmin/', include('SuperAdmin.urls')),
     path('university/', include('UniversityApp.urls')),
     path('branch/', include('branch.urls')),
+    path('finance/', include('finance.urls')),
 
 
 

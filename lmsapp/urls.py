@@ -36,6 +36,7 @@ urlpatterns = [
 
     path('studentlogin/<str:name>/<str:username>', views.studentlogin,name="studentlogin"),
     path('Facultylogin/<str:name>/<str:username>', views.Facultylogin,name="Facultylogin"),
+    path('finance/<str:uniuser>/<str:unibranch>', views.FinanceLogin,name="financelogin"),
    
 
 

@@ -1,0 +1,95 @@
+{% extends 'faculty/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+    padding: 99px 0 0;
+}
+.faq_question_widget{
+	min-height: 83vh;
+}
+</style>
+<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+							<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Create Online class</h4>
+							
+							</nav>
+                        </div>
+                        <div class="col-md-5 mx-auto">
+                            
+                            <form action="{% url 'startmeeting' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                <select class="form-control" name="course" id="cid">
+                                  
+
+                                        <option>Choose Course</option>
+                                        {% for data in data %}
+                                        <option value="{{data.Cid}}">{{data.Course_name}}</option>
+                                        {% endfor %}
+                                  
+                                   
+                                </select> 
+                            </div>
+                                <div class="form-group">
+                                <select class="form-control" name="semester" id="cid">
+                                    <option>Choose Samester</option>
+                                    {% for samester in samester %}
+                                    <option value="{{samester.SamesterId}}">{{samester.Samester_Name}}</option>
+                                    {% endfor %}
+                                   
+                                </select>
+                                </div>
+                                <div class="form-group">
+                                <select class="form-control" name="batch" id="cid">
+                                    <option>Choose Batch</option>
+                                    {% for batch in batch %}
+                                    <option value="{{batch.Batch_id}}">{{batch.Batch_Name}}</option>
+                                    {% endfor %}
+                                   
+                                </select>
+                            </div>
+                            <div class="form-group text-center">
+                            <input type="submit" class="btn btn-primary" name="submit" value="Start Class">
+                        </div>
+                            </form>
+                            <!-- <h1>this is {{request.session.hostdata.teacher}}</h1>  -->
+                        </div>
+						
+					</div>
+				</div>
+			</div>
+</div>
+{% endblock %}
+{% block script %}
+  <script>
+   /*   let cid=0;
+      let alldata=0;
+      let Batch=[];
+    $('#cid').change(function(){
+      
+        $.ajax({
+            url:'{% url 'coursedata' %}',
+            type:'GET',
+            data:{
+                cid:$(this).val(),
+            },
+            success:function(data) {
+                alldata= JSON.parse(data);
+                for(x=0;x<alldata.length;x++){
+                   Batch.push(alldata[x].StudenBatch)
+                   }
+            }
+        });
+        // ajax end
+       
+      });
+    
+    */
+       
+  </script>
+{% endblock script %}

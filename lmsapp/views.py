@@ -335,7 +335,9 @@ def Facultylogin(request,name,username):
             Uniid = []
             for i in Uni:
                 Uniid.append(i.UniId)
-                request.session['facultylogo'] = str(i.UniLogo)
+                Uniid.append(i.UniId)
+                request.session['logo'] = str(i.UniLogo)
+                # request.session['facultylogo'] = str(i.UniLogo)
             Branch = UniversityBranch.objects.filter(UniversityId__in=Uniid,BranchUsername=username)
             if Branch:
                 BranchId = []

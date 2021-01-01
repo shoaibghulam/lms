@@ -91,7 +91,7 @@ urlpatterns = [
 # blow url defined by shoaib ghulam
     path('meeting', views.classmeetingdata,name="meeting"),
     path('meetingnotification', views.meetingnotification,name="meetingnotification"),
-    path('onlineclass', views.onlineclass,name="onlineclass"),
+    path('onlineclass', views.onlineclass,name="onlineclassteacher"),
     path('coursedata', views.coursedatafatching,name="coursedata"),
     path('startmeeting', views.startmeeting,name="startmeeting"),
     path('meetingdata', views.meetingdata,name="meetingdata"),

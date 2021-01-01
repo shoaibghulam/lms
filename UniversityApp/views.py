@@ -16,6 +16,7 @@ from urllib.request import urlopen
 import pandas as pd
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
+from django.core.mail import send_mail,EmailMultiAlternatives
 
 
 # Create your views here.
@@ -1592,7 +1593,9 @@ def adminaddusersign(request):
             
           
             profilesave.save()
+
             messages.success(request,"Save Successfully")
+            facultycredentials(request,data.pk)
             return redirect('adminusersignup')
           
     except:
@@ -3160,6 +3163,7 @@ User_id=userid)
 
 
             messages.success(request,"Save Successfully")
+            studentcredentials(request, data.pk)
             return redirect('adminsignup')
             
 
@@ -6466,3 +6470,63 @@ def searchbatch(request):
     data=Batch.objects.filter(Batch_Name__icontains=query,uniId=uniid,branchId=branchid)
     return render(request,'uniadmin/adminbatch.html',{'data':data})
     # return rredirect('adminbatch'),{'data':data})
+
+    
+# send credentials to student login user and password  by shoaib ghulam
+def studentcredentials(request,id):
+    data=Student_Signup.objects.get(user_id=id,uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+    # uniname=UniversityBranch.objects.get(request.session['universityuniid']
+    unidata=UniversityBranch.objects.get(BranchId=request.session['universitybranchid'])
+    uniuser=unidata.UniversityId.UniUsername
+    branchuser=unidata.BranchUsername
+    subject=f"Login Credential {unidata.BranchName}"
+    url=f"http://127.0.0.1/studentlogin/{uniuser}/{branchuser}";
+    # email tamplate start
+    subject, from_email, to = subject, 'test@certnetworks.tk', data.email
+    html_content = f'''
+            <h1 style="text-align:center; font-family: 'Montserrat', sans-serif;">Login Credential {unidata.BranchName}</h1>
+                <p>
+                  Username:  {data.email} <br>
+                  password: {data.password}
+                  </p>
+            <div style='width:300px; margin:0 auto;'> <a href='{url}' style=" background-color:#0066ff; border: none;  color: white; padding: 15px 32px;  text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; font-family: PT Sans, sans-serif;" >click here</a>
+        </div>
+            '''
+    msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+    # email tamplate end
+    messages.success(request,"Credential has been sent")
+    return redirect('/university/adminsignup')
+
+
+
+
+
+# send credentials to Faculty login user and password
+def facultycredentials(request,id):
+    data=User_Signup.objects.get(user_id=id,uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+    unidata=UniversityBranch.objects.get(BranchId=request.session['universitybranchid'])
+    uniuser=unidata.UniversityId.UniUsername
+    branchuser=unidata.BranchUsername
+    subject=f"Login Credential {unidata.BranchName}"
+    url=f"http://127.0.0.1/Facultylogin/{uniuser}/{branchuser}";
+    # email tamplate start
+    subject, from_email, to = subject, 'test@certnetworks.tk', data.email
+    html_content = f'''
+            <h1 style="text-align:center; font-family: 'Montserrat', sans-serif;">Login Credential {unidata.BranchName}</h1>
+                <p>
+                  Username:  {data.email} <br>
+                  password: {data.password}
+                  </p>
+            <div style='width:300px; margin:0 auto;'> <a href='{url}' style=" background-color:#0066ff; border: none;  color: white; padding: 15px 32px;  text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; font-family: PT Sans, sans-serif;" >click here</a>
+        </div>
+            '''
+    msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+    # email tamplate end
+    messages.success(request,"Credential has been sent")
+    return redirect('/university/adminsignup')
+
+# send credentials to Faculty login user and password

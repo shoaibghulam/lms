@@ -24,7 +24,7 @@
 													<h4 class="m0">Personal Details</h4>
 												</div>
 											</div>
-											<form action="profileupdate" method="POST" id="profileupdate">
+			<form action="profileupdate" method="POST" id="profileupdate">
 											<div class="row my_setting_content_details pb0">
 												<div class="col-xl-3">
 													<div class="wrap-custom-file">
@@ -55,7 +55,7 @@
 														<div class="col-xl-6">
 															<div class="my_profile_setting_input form-group">
 														    	<label for="formGroupExampleInput3">Last Name</label>
-														    	<input type="text" class="form-control" id="lname"  id="fname" pattern="[a-zA-Z]+" title="Please input alphabet characters only" name="lname">
+					<input type="text" class="form-control" id="lname"  id="fname"  name="lname" data-parsley-trigger="keyup"                 data-parsley-pattern="^[a-zA-Z\s]+$" required>
 															</div>
 															<div class="my_profile_setting_input form-group">
 														    	<label for="exampleInputPhone">Phone</label>
@@ -104,8 +104,9 @@
 	
 
 $(document).ready(function () {
-	
+
 	updateshow();
+	$('#profileupdate').parsley();
 	
 	});
 

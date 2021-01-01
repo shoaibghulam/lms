@@ -68,6 +68,9 @@ urlpatterns = [
     path('showfinalexam',views.showfinalexam,name="showfinalexam"),
     path('submitmidterm',views.submitmidterm,name="submitmidterm"),
     path('submitfinalexam',views.submitfinalexam,name="submitfinalexam"),
+    # urls created  by shoaib ghulam
+    path('studentmeeting',views.studentmeeting,name="studentmeeting"),
+    path('meeting',views.meeting,name="joinmeetingstudent"),
  
     
   

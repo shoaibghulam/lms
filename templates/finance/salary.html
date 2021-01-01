@@ -1,0 +1,65 @@
+{% extends 'finance/base.html' %}
+{% load static %}
+{% block body %}
+  <!-- body start -->
+  <div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+    <button class="btn btn-primary pull-right">Add Salary</button>
+            </div>
+        </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title ">Faculty Salary</h4>
+              <p class="card-category"> Salary Table</p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class=" text-primary">
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th> Salary </th>
+                    <th>Salary Date</th>
+                    <th>University</th>
+                    <th>Branch</th>
+                    <th class="text-center">Action</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Dakota Rice</td>
+                      <td class="text-primary"> $36,738</td>
+                      <td>12-12-2020</td>
+                      <td> Fuuast</td>
+                      <td> Gulshan e iqbal</td>
+                      <td class="text-center">
+                          <button class="btn btn-outline-info">
+                            <span class="material-icons" style="font-size:20px">
+                                create
+                                </span>
+                          </button>
+                          <button class="btn btn-outline-danger">
+                            <span class="material-icons" style="font-size:20px">
+                                delete
+                                </span>
+                          </button>
+                      </td>
+                      
+                    </tr>
+                    <tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+  <!-- body end -->
+{% endblock body %}

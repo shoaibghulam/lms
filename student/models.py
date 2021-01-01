@@ -2,7 +2,7 @@ from django.db import models
 from faculty.models import Course,Instructor
 from datetime import datetime  
 from rest_framework import serializers
-from faculty.models import Semester,Department,Instructor,AssigmentModel,MidtermModel,FinalExamModel
+from faculty.models import Semester,Department,Instructor,AssigmentModel,MidtermModel,FinalExamModel,CourseSeralizer
 from UniversityApp.models import UniversityAccount , UniversityBranch
 
 APPLICATIONSTATUS=(
@@ -309,6 +309,9 @@ class Ser_FinalExams(serializers.ModelSerializer):
     
 # seralizer data
 class SerStudentCourse(serializers.ModelSerializer):
+    StudenBatch=Ser_Batch(Batch , many=False, read_only=True)
+    Courses=CourseSeralizer(Course , many=True, read_only=True)
+
     class Meta:
         model = Student_Course
         fields = '__all__'

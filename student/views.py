@@ -1511,3 +1511,18 @@ def submitfinalexam(request):
     
     # except:
     #     return redirect('/')
+
+
+
+    # creating meeting data for student by   shoaib ghulam
+def studentmeeting(request):
+    profiledata=Student_Profile.objects.get(StudentId=request.session['userid'])
+    data={
+        'fname':profiledata.First_name,
+        'lname':profiledata.Last_name,
+        'role':0
+    }
+    return HttpResponse(json.dumps(data))
+
+def meeting(request):
+    return render(request,'student/meeting.html')

@@ -2289,3 +2289,51 @@ def meetingdata(request):
    
     return HttpResponse(json.dumps(x))
 
+
+
+# add student attendance system start  by shoaib ghulam
+def addStudentatten(request):
+    try:
+        if request.method=="POST":
+            StudentAttendenceYear=request.POST['StudentAttendenceYear']
+            StudentAttendenceMonth=request.POST['StudentAttendenceMonth']
+            StudentAttendencePresent=request.POST['StudentAttendencePresent']
+            StudentAttendenceAbsent=request.POST['StudentAttendenceAbsent']
+            StudentAttendenceTotal=request.POST['StudentAttendenceTotal']
+            student=Student_Profile.objects.get(StudentId=request.POST['student']) 
+            depart=Department.objects.get(Did=request.POST['depart']) 
+            course=Course.objects.get(Cid=request.POST['course']) 
+            uniid=UniversityAccount.objects.get(UniId=request.session['universityuniid'])
+            branchid=UniversityBranch.objects.get(BranchId=request.session['universitybranchid'])
+            data=StudentAttendence(StudentAttendenceYear=StudentAttendenceYear,StudentAttendenceMonth=StudentAttendenceMonth,StudentAttendencePresent=StudentAttendencePresent,StudentAttendenceAbsent=StudentAttendenceAbsent,StudentAttendenceTotal=StudentAttendenceTotal,uniId=uniid,branchId=branchid,Student_id=student,Department_id=depart,Course_id=course)
+            data.save()
+            messages.success(request,"Successfully Added")
+            return redirect('attendance')
+   
+        
+    
+    except:
+        return redirect('/university/')
+    instructorProfile=Instructor.objects.get(username=request.session['facultyuserid'])
+    courses=Course.objects.filter(Instructor_id=instructorProfile.tid)
+    coursesid=list()
+    for x in courses:
+        coursesid.append(x.Cid)
+    data= Student_Course.objects.filter(Courses__in=coursesid)
+    # print(data[0])
+    # coursename=data.all()
+    student=Student_Profile.objects.filter(uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+    department=Department.objects.filter(uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+    # course=Course.objects.filter(uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+    return render(request,'faculty/addStudentatten.html',{'student':data,'department':department,'course':courses})
+    
+
+# add student attendance system end
+@csrf_exempt
+def studentAttendanceData(request):
+  
+    sid=request.POST['sid']
+    data= Student_Course.objects.get(Student_ID=sid,uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+    serdata=SerStudentCourse(data , many=False)
+    print(data)
+    return HttpResponse(json.dumps(serdata.data))

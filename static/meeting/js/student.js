@@ -18,7 +18,7 @@ const meetConfig = {
 };
 getSignature(meetConfig);
 function getSignature(meetConfig) {
-	fetch(`http://127.0.0.1/faculty/meetingdata`, {
+	fetch(`https://www.digital-lms.com/faculty/meetingdata`, {
 			method: 'POST',
 			body: JSON.stringify({ meetingData: meetConfig })
 		})

@@ -86,11 +86,8 @@
 
                                         </td>
                                         <td>
-                                            <select class="form-control" name="month">
-                                                    {% for d in data2 %}
-                                                   <option value="{{d.StudentAttendenceMonth}}">{{d.StudentAttendenceMonth}}</option>
-                                                    {% endfor %}
-                                                   
+                                            <select class="form-control" name="month"  id="monthname">
+                                                    
                                                 </select>
 
 
@@ -98,10 +95,8 @@
                                         </td>
 
                                         <td>
-                                            <select class="form-control" name="year">
-                                                    {% for d in data2 %}
-                                                   <option value="{{d.StudentAttendenceYear}}">{{d.StudentAttendenceYear}}</option>
-                                                    {% endfor %}
+                                            <select class="form-control" name="year" id="yearlist">
+                                                   
                                                    
                                                 </select>
 
@@ -119,7 +114,8 @@
 
                             </table>
                         </form>
-                        <a href="attendance"><input type="submit" class="btn btn-primary btn button_height" value="AllStudent Attendence" name=""></a>
+                        <a href="attendance"><input type="submit" class="btn btn-primary btn button_height" value="All Student Attendence" name=""></a>
+                        <a href="{% url 'addStudentatten' %}" class="btn btn-info button_height">Add Attendence</a>
 
                     </div>
                     <div class="col-lg-12">
@@ -174,4 +170,25 @@
 </div>
 </div>
 </div>
-{% endblock %} {% block script %} {% endblock %}
+{% endblock %}
+ {% block script %} 
+ <script>
+    let monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+    let months="";
+    let years="";
+    for(x=0;x<monthNames.length; x++){
+       months+=`
+          <option value="${monthNames[x]}">${monthNames[x]}</option>
+       `;
+    }
+    $('#monthname').append(months);
+    let year= new Date().getFullYear()
+    for(x=2015;x<=year;x++){
+     
+        years+=`
+          <option value="${x}">${x}</option>
+       `;
+    }
+    $('#yearlist').append(years);
+ </script>
+ {% endblock %}

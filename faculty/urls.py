@@ -95,7 +95,8 @@ urlpatterns = [
     path('coursedata', views.coursedatafatching,name="coursedata"),
     path('startmeeting', views.startmeeting,name="startmeeting"),
     path('meetingdata', views.meetingdata,name="meetingdata"),
-    
+    path('addStudentatten',views.addStudentatten,name="addStudentatten"),
+    path('studentAttendanceData',views.studentAttendanceData,name="studentAttendanceData"),
 
 
 

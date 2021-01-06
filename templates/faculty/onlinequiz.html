@@ -65,11 +65,10 @@
                         </ol>
                         <ol class="breadcrumb float-right">
                             <li class="breadcrumb-item active" aria-current="page">
-                                <a href="https://docs.google.com/forms/u/0/" class="btn btn-primary"
-                                    data-toggle="tooltip" data-placement="left" title="Back to Class Room"
-                                    data-original-title="Left" target="_blank">
+                            
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#quizmodal">
                                     Create Online Quiz
-                                </a>
+                                  </button>
                             </li>
                         </ol>
                     </div>
@@ -84,86 +83,7 @@
                         {% endfor %}
 
 
-                        <form action="/faculty/onlinequiz" id="inservideo" method="post">
-                            {% csrf_token %}
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th class="tdp">Course</th>
-                                        <th class="tdp">Department</th>
-
-
-                                        <th class="tdp">Semester</th>
-                                        <th class="tdp">Share Link</th>
-
-                                        <th class="tdp">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    <tr>
-
-
-                                        <td>
-
-                                            <select name="category" class="form-control">
-                                                
-                                                {% for i in courses %}
-                                                <option value="{{i.Cid}}">{{i.Course_name}}
-                                            
-                                                    {% endfor %}
-                                                    {% comment %}
-                                                <option value="lectures">Online Lecture</option> {% endcomment %}
-                                            </select>
-
-
-
-
-                                        </td>
-                                        <td>
-
-                                            <select name="department" class="form-control">
-                                                {% for i in courses %}
-                                       
-                                                <option value="{{i.Department_id}}">{{i.Department_id}}
-                                                <option>
-                                             
-                                                    {% endfor %}
-                                                    {% comment %}
-                                                <option value="lectures">Online Lecture</option> {% endcomment %}
-                                            </select>
-
-
-
-
-                                        </td>
-
-
-                                        <td> <select name="semester" class="form-control">
-                                                {% for i in courses %}
-                                                <option value="{{i.Semester_id}}">{{i.Semester_id}}
-                                                <option>
-                                                    {% endfor %}
-                                                    {% comment %}
-                                                <option value="lectures">Online Lecture</option> {% endcomment %}
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input type="text" class="form-control" name='link'>
-                                        </td>
-                                        <td>
-                                            <button type="submit" class="btn btn-sm btn-primary">
-                                                <i class="fa fa-send"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-
-
-
-
-                                </tbody>
-                            </table>
-                        </form>
+                      
                     </div>
                   
                        <div class="col-lg-12">
@@ -175,11 +95,12 @@
                             <thead>
                                 <tr>
 
+                                    <th class="tdp">Quiz Title</th>
                                     <th class="tdp">Course</th>
                                     <th class="tdp">Department</th>
                                     <th class="tdp">Teacher</th>
                                     <th class="tdp">Semester</th>
-                                    <th class="tdp">Share Link</th>
+                                    <th class="tdp">Add Question</th>
                                     <th class="tdp">Delete</th>
 
 
@@ -189,11 +110,12 @@
                                 {% for data in data %}
                                 <tr>
 
+                                    <td>{{data.Title}}</td>
                                     <td>{{data.Course_id}}</td>
                                     <td>{{data.Department_id}}</td>
                                      <td>{{data.Instructor_id}}</td>
                                      <td>{{data.semester}}</td>
-                                <td> <a href="{{data.quizlink}}" target="_blank" ><button type="submit" class="btn btn-primary">Click To Join</button></a></td>
+                                <td> <a href="quizsheet/{{data.onlinequizid}}" target="_blank" ><button type="submit" class="btn btn-primary">Add Question</button></a></td>
 
                                 <td> <a href="/faculty/deletequiz/{{data.onlinequizid}}" ><button type="submit" class="btn btn-danger">Delete</button></a></td>
 
@@ -212,6 +134,80 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="quizmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Create Quiz</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="/faculty/onlinequiz" id="inservideo" method="post">
+                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="Title">Title</label>
+                                    <input type="text" class="form-control" name='title'required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Title">Quiz Makrs</label>
+                                    <input type="text" class="form-control" name='marks'required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Select Course</label>
+                                <select name="category" class="form-control" required>
+                                    
+                                    {% for i in courses %}
+                                    <option value="{{i.Cid}}">{{i.Course_name}}</option>
+                                
+                                        {% endfor %}
+                                    
+                                  
+                                </select></div>
+
+
+
+                                <div class="form-group">
+                                    <label for="">Select Department</label>
+
+                                <select name="department" class="form-control" required>
+                                    {% for i in courses %}
+                           
+                                    <option value="{{i.Department_id}}">{{i.Department_id}}
+                                    </option>
+                                 
+                                        {% endfor %}
+                                      
+                                  
+                                </select>
+
+</div>
+<div class="form-group">
+    <label for="">Select Semester</label>
+
+                            <select name="semester" class="form-control" required>
+                                    {% for i in courses %}
+                                    <option value="{{i.Semester_id}}">{{i.Semester_id}}
+                                    </option>
+                                        {% endfor %}
+                                     
+                                </select>
+                         </div>
+                              
+                        
+                         
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save </button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
 <script>
 if ( window.history.replaceState ) {
   window.history.replaceState( null, null, window.location.href );

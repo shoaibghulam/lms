@@ -58,7 +58,7 @@ urlpatterns = [
     path('onlineclass',views.onlineclass,name="onlineclass"),
    
     path('chat',views.chat,name="chat"),
-    path('startquiz',views.startquiz,name="startquiz"),
+    path('startquiz/<int:id>',views.startquiz,name="startquiz"),
     path('video/<int:id>',views.video,name="video"),
     path('showstudentAssignment',views.showstudentAssignment,name="showstudentAssignment"),
 

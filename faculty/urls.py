@@ -97,6 +97,8 @@ urlpatterns = [
     path('meetingdata', views.meetingdata,name="meetingdata"),
     path('addStudentatten',views.addStudentatten,name="addStudentatten"),
     path('studentAttendanceData',views.studentAttendanceData,name="studentAttendanceData"),
+    path('quizsheet/<int:qid>',views.quizsheet,name="quizsheet"),
+    path('quizsheetsave',views.quizsheetsave,name="quizsheetsave"),
 
 
 

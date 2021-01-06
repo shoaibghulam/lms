@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse,redirect
-from faculty.models import Ser_Exam_result,User_Signup,Materialclass,Course,Instructor,NotificationModel,AssigmentModel,Department,Teacher_syllabus,TeacherApplication,Query_Admin,SerTeacher,User_Stories,CourseVideos,Faculty_Development,Exam_Result,Faculty_Evaluation,Semester,Exam_Result,onlinequiz,MidtermModel,Ser_Midterm,FinalExamModel,Ser_FinalExam
+from faculty.models import Ser_Exam_result,User_Signup,Materialclass,Course,Instructor,NotificationModel,AssigmentModel,Department,Teacher_syllabus,TeacherApplication,Query_Admin,SerTeacher,User_Stories,CourseVideos,Faculty_Development,Exam_Result,Faculty_Evaluation,Semester,Exam_Result,onlinequiz,MidtermModel,Ser_Midterm,FinalExamModel,Ser_FinalExam,quaizsheet
 from student.models import Application,Student_Signup,Student_Course,Student_Profile,Student_Assigment,MeetingAppointment,SerStudent,Ser_Assigment,Ser_App,SerMeeting,Student_Midterm,Ser_Midterms,Student_FinalExam,Ser_FinalExams,Batch,SerStudentCourse
 from library.models import Books,BookAuthor
 from django.http import HttpResponse
@@ -750,13 +750,14 @@ def Onlinequiz(request):
             if request.method=="POST":
 
                 coursename=request.POST['category']
+                marks=request.POST['marks']
                 department=request.POST['department']
                 semester=request.POST['semester']
                 semesterdata=Semester.objects.get(Samester_Name=semester,uniId__in=request.session['facultyuniid'],branchId__in=request.session['facultybranchid'])
                 semestername=semesterdata.SamesterId
                 Instructor_id=Instructor.objects.get(username=request.session['facultyuserid'],uniId__in=request.session['facultyuniid'],branchId__in=request.session['facultybranchid'])
-                link=request.POST['link']
-                data=onlinequiz(semester=semester,Course_id=Course.objects.get(Cid=coursename),Instructor_id=Instructor.objects.get(username=request.session['facultyuserid']),Department_id=Department.objects.get(Department_name=department),quizlink=link,uniId=UniversityAccount.objects.get(UniId__in=request.session['facultyuniid']),branchId=UniversityBranch.objects.get(BranchId__in=request.session['facultybranchid']))
+                title=request.POST['title']
+                data=onlinequiz(semester=semester,quizlink=marks,Course_id=Course.objects.get(Cid=coursename),Instructor_id=Instructor.objects.get(username=request.session['facultyuserid']),Department_id=Department.objects.get(Department_name=department),Title=title,uniId=UniversityAccount.objects.get(UniId__in=request.session['facultyuniid']),branchId=UniversityBranch.objects.get(BranchId__in=request.session['facultybranchid']))
                 data.save()
                 messages.success(request, 'Quiz Successfully Added')
                 courses=Course.objects.filter(Instructor_id=Instructor_id.tid)
@@ -2335,5 +2336,31 @@ def studentAttendanceData(request):
     sid=request.POST['sid']
     data= Student_Course.objects.get(Student_ID=sid,uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
     serdata=SerStudentCourse(data , many=False)
-    print(data)
+   
     return HttpResponse(json.dumps(serdata.data))
+
+
+    # quaiz sheet
+def quizsheet(request,qid):
+    request.session['qid']=qid
+    print( request.session['qid'])
+    return render(request,'faculty/quizsheet.html')
+@csrf_exempt
+def quizsheetsave(request):
+    if request.method =="POST":
+        save="nothing"
+        question=request.POST['question']
+        a1=request.POST['a1']
+        a2=request.POST['a2']
+        a3=request.POST['a3']
+        a4=request.POST['a4']
+
+        anwser=request.POST['anwser']
+        uniId=request.session['universityuniid']
+        branchId=request.session['universitybranchid'] 
+        save=request.POST['save']
+        
+        data=quaizsheet(question=question,a1=a1,a2=a2,a3=a3,a4=a4,currectAnswse=anwser,quizid=onlinequiz.objects.get(onlinequizid=request.session['qid']),uniId=UniversityAccount.objects.get(UniId__in=request.session['facultyuniid']),branchId=UniversityBranch.objects.get(BranchId__in=request.session['facultybranchid']))
+        data.save()
+      
+        return HttpResponse(save)

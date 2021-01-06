@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import Instructor,Department,Course,User_Signup,Materialclass,AssigmentModel,NotificationModel,Teacher_syllabus,TeacherApplication,User_Stories,Query_Admin,CourseVideos,Faculty_Development,Faculty_Evaluation,Exam_Result,Semester,onlinequiz,MidtermModel,FinalExamModel
+from .models import Instructor,Department,Course,User_Signup,Materialclass,AssigmentModel,NotificationModel,Teacher_syllabus,TeacherApplication,User_Stories,Query_Admin,CourseVideos,Faculty_Development,Faculty_Evaluation,Exam_Result,Semester,onlinequiz,MidtermModel,FinalExamModel,quaizsheet
 # Dashboard Labeling
-
+class quaizsheetView(admin.ModelAdmin):
+    list_display=('question','a1','a2','a3','a4','currectAnswse','quizid')
 
 class InstructorAdmin(admin.ModelAdmin):
     list_display=('First_Name','Last_Name','Gender','Phone_Number')
@@ -78,3 +79,4 @@ admin.site.register(Semester,Semester_Admin)
 admin.site.register(onlinequiz,onlinequiz_Admin)
 admin.site.register(MidtermModel,MidtermModelAdmin)
 admin.site.register(FinalExamModel,FinalExamModelAdmin)
+admin.site.register(quaizsheet,quaizsheetView)

@@ -258,7 +258,7 @@ def studentlogin(request,name,username):
         request.session['University'] = uniName
         request.session['Branch'] = branchUsername
        
-        Uni = UniversityAccount.objects.filter(UniName=name)
+        Uni = UniversityAccount.objects.filter(UniUsername=name)
         
         
         if Uni:
@@ -331,7 +331,7 @@ def Facultylogin(request,name,username):
         request.session['facultyUniversity'] = uniName
         request.session['facultyBranch'] = branchUsername
        
-        Uni = UniversityAccount.objects.filter(UniName=name)
+        Uni = UniversityAccount.objects.filter(UniUsername=name)
         if Uni:
             Uniid = []
             for i in Uni:

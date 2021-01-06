@@ -68,6 +68,7 @@
                             <thead>
                                 <tr>
 
+                                    <th class="tdp">Topic</th>
                                     <th class="tdp">Course</th>
                                     <th class="tdp">Department</th>
                                     <th class="tdp">Teacher</th>
@@ -80,10 +81,11 @@
                                 {% for data in data %}
                                 <tr>
 
+                                    <td>{{data.Title}}</td>
                                     <td>{{data.Course_id}}</td>
                                     <td>{{data.Department_id}}</td>
                                      <td>{{data.Instructor_id}}</td>
-                                <td> <a href="/student/startquiz" target="_blank"><button type="submit" class="btn btn-primary" >Click To Join</button></a></td>
+                                <td> <a href="/student/startquiz/{{data.pk}}" target="_blank"><button type="submit" class="btn btn-primary" >Click To Join</button></a></td>
 
                                 </tr>
                                 {% endfor %}

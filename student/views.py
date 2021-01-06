@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponse,redirect
 from student.models import Student_Course,Student_Profile,Student_Signup,SerStudent,Application,Student_Query_Admin,Student_Survey,Registration,ScrunityForm,Job_Apply,Student_Submit_Evaluation,MeetingAppointment,Student_Assigment,Ser_Assigment,Ser_App,SerMeeting,Student_Midterm,Ser_Midterms,Student_FinalExam,Ser_FinalExams
-from faculty.models import Course,Materialclass,AssigmentModel,NotificationModel,CourseVideos,Faculty_Evaluation,Semester,Exam_Result,Department,onlinequiz,Ser_AssigmentStudent,MidtermModel,FinalExamModel,Ser_FinalExam,Ser_Midterm
+from faculty.models import Course,Materialclass,AssigmentModel,NotificationModel,CourseVideos,Faculty_Evaluation,Semester,Exam_Result,Department,onlinequiz,Ser_AssigmentStudent,MidtermModel,FinalExamModel,Ser_FinalExam,Ser_Midterm,quaizsheet
 from administrator.models import AcademicCalendarModel,Form,StudentAttendence,Exam_Schedule,onlinesurvey,Semester_Schedule,Placement_Portal
 from library.models import Books,BookAuthor
 from django.core.paginator import Paginator
@@ -370,8 +370,28 @@ def Onlinequiz(request):
         return redirect('/')
 
 
-def startquiz(request):
-    return render(request,'student/startquiz.html')
+def startquiz(request , id):
+    if request.method =="POST":
+        myquestion=quaizsheet.objects.filter(quizid=id,uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])
+        useranwser=list()
+        for x in myquestion:
+            useranwser.append({'q'+str(x.pk):request.POST['q'+str(x.pk)]})
+        print(useranwser)
+        mylist=dict()
+        for x in useranwser:
+            mylist.update(x)
+        for x in myquestion:    
+            for key, value in mylist.items():
+                if x.currectAnswse== value:
+                    print("done")
+           
+              
+           
+        return HttpResponse("hello world")
+
+
+    data=quaizsheet.objects.filter(quizid=id,uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])
+    return render(request,'student/startquiz.html',{'data':data})
 
     
 

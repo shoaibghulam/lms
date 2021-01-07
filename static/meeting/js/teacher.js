@@ -11,14 +11,14 @@ const meetConfig = {
 	userName: username,
 	userEmail: email,
 	passWord: pass, 
-	role: 5, // 1 for teacher 0 for student
+	role: 1, // 1 for teacher 0 for student
 	lang:'en-US',
  
   webEndpoint:'/faculty/',
 };
 getSignature(meetConfig);
 function getSignature(meetConfig) {
-	fetch(`https://www.digital-lms.com/meetingdata`, {
+	fetch(`http://127.0.0.1/faculty/meetingdata`, {
 			method: 'POST',
 			body: JSON.stringify({ meetingData: meetConfig })
 		})

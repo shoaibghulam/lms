@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse,redirect
-from student.models import Student_Course,Student_Profile,Student_Signup,SerStudent,Application,Student_Query_Admin,Student_Survey,Registration,ScrunityForm,Job_Apply,Student_Submit_Evaluation,MeetingAppointment,Student_Assigment,Ser_Assigment,Ser_App,SerMeeting,Student_Midterm,Ser_Midterms,Student_FinalExam,Ser_FinalExams
+from student.models import Student_Course,Student_Profile,Student_Signup,SerStudent,Application,Student_Query_Admin,Student_Survey,Registration,ScrunityForm,Job_Apply,Student_Submit_Evaluation,MeetingAppointment,Student_Assigment,Ser_Assigment,Ser_App,SerMeeting,Student_Midterm,Ser_Midterms,Student_FinalExam,Ser_FinalExams,StudentQuizResult,serStudentQuizResult
 from faculty.models import Course,Materialclass,AssigmentModel,NotificationModel,CourseVideos,Faculty_Evaluation,Semester,Exam_Result,Department,onlinequiz,Ser_AssigmentStudent,MidtermModel,FinalExamModel,Ser_FinalExam,Ser_Midterm,quaizsheet
 from administrator.models import AcademicCalendarModel,Form,StudentAttendence,Exam_Schedule,onlinesurvey,Semester_Schedule,Placement_Portal
 from library.models import Books,BookAuthor
@@ -353,26 +353,39 @@ def classmaterial(request):
     
 
 def Onlinequiz(request):
-    try:
+    # try:
         if request.session['role']=="Student":
+            studentquizes=StudentQuizResult.objects.filter(studentId=request.session['userid'])
+            studentquizids=list()
+            for x in studentquizes:
+                studentquizids.append(x.quizId.pk)
+            print(studentquizids)
             student_signupname=Student_Signup.objects.get(user_id=request.session['userid'],uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])  
             student=Student_Profile.objects.get(User_id=student_signupname.user_id)
             courses=Student_Course.objects.filter(Student_ID=student.StudentId)
             a=courses.values_list('Courses', flat=True)
             data=onlinequiz.objects.filter(Course_id__in=a,uniId__in=request.session['uniid'],branchId__in=request.session['branchid']).order_by('-onlinequizid')[:] 
-            return render(request,'student/onlinequiz.html',{'data':data})
+            return render(request,'student/onlinequiz.html',{'data':data,'quiz':studentquizids})
         else:
             thank=True
             msg='Your are not a Student'
             return render(request,'index.html',{'thank':thank,'msg':msg})
 
-    except:
-        return redirect('/')
+    # except:
+        # return redirect('/')
 
 
 def startquiz(request , id):
     if request.method =="POST":
+        studentid=Student_Signup.objects.get(user_id=request.session['userid'])
+        
         myquestion=quaizsheet.objects.filter(quizid=id,uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])
+        totalmarks=int(myquestion[0].quizid.quizlink)
+        totalquestion=int(myquestion.count())
+        perAnwserMark=totalmarks/totalquestion
+        score=0
+      
+        correct=0
         useranwser=list()
         for x in myquestion:
             useranwser.append({'q'+str(x.pk):request.POST['q'+str(x.pk)]})
@@ -383,11 +396,23 @@ def startquiz(request , id):
         for x in myquestion:    
             for key, value in mylist.items():
                 if x.currectAnswse== value:
-                    print("done")
+                    score+=round(perAnwserMark,2)
+                    correct+=1
+                
+                 
            
-              
-           
-        return HttpResponse("hello world")
+        wrong=totalquestion-correct      
+        userresult={
+            'totalmarks':float(totalmarks),
+            'totalquestion':totalquestion,
+            'score':score,
+            'wrong':wrong,
+            'correct':correct,
+        }
+        
+        datastore=StudentQuizResult(totalmarks=float(totalmarks),studentId=studentid,totalquestion=totalquestion,score=score,wrong=wrong,correct=correct,quizId=myquestion[0].quizid,uniId=UniversityAccount.objects.get(UniId=request.session['uniid'][0]),branchId=UniversityBranch.objects.get(BranchId=request.session['branchid'][0]))
+        datastore.save()
+        return render(request,'student/quizresult.html',userresult)
 
 
     data=quaizsheet.objects.filter(quizid=id,uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])
@@ -1546,3 +1571,10 @@ def studentmeeting(request):
 
 def meeting(request):
     return render(request,'student/meeting.html')
+
+
+def quizresultshow(request):
+    id=request.GET['qid']
+    data=StudentQuizResult.objects.get(quizId=id)
+    serdata=serStudentQuizResult(data, many=False)
+    return HttpResponse(json.dumps(serdata.data))

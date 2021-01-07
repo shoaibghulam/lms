@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Student_Signup,Student_Profile,Application,Student_Course,Student_Query_Admin,Registration,ScrunityForm,Student_Survey,MeetingAppointment,Job_Apply,Student_Submit_Evaluation,Student_Assigment,Batch,Section,Student_Midterm,Student_FinalExam
+from .models import Student_Signup,Student_Profile,Application,Student_Course,Student_Query_Admin,Registration,ScrunityForm,Student_Survey,MeetingAppointment,Job_Apply,Student_Submit_Evaluation,Student_Assigment,Batch,Section,Student_Midterm,Student_FinalExam,StudentQuizResult
 # Register your models here.
 
 # singup model list
@@ -50,7 +50,9 @@ class Student_FinalExam_Admin(admin.ModelAdmin):
     list_display=('Student_id','Course_id','Date_Time')
 
 
-
+#  student quiz
+class StudentQuizResultModal(admin.ModelAdmin):
+    list_display=('studentId','score','totalmarks')
 
 
 # Student Application list
@@ -75,3 +77,4 @@ admin.site.register(Section)
 admin.site.register(Batch)
 admin.site.register(Student_FinalExam,Student_FinalExam_Admin)
 admin.site.register(Student_Midterm,Student_Midterm_Admin)
+admin.site.register(StudentQuizResult,StudentQuizResultModal)

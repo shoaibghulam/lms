@@ -2285,8 +2285,8 @@ def meetingdata(request):
         }
     
     x=generateSignature(xdata);
-    print(x)
-    print(xdata)
+    # print(x)
+    # print(xdata)
    
     return HttpResponse(json.dumps(x))
 

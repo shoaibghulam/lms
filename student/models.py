@@ -2,7 +2,7 @@ from django.db import models
 from faculty.models import Course,Instructor
 from datetime import datetime  
 from rest_framework import serializers
-from faculty.models import Semester,Department,Instructor,AssigmentModel,MidtermModel,FinalExamModel,CourseSeralizer,SerDepartment
+from faculty.models import Semester,Department,Instructor,AssigmentModel,MidtermModel,FinalExamModel,CourseSeralizer,SerDepartment,onlinequiz
 from UniversityApp.models import UniversityAccount , UniversityBranch
 
 APPLICATIONSTATUS=(
@@ -322,3 +322,23 @@ class SerStudentProfile(serializers.ModelSerializer):
         model = Student_Profile
         fields = '__all__'
 
+
+# Latest Model Create by shoaib ghulam 1/7/2021
+class StudentQuizResult(models.Model):
+    qId=models.AutoField(primary_key=True)
+    studentId=models.ForeignKey(Student_Signup, on_delete=models.CASCADE)
+    totalmarks=models.IntegerField()
+    totalquestion=models.IntegerField()
+    wrong=models.IntegerField()
+    correct=models.IntegerField()
+    score=models.IntegerField()
+    quizId=models.ForeignKey(onlinequiz, on_delete=models.CASCADE)
+    uniId=models.ForeignKey(UniversityAccount , on_delete=models.CASCADE)
+    branchId=models.ForeignKey(UniversityBranch , on_delete=models.CASCADE)
+    def __str__(self):
+        return self.studentId
+    
+class serStudentQuizResult(serializers.ModelSerializer):
+    class Meta:
+        model = StudentQuizResult
+        fields = '__all__'

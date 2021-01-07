@@ -85,17 +85,33 @@
                                     <td>{{data.Course_id}}</td>
                                     <td>{{data.Department_id}}</td>
                                      <td>{{data.Instructor_id}}</td>
-                                <td> <a href="/student/startquiz/{{data.pk}}" target="_blank"><button type="submit" class="btn btn-primary" >Click To Join</button></a></td>
+                                   
+                                
+                                     
+                                <td>
+                                    {% for y in quiz %}
+                                       
+                                 
+                                    {% if data.pk == y  %}
+                                      <button class="btn btn-success"  data-toggle="modal" data-target="#showresult" onclick="result({{data.pk}})">Show  Result</button>
+                                    {% else %}
+                                    <a href="/student/startquiz/{{data.pk}}" target="_blank"><button type="submit" class="btn btn-primary" >Click To Join</button></a>
+                                       {% endif %}
 
+                                    {% endfor %}
+                                
+                                </td>
+                                    
+                             
                                 </tr>
+                              
                                 {% endfor %}
 
-
-
+                         
                             </tbody>
                         </table>
                     </div>
-						
+                  
 					
 					</div>
 				</div>
@@ -103,5 +119,68 @@
 		</div>
 	</div>
 	
-
+<!-- Modal -->
+<div class="modal fade" id="showresult" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="resultdata">
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
+{% block script %}
+<script>
+    function result(e){
+        $.ajax({
+            url:"{% url 'quizresultshow' %}",
+            type:'GET',            
+            data:{
+                qid:e
+            },
+            success: function(data){
+                let alldata= JSON.parse(data);
+                let mydata=`
+                <table class="table table-borderless">
+                                    
+                    <tbody>
+                      <tr>
+                        <td>Total Marks</td>
+                        <td>${alldata.totalmarks}</td>
+                           </tr>
+                      <tr>
+                        <td>Total Question</td>
+                        <td>${alldata.totalquestion}</td>
+                           </tr>
+                      <tr>
+                        <td>True Answer	</td>
+                        <td>${alldata.correct}</td>
+                      </tr>
+                      <tr>
+                        <td>Wrong Answer</td>
+                        <td>${alldata.wrong}</td>
+                         </tr>
+                      <tr class="bg-primary text-light">
+                        <th>Score</th>
+                        <th>${alldata.score} / ${alldata.totalmarks}</th>
+                         </tr>
+                    </tbody>
+                  </table>
+                `;
+                $("#resultdata").html(mydata)
+            }
+        })
+    }
+</script>
+{% endblock script %}

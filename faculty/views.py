@@ -799,7 +799,24 @@ def deletequiz(request,id):
         return redirect('/')
 
 
-        
+# Active or disable quiz
+def quizstatus(request, id, status):
+    Instructor_id=Instructor.objects.get(username=request.session['facultyuserid'],uniId__in=request.session['facultyuniid'],branchId__in=request.session['facultybranchid'])
+    data=onlinequiz.objects.get(pk=id,Instructor_id=Instructor_id.tid)
+    status = status
+    msg=""
+    if status =="active":
+        data.status="disable"
+        msg="Quiz is Disabled"
+    elif status=="disable" :
+        data.status="active"
+        msg="Quiz is Active"
+    data.save()
+    messages.success(request,msg)
+    return redirect('/faculty/onlinequiz')
+    
+
+
 
 
 

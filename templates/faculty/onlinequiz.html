@@ -102,6 +102,7 @@
                                     <th class="tdp">Semester</th>
                                     <th class="tdp">Add Question</th>
                                     <th class="tdp">Delete</th>
+                                    <th class="tdp">Status</th>
 
 
                                 </tr>
@@ -118,6 +119,16 @@
                                 <td> <a href="quizsheet/{{data.onlinequizid}}" target="_blank" ><button type="submit" class="btn btn-primary">Add Question</button></a></td>
 
                                 <td> <a href="/faculty/deletequiz/{{data.onlinequizid}}" ><button type="submit" class="btn btn-danger">Delete</button></a></td>
+                                <td> 
+                                
+                                {% if data.status == "active" %}
+                                <a href="/faculty/quizstatus/{{data.onlinequizid}}/{{data.status}}" ><button type="submit" class="btn btn-success">Active</button></a>
+                                {% else %}
+                                <a href="/faculty/quizstatus/{{data.onlinequizid}}/{{data.status}}" ><button type="submit" class="btn btn-danger">Disable</button></a>
+                                {% endif %}
+                                        
+                                
+                                </td>
 
                                 </tr>
                                 {% endfor %}

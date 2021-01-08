@@ -99,6 +99,7 @@ urlpatterns = [
     path('studentAttendanceData',views.studentAttendanceData,name="studentAttendanceData"),
     path('quizsheet/<int:qid>',views.quizsheet,name="quizsheet"),
     path('quizsheetsave',views.quizsheetsave,name="quizsheetsave"),
+    path('quizstatus/<int:id>/<str:status>',views.quizstatus,name="quizsheetsave"),
 
 
 

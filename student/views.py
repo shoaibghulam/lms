@@ -355,7 +355,7 @@ def classmaterial(request):
 def Onlinequiz(request):
     # try:
         if request.session['role']=="Student":
-            studentquizes=StudentQuizResult.objects.filter(studentId=request.session['userid'])
+            studentquizes=StudentQuizResult.objects.filter(studentId=request.session['userid'],uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])
             studentquizids=list()
             for x in studentquizes:
                 studentquizids.append(x.quizId.pk)
@@ -364,8 +364,11 @@ def Onlinequiz(request):
             student=Student_Profile.objects.get(User_id=student_signupname.user_id)
             courses=Student_Course.objects.filter(Student_ID=student.StudentId)
             a=courses.values_list('Courses', flat=True)
-            data=onlinequiz.objects.filter(Course_id__in=a,uniId__in=request.session['uniid'],branchId__in=request.session['branchid']).order_by('-onlinequizid')[:] 
-            return render(request,'student/onlinequiz.html',{'data':data,'quiz':studentquizids})
+            
+            data=onlinequiz.objects.filter(Q(pk__in=studentquizids),status="active",uniId__in=request.session['uniid'],branchId__in=request.session['branchid']).order_by('-onlinequizid')
+            dataset=onlinequiz.objects.filter(~Q(pk__in=studentquizids),status="active",uniId__in=request.session['uniid'],branchId__in=request.session['branchid']).order_by('-onlinequizid')
+            print(dataset)
+            return render(request,'student/onlinequiz.html',{'data':data,'attend':dataset})
         else:
             thank=True
             msg='Your are not a Student'
@@ -376,6 +379,10 @@ def Onlinequiz(request):
 
 
 def startquiz(request , id):
+    checkquiz=StudentQuizResult.objects.filter(quizId=id,uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])
+    if checkquiz:
+        messages.error(request,"Quiz is already attempted")
+        return redirect('/student/onlinequiz')
     if request.method =="POST":
         studentid=Student_Signup.objects.get(user_id=request.session['userid'])
         

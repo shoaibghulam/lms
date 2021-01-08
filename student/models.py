@@ -336,7 +336,7 @@ class StudentQuizResult(models.Model):
     uniId=models.ForeignKey(UniversityAccount , on_delete=models.CASCADE)
     branchId=models.ForeignKey(UniversityBranch , on_delete=models.CASCADE)
     def __str__(self):
-        return self.studentId
+        return str(self.studentId)
     
 class serStudentQuizResult(serializers.ModelSerializer):
     class Meta:

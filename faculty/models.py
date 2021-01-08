@@ -16,6 +16,10 @@ STORY_CATEGORY=(
     ("new","NEW"),
     ("old","OLD"),
 )
+QUIZ_STATUS=(
+    ("active","active"),
+    ("disable","disable"),
+)
 
 # Create your models here.
 class User_Signup(models.Model):
@@ -355,6 +359,8 @@ class onlinequiz(models.Model):
     # quizmarks=models.CharField(max_length=100,default="")
     uniId=models.ForeignKey(UniversityAccount , on_delete=models.CASCADE)
     branchId=models.ForeignKey(UniversityBranch , on_delete=models.CASCADE)
+    status=models.CharField(max_length=100, choices=QUIZ_STATUS,default="disable")
+  
     def __str__(self):
         return str(self.onlinequizid)
     

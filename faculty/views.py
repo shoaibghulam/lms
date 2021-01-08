@@ -173,7 +173,7 @@ def suggestiondigitallibrary(request):
     
     if request.is_ajax():
         q = request.GET.get('term', '')
-        print(q)
+      
         
         projects = Books.objects.filter(Bookcategory="digitallibrary",BookTitle__istartswith=q)[:5]
         results = []
@@ -183,7 +183,7 @@ def suggestiondigitallibrary(request):
             project_json['value'] = project.BookTitle
             project_json['label'] = project.BookTitle
             results.append(project_json)
-        print(results)
+      
         data = json.dumps(results)
     else:
         data = 'fail'
@@ -214,7 +214,7 @@ def suggesPhddigitallibrary(request):
     
     if request.is_ajax():
         q = request.GET.get('term', '')
-        print(q)
+     
         
         projects = Books.objects.filter(Bookcategory="digitallibraryphd",BookTitle__istartswith=q)[:5]
         results = []
@@ -224,7 +224,7 @@ def suggesPhddigitallibrary(request):
             project_json['value'] = project.BookTitle
             project_json['label'] = project.BookTitle
             results.append(project_json)
-        print(results)
+     
         data = json.dumps(results)
     else:
         data = 'fail'
@@ -293,7 +293,7 @@ def examresult(request):
             studentlist.append(i.Student_ID.StudentId)
         
         data=Student_Course.objects.filter(~Q(Student_ID__in = studentlist),Semester_ID=semester,StudenBatch=batch,Courses=courseid,uniId__in=request.session['facultyuniid'],branchId__in=request.session['facultybranchid'])
-        print(data)
+    
         student_courselistId = []
         for k in data:
             student_courselistId.append(k.Student_Course_ID)
@@ -2283,7 +2283,7 @@ def meetingnotification(request):
 def coursedatafatching(request):
     studentcourses=Student_Course.objects.filter(Courses__in=request.GET['cid'])
     data=SerStudentCourse(studentcourses, many=True)
-    print(studentcourses)
+  
     return HttpResponse(json.dumps(data.data))
 
 @csrf_exempt
@@ -2302,8 +2302,7 @@ def meetingdata(request):
         }
     
     x=generateSignature(xdata);
-    # print(x)
-    # print(xdata)
+    
    
     return HttpResponse(json.dumps(x))
 
@@ -2338,8 +2337,7 @@ def addStudentatten(request):
     for x in courses:
         coursesid.append(x.Cid)
     data= Student_Course.objects.filter(Courses__in=coursesid)
-    # print(data[0])
-    # coursename=data.all()
+    
     student=Student_Profile.objects.filter(uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
     department=Department.objects.filter(uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
     # course=Course.objects.filter(uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
@@ -2360,7 +2358,7 @@ def studentAttendanceData(request):
     # quaiz sheet
 def quizsheet(request,qid):
     request.session['qid']=qid
-    print( request.session['qid'])
+  
     return render(request,'faculty/quizsheet.html')
 @csrf_exempt
 def quizsheetsave(request):

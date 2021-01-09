@@ -1,6 +1,7 @@
 from django.db import models
 from rest_framework import serializers
 from datetime import datetime
+
 from UniversityApp.models import UniversityAccount , UniversityBranch
 # from student.models import Student_Profile,Student_Course
 MATERAIL=(

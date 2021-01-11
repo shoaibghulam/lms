@@ -2,7 +2,10 @@ from django.shortcuts import render, HttpResponse,redirect
 from django.views import View
 from django.contrib import messages
 from UniversityApp.models import UniversityAccount,UniversityBranch
-from .models import  FianceUser
+from .models import  FianceUser,StudetFee
+from student.models import Student_Profile,SerStudent
+from django.db.models import Q
+import json
 # Create your views here.
 
 # unisession for instance
@@ -67,10 +70,19 @@ class StudentFees(View):
         if  not(request.session.has_key('financeid') or request.session.has_key('universitybranchid')):
             return redirect('/')
 
-        return HttpResponse("working")
+        return render(request,'finance/fees.html')
+    def post(self, request):
+        sid = request.POST['studentid']
+        amount = request.POST['fees']
+        sdata= Student_Profile.objects.get(pk=sid)
+        feesdata=StudetFee(StudentId=sdata,FeeAmount=amount,uniId=UniversityAccount.objects.get(UniId=request.session['financeuni']),branchId=UniversityBranch.objects.get(BranchId=request.session['financebranch']))
+        feesdata.save()
+        return redirect('/finance/fees')
 class CheckStudent(View):
     def get(self , request):
         if  not(request.session.has_key('financeid') or request.session.has_key('universitybranchid')):
             return redirect('/')
-
-        return HttpResponse("hello world")
+        id=request.GET['id']
+        data=Student_Profile.objects.get(Q(StudentId=id)|Q(User_id=id))
+        serdata=SerStudent(data, many=False)
+        return HttpResponse(json.dumps(serdata.data))

@@ -11,7 +11,7 @@ import pandas as pd
 from urllib.request import urlopen
 from django.contrib import messages
 from datetime import datetime
-
+import math
 # Create your views here.
 def studentdashboard(request): 
     try:
@@ -389,7 +389,7 @@ def startquiz(request , id):
         myquestion=quaizsheet.objects.filter(quizid=id,uniId__in=request.session['uniid'],branchId__in=request.session['branchid'])
         totalmarks=int(myquestion[0].quizid.quizlink)
         totalquestion=int(myquestion.count())
-        perAnwserMark=totalmarks/totalquestion
+        perAnwserMark=round(float(totalmarks/totalquestion),2)
         score=0
       
         correct=0
@@ -412,12 +412,12 @@ def startquiz(request , id):
         userresult={
             'totalmarks':float(totalmarks),
             'totalquestion':totalquestion,
-            'score':score,
+            'score':math.ceil(score),
             'wrong':wrong,
             'correct':correct,
         }
         
-        datastore=StudentQuizResult(totalmarks=float(totalmarks),studentId=studentid,totalquestion=totalquestion,score=score,wrong=wrong,correct=correct,quizId=myquestion[0].quizid,uniId=UniversityAccount.objects.get(UniId=request.session['uniid'][0]),branchId=UniversityBranch.objects.get(BranchId=request.session['branchid'][0]))
+        datastore=StudentQuizResult(totalmarks=float(totalmarks),studentId=studentid,totalquestion=totalquestion,score=math.ceil(score),wrong=wrong,correct=correct,quizId=myquestion[0].quizid,uniId=UniversityAccount.objects.get(UniId=request.session['uniid'][0]),branchId=UniversityBranch.objects.get(BranchId=request.session['branchid'][0]))
         datastore.save()
         return render(request,'student/quizresult.html',userresult)
 

@@ -74,7 +74,7 @@ class Student_Profile(models.Model):
 class SerStudent(serializers.ModelSerializer):
     class Meta:
         model= Student_Profile
-        fields=('StudentId','First_name','Last_name','ContactNo','Address','DOB','StudenBatch','StudenShift')
+        fields='__all__'
     
 
 class Application(models.Model):

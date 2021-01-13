@@ -26,7 +26,7 @@ class TeacherSalary(models.Model):
     uniId=models.ForeignKey(UniversityAccount , on_delete=models.CASCADE)
     branchId=models.ForeignKey(UniversityBranch , on_delete=models.CASCADE)
     def __str__(self):
-        return self.Salaryteacher
+        return str(self.Salaryteacher)
 
 
 class StudetFee(models.Model):
@@ -37,4 +37,8 @@ class StudetFee(models.Model):
     uniId=models.ForeignKey(UniversityAccount , on_delete=models.CASCADE)
     branchId=models.ForeignKey(UniversityBranch , on_delete=models.CASCADE)
     def __str__(self):
-        return self.StudentId
+        return str(self.StudentId)
+class serFee(serializers.ModelSerializer):
+    class Meta:
+        model =StudetFee
+        fields= '__all__'

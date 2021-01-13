@@ -17,39 +17,76 @@
               <p class="card-category"> Student Fees Table</p>
             </div>
             <div class="card-body">
+              <div class="col-md-6 text-right float-right">
+                <div class="row">
+                  <div class="col-md-4">
+                    <form action="{% url 'queryData' %}" method="post">
+                      {% csrf_token %}
+                      <select name="month" class="form-control" id="month"  required="required" >
+                        <option value="">Select Month</option>
+                      </select>
+                   
+                  </div>
+                  <div class="col-md-4">
+                   
+                      <select name="year" class="form-control"  id="year"  required="required" >
+                        <option value="">Select Year</option>
+                      </select>
+                
+                  </div>
+                  <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary pull-right"  >Search</button>
+                  </form>
+                  </div>
+                </div>
+             
+               
+              </div>
+              {% for message in messages %}
+              <div class="alert alert-{{message.tags}} mb-0 alert-dismissible fade show" role="alert">
+                  <strong>Message:</strong> {{message}}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+              </div>
+              {% endfor %}
               <div class="table-responsive">
                 <table class="table">
                   <thead class=" text-primary">
                     <th>ID</th>
                     <th>Name</th>
-                    <th> Salary </th>
-                    <th>Salary Date</th>
-                    <th>University</th>
-                    <th>Branch</th>
+                    <th> Fee </th>
+                    <th>Fee Date</th>
+                    <th>Shift</th>
+                    <th>Department</th>
                     <th class="text-center">Action</th>
                   </thead>
                   <tbody>
+                    {% for d in data  %}
+                      
+                  
                     <tr>
-                      <td>1</td>
-                      <td>Dakota Rice</td>
-                      <td class="text-primary"> $36,738</td>
-                      <td>12-12-2020</td>
-                      <td> Fuuast</td>
-                      <td> Gulshan e iqbal</td>
+                      <td>{{d.pk}}</td>
+                      <td>{{d.StudentId}}</td>
+                      <td class="text-primary"> {{d.FeeAmount}}</td>
+                      <td>{{d.IssueDate}}</td>
+                      <td> {{d.StudentId.StudenShift}}</td>
+                      <td> {{d.StudentId.Department_id}}</td>
                       <td class="text-center">
-                          <button class="btn btn-outline-info">
+                          <button class="btn btn-outline-info" data-toggle="modal" data-target="#udata" onclick="feedata({{d.pk}})">
                             <span class="material-icons" style="font-size:20px">
                                 create
                                 </span>
                           </button>
-                          <button class="btn btn-outline-danger">
-                            <span class="material-icons" style="font-size:20px">
+                          <a href="/finance/setudentfeedelete?id={{d.pk}}" class="btn btn-outline-danger">
+                            <span class="material-icons" style="font-size:20px" >
                                 delete
                                 </span>
                           </button>
                       </td>
                       
                     </tr>
+                    {% endfor %}
                     <tr>
                   </tbody>
                 </table>
@@ -61,6 +98,34 @@
       </div>
     </div>
   </div>
+  <!-- update model start -->
+  
+<!-- Modal -->
+<div class="modal fade" id="udata" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="udata">Update Fee Amount</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="{% url 'StudentFeeUpdate' %}" method="post">
+        <input type="hidden" name="sid" id="usid">
+        <label for="">Fees Amount</label>
+        <input type="number" name="fee" id="uamount" class="form-control" placeholder="Enter Fee Amount" required>
+        {% csrf_token %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- update model end -->
   <!-- Modal -->
 <div class="modal fade modal-xl" id="fees" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog modal-lg" role="document">
@@ -83,9 +148,11 @@
                     <div class="form-group mx-sm-3 mb-2">
                       <label for="inputPassword2" class="sr-only">Student Id</label>
                       <input type="text" name="id" class="form-control" id="studentid" placeholder="Enter Student Id">
+                    
                     </div>
                     <button type="submit" class="btn btn-primary mb-2">Check</button>
                   </form>
+                  <span id="msg" class="text-danger"></span>
                  
                     <div class="row " id="showdata" style="display:none">
                  
@@ -112,7 +179,7 @@
                     {% csrf_token %}
                     <input type="hidden" name="studentid" id="sid">
                     <label for="">Fees Amount</label>
-                    <input type="text" name="fees" placeholder="Enter Fees" required/>
+                    <input type="number" class="form-control" name="fees" placeholder="Enter Fees" required/>
                  
                     </div>
                 
@@ -137,9 +204,24 @@
   crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
   <script>
-    let alldata=
+    let alldata;
     $(document).ready(function(){
+    
       $('#checkstudent').ajaxForm(function(data){
+       
+        if(data=="paid"){
+         
+          $('#showdata').hide()
+          $('#msg').text("Student Already Paid Fee");
+         
+        }
+        else if(data=="not"){
+          $('#msg').show()
+          $('#showdata').hide()
+          $('#msg').text("Student Record not found");
+        }
+       else{
+         $('#msg').hide()
         $('#showdata').show()
       alldata=JSON.parse(data);
     $('#id').text(alldata.StudentId);
@@ -148,11 +230,39 @@
     $('#contact').text(alldata.ContactNo);
     $('#shift').text(alldata.StudenShift);
     $('#stduentimg').attr('src',alldata.Profile)
-    
+       }
       });
      
     });
-
+const feedata=e=>{
+  $.ajax({
+    url:'/finance/StudentFeeUpdate',
+    type:'GET',
+    data:{id:e},
+    success: function(data){
+      let set=JSON.parse(data)
+      $('#uamount').val(set.FeeAmount)
+      $('#usid').val(set.FeeId)
+    }
+  });
+}
+// Month Names
+  //month list start code
+  var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  let monthlist="";
+  for(i=0;i<monthNames.length;i++){
+    monthlist+=`<option value="${i+1}">${monthNames[i]} </option> `;
+  }
+  $("#month").append(monthlist);
+        //month list start end
+        // Year code start 
+        let year= new Date();
+        let yearlist="";
+        for(x=2015;x<=year.getFullYear();x++){
+          yearlist+=`<option value="${x}">${x} </option> `;
+        }
+        $('#year').append(yearlist);
+        // Year code end
 </script>
   {% endblock script %}
       

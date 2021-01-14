@@ -60,8 +60,7 @@ class Instructor(models.Model):
 class SerTeacher(serializers.ModelSerializer):
     class Meta:
         model= Instructor
-        fields=('First_Name','Last_Name','Gender','Address','Phone_Number','Dob')
-    
+        fields='__all__'
 
 class Department(models.Model):
     Did = models.AutoField(primary_key=True)

@@ -42,3 +42,8 @@ class serFee(serializers.ModelSerializer):
     class Meta:
         model =StudetFee
         fields= '__all__'
+
+class serSalary(serializers.ModelSerializer):
+    class Meta:
+        model =TeacherSalary
+        fields= '__all__'

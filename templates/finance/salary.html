@@ -20,7 +20,7 @@
               <div class="col-md-6 text-right float-right">
                 <div class="row">
                   <div class="col-md-4">
-                    <form action="{% url 'queryData' %}" method="post">
+                    <form action="{% url 'queryDataSalary' %}" method="post">
                       {% csrf_token %}
                       <select name="month" class="form-control" id="month"  required="required" >
                         <option value="">Select Month</option>
@@ -57,7 +57,7 @@
                     <th>Name</th>
                     <th> Salary </th>
                     <th>Salary Date</th>
-                    <th>Shift</th>
+                  
                     <th>Department</th>
                     <th class="text-center">Action</th>
                   </thead>
@@ -67,18 +67,17 @@
                   
                     <tr>
                       <td>{{d.pk}}</td>
-                      <td>{{d.StudentId}}</td>
-                      <td class="text-primary"> {{d.FeeAmount}}</td>
+                      <td>{{d.Salaryteacher.First_Name}} {{d.Salaryteacher.Last_Name}}</td>
+                      <td class="text-primary"> {{d.Salaryamount}}</td>
                       <td>{{d.IssueDate}}</td>
-                      <td> {{d.StudentId.StudenShift}}</td>
-                      <td> {{d.StudentId.Department_id}}</td>
+                          <td> {{d.Salaryteacher.Phone_Number}}</td>
                       <td class="text-center">
-                          <button class="btn btn-outline-info" data-toggle="modal" data-target="#udata" onclick="feedata({{d.pk}})">
+                          <button class="btn btn-outline-info" data-toggle="modal" data-target="#udata" onclick="salarydata({{d.pk}})">
                             <span class="material-icons" style="font-size:20px">
                                 create
                                 </span>
                           </button>
-                          <a href="/finance/setudentfeedelete?id={{d.pk}}" class="btn btn-outline-danger">
+                          <a href="/finance/TeacherSalaryDelete?id={{d.pk}}" class="btn btn-outline-danger">
                             <span class="material-icons" style="font-size:20px" >
                                 delete
                                 </span>
@@ -105,16 +104,16 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="udata">Update Salary Amount</h5>
+        <h5 class="modal-title" id="udata">Update Fee Amount</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      <form action="{% url 'StudentFeeUpdate' %}" method="post">
+      <form action="{% url 'TeacerSalaryUpdate' %}" method="post">
         <input type="hidden" name="sid" id="usid">
         <label for="">Salary Amount</label>
-        <input type="number" name="salary" id="uamount" class="form-control" placeholder="Enter Salary Amount" required>
+        <input type="number" name="fee" id="uamount" class="form-control" placeholder="Enter Fee Amount" required>
         {% csrf_token %}
       </div>
       <div class="modal-footer">
@@ -143,11 +142,11 @@
           </div>
             <div class="card-body ">
                 <!-- check studet Information -->
-                <form class="form-inline" action="{% url 'checkstudent' %}" id="checkstudent">
+                <form class="form-inline" action="{% url 'CheckTeacher' %}" id="checkstudent">
                    
                     <div class="form-group mx-sm-3 mb-2">
-                      <label for="inputPassword2" class="sr-only">Student Id</label>
-                      <input type="text" name="id" class="form-control" id="studentid" placeholder="Enter Student Id">
+                      <label for="inputPassword2" class="sr-only">Teacher Id</label>
+                      <input type="text" name="id" class="form-control" id="studentid" placeholder="Enter Salary Id">
                     
                     </div>
                     <button type="submit" class="btn btn-primary mb-2">Check</button>
@@ -166,20 +165,20 @@
                       <td>Id</td>
                       <td>Name</td>
                       <td>Contact</td>
-                      <td>Shift</td>
+                    
                     </tr>
                     <tr>
                       <td id="id"></td>
                       <td id="name">Name</td>
                       <td id="contact">Contact</td>
-                      <td id="shift">Shift</td>
+                 
                     </tr>
                   </table>
-                  <form action="{% url 'fees' %}" method="post">
+                  <form action="{% url 'salary' %}" method="post">
                     {% csrf_token %}
-                    <input type="hidden" name="studentid" id="sid">
+                    <input type="hidden" name="tacherid" id="sid">
                     <label for="">Salary Amount</label>
-                    <input type="number" class="form-control" name="fees" placeholder="Enter Fees" required/>
+                    <input type="number" class="form-control" name="salary" placeholder="Enter Salary" required/>
                  
                     </div>
                 
@@ -206,62 +205,63 @@
   <script>
     let alldata;
     $(document).ready(function(){
-      //month list start code
-      var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-let monthlist="";
-for(i=0;i<monthNames.length;i++){
-  monthlist+=`<option value="${i+1}">${monthNames[i]} </option> `;
-}
-$("#month").append(monthlist);
-      //month list start end
-      // Year code start 
-      let year= new Date();
-      let yearlist="";
-      for(x=2015;x<=year.getFullYear();x++){
-        yearlist+=`<option value="${x}">${x} </option> `;
-      }
-      $('#year').append(yearlist);
-      // Year code end
+    
       $('#checkstudent').ajaxForm(function(data){
        
         if(data=="paid"){
+         
           $('#showdata').hide()
-          $('#msg').text("Student Already Paid Fee");
+          $('#msg').text("Salary Already Paid Fee");
          
         }
         else if(data=="not"){
           $('#msg').show()
           $('#showdata').hide()
-          $('#msg').text("Student Record not found");
+          $('#msg').text("Teacher Record not found");
         }
        else{
          $('#msg').hide()
         $('#showdata').show()
       alldata=JSON.parse(data);
-    $('#id').text(alldata.StudentId);
-    $('#sid').val(alldata.StudentId);
-    $('#name').text(`${alldata.First_name} ${alldata.Last_name}`);
-    $('#contact').text(alldata.ContactNo);
-    $('#shift').text(alldata.StudenShift);
-    $('#stduentimg').attr('src',alldata.Profile)
+    $('#id').text(alldata.tid);
+    $('#sid').val(alldata.tid);
+    $('#name').text(`${alldata.First_Name} ${alldata.Last_Name}`);
+    $('#contact').text(alldata.Phone_Number);
+
+    $('#stduentimg').attr('src',alldata.img)
        }
       });
      
     });
-const feedata=e=>{
+const salarydata=e=>{
   $.ajax({
-    url:'/finance/StudentFeeUpdate',
+    url:'/finance/TeacerSalaryUpdate',
     type:'GET',
     data:{id:e},
     success: function(data){
       let set=JSON.parse(data)
-      $('#uamount').val(set.FeeAmount)
-      $('#usid').val(set.FeeId)
+      $('#uamount').val(set.Salaryamount)
+      $('#usid').val(set.SalaryId)
     }
   });
 }
 // Month Names
-
+  //month list start code
+  var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  let monthlist="";
+  for(i=0;i<monthNames.length;i++){
+    monthlist+=`<option value="${i+1}">${monthNames[i]} </option> `;
+  }
+  $("#month").append(monthlist);
+        //month list start end
+        // Year code start 
+        let year= new Date();
+        let yearlist="";
+        for(x=2015;x<=year.getFullYear();x++){
+          yearlist+=`<option value="${x}">${x} </option> `;
+        }
+        $('#year').append(yearlist);
+        // Year code end
 </script>
   {% endblock script %}
       

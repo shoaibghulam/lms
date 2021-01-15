@@ -1,7 +1,7 @@
 from django.shortcuts import render , HttpResponse,redirect,HttpResponseRedirect , reverse
 from UniversityApp.models import UniversityAccount,UniversityBranch
 from passlib.hash import pbkdf2_sha256
-from student.models import Student_Course,Student_Profile,Student_Signup,SerStudent,Application,Student_Query_Admin,Student_Survey,Registration,ScrunityForm,Job_Apply,Student_Submit_Evaluation,MeetingAppointment,Student_Assigment,Batch,Ser_Batch
+from student.models import SerStudentCourse, Student_Course,Student_Profile,Student_Signup,SerStudent,Application,Student_Query_Admin,Student_Survey,Registration,ScrunityForm,Job_Apply,Student_Submit_Evaluation,MeetingAppointment,Student_Assigment,Batch,Ser_Batch
 from administrator.models import AcademicCalendarModel,FacultyCalendarModel,Form,Admin_Notification,role,RoomReservation,Rooms,menu,MenuOrders, menuSer,FacultyAttendence,Faculty_Evaluation_Report,Semester_Schedule,Exam_Schedule,StudentAttendence,SerFaculty_Evaluation_Report,Placement_Portal,onlinesurvey,SerForm,Sermenu,Serrole,Serroom,SerPlacement_Portal
 from faculty.models import User_Signup,Instructor,Department,Semester,Course,CourseVideos,AssigmentModel,Faculty_Development,Materialclass,Exam_Result,Faculty_Evaluation,NotificationModel,onlinequiz,Query_Admin,TeacherApplication,Teacher_syllabus,User_Stories,SerDepartment
 from library.models import BookAuthor,Books
@@ -36,6 +36,8 @@ def login(request):
             if data:
                 if data.UniversityId.UniStatus=="Active":
                     if data.BranchPassword==password:
+                        request.session['financeuni']=str(data.UniversityId.UniId)
+                        request.session['financebranch']=data.BranchId
                         request.session['universitybranchid']=data.BranchId
                         request.session['universitybranchname']=data.BranchName
                         request.session['universityuniid']=str(data.UniversityId.UniId)
@@ -2899,38 +2901,42 @@ def admincourse(request):
 def AdminAddCourses(request):
     try:
         if request.method == "POST":
-            department = request.POST['depart']
-            semester = request.POST['semester']
-            batch = request.POST['batch']
+            
+            department =Department.objects.get(Did=request.POST['depart']) 
+            semester =Semester.objects.get(SamesterId=request.POST['semester'])
+            batch =Batch.objects.get(Batch_id=request.POST['batch'])
             courselist=request.POST.getlist('courselist','off')
+            # if course is unchecked  redirect
             if courselist == "off":
                 messages.error(request,"Make Sure Course are Check At least One")
                 return redirect('/university/admincourse')
+            # if course is unchecked  redirect end
+           
+            # condtion for those student who already enrolled in course start
+            studentsids= list()
+            studentdata=Student_Course.objects.filter(Q(Courses__in=courselist),Department_id=department,Semester_ID=semester,StudenBatch=batch)
+            for x in studentdata:
+                studentsids.append(x.Student_ID.StudentId)
+            # condtion for those student who already enrolled in course end
 
-            sdata = Student_Course.objects.filter(Department_id=department,Semester_ID=semester,StudenBatch=batch)
-            if sdata:
-                for i in sdata:
-                    for j in courselist:
-                        i.Courses.add(Course.objects.get(Cid = j))
-                    
-                messages.success(request,"Courses Updated Sucessfully")
-                return redirect('/university/admincourse')
+            students=Student_Profile.objects.filter(~Q(StudentId__in=studentsids),StudenBatch=batch,Department_id=department,Semester_ID=semester)
+           
+          
+            if students:
+                for st in students:
+                    stcourse=Student_Course.objects.create(Student_ID=st,Department_id=department,Semester_ID=semester,StudenBatch=batch,uniId=UniversityAccount.objects.get(UniId=request.session['universityuniid']),branchId=UniversityBranch.objects.get(BranchId=request.session['universitybranchid']))
+                    for courseid in courselist:
+                        stcourse.Courses.add(Course.objects.get(Cid=courseid))
+                    stcourse.save()
             
-            StudentProfile = Student_Profile.objects.filter(Department_id=department,Semester_ID=semester,StudenBatch=batch)      
-            
-            for i in StudentProfile: 
-                profile = Student_Profile.objects.get(StudentId=i.StudentId)
-                dep = Department.objects.get(Did=department)
-                semid = Semester.objects.get(SamesterId=semester)
-                bid = Batch.objects.get(Batch_id=batch)
-                courseData = Student_Course(Student_ID=profile,Department_id=dep,Semester_ID=semid,StudenBatch=bid,uniId=UniversityAccount.objects.get(UniId=request.session['universityuniid']),branchId=UniversityBranch.objects.get(BranchId=request.session['universitybranchid']))
 
-                courseData.save()
-                for j in courselist:
-                    courseData.Courses.add(Course.objects.get(Cid = j))
                         
-            messages.success(request,"Courses Added Sucessfully")
-            return redirect('/university/admincourse')
+                messages.success(request,"Courses Added Sucessfully")
+                return redirect('/university/admincourse')
+            else:
+                 messages.success(request,"All Students enrolled in the course")
+                 return redirect('/university/admincourse')
+
     
     except:
         messages.error(request,"Make Sure Course are Check At least One")

@@ -76,10 +76,10 @@ class TeacherSalaryView(View):
             return redirect('/')
 
 
-        studentFee= StudetFee.objects.filter(uniId=request.session['financeuni'],branchId=request.session['financebranch']).order_by('-pk')
-        teacherSalary= TeacherSalary.objects.filter(uniId=request.session['financeuni'],branchId=request.session['financebranch']).order_by('-pk')
+        teacherdata= TeacherSalary.objects.filter(uniId=request.session['financeuni'],branchId=request.session['financebranch']).order_by('-pk')
+       
         dataSet={
-            'fee':"9"
+            'data':teacherdata
         }
         return render(request,'finance/salary.html',dataSet)
         # return HttpResponse("working")

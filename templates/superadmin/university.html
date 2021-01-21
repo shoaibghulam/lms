@@ -58,6 +58,36 @@
                 </div>
                 <div class="col-lg-12" id="showpackagedata">
 
+                    <div class="my_course_content_container">
+                        <div class="my_setting_content">
+                            <div class="my_setting_content_details">
+                                <div class="cart_page_form style3 ">
+                                   
+                                          <table class="table table-responsive">
+                                              <thead>
+                                                  <tr class="carttable_row">
+                                            <th class="cartm_title">University Name</th>
+                                            <th class="cartm_title">Username</th>
+                                            <th class="cartm_title">Email</th>
+                                            <th class="cartm_title">Password</th>
+                                            <th class="cartm_title">Address</th>
+                                            
+                                            
+                                             <th class="cartm_title">Update</th>
+                                            <th class="cartm_title">Delete</th>
+                                            <th class="cartm_title">BranchDetail</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table_body" id="tbdata">
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
 
                 </div>
             </div>
@@ -93,7 +123,7 @@
                                                     <div class="my_profile_setting_input form-group">
                                                         <label for="formGroupExampleInput1">University Name</label>
                                                         <input type="text" class="form-control" id="uniname" name="uniname" 
-                                                         placeholder="Enter University Name"  pattern="[A-Za-z\s]+" required>
+                                                         placeholder="Enter University Name"  required>
                                                     </div>
                                                     <div class="my_profile_setting_input form-group">
                                                         <label for="formGroupExampleInput2">University User Name
@@ -175,14 +205,15 @@
 
 
                         </div>
-                        <div class="row my_setting_content_details">
-										<div class="col-xl-2">
-											<label></label>
-											<button type="submit" class="btn btn-primary">Add</button>
-
+                 
+										
+										
 										</div>
+                                        <button type="submit" style="float:right; width:200px" class="btn btn-primary ">Add</button>
 
-									</div>
+                                    </div>
+                                   
+                                  
                             </form>
 
 
@@ -423,8 +454,11 @@
 <script>
 
     $(document).ready(function() {
+        $("#exampleModalCenter3").click(function(){
+           $('#pdata').trigger("reset");
+        })
         showdata();
-
+        $('#udata').parsley();
         //insert data into table
         $('#pdata').ajaxForm(function(data) {
            
@@ -472,28 +506,6 @@
                 for (x = 0; x < datas.length; x++) {
                     mydata += `
 
-						<div class="my_course_content_container">
-								<div class="my_setting_content">
-									<div class="my_setting_content_details">
-										<div class="cart_page_form style3 ">
-											<form action="#">
-												  <table class="table table-responsive">
-												  	<thead>
-												  		<tr class="carttable_row">
-													<th class="cartm_title">University Name</th>
-													<th class="cartm_title">Username</th>
-													<th class="cartm_title">Email</th>
-													<th class="cartm_title">Password</th>
-													<th class="cartm_title">Address</th>
-													
-													
-												     <th class="cartm_title">Update</th>
-													<th class="cartm_title">Delete</th>
-                                                    <th class="cartm_title">BranchDetail</th>
-													
-												</tr>
-											</thead>
-											<tbody class="table_body">
 												<tr>
 
 													<td>${datas[x].UniName}</td>
@@ -517,20 +529,13 @@
 												</tr>
 
 
-											</tbody>
-										</table>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-        
+									
        
         `;
 
 
                 }
-                $('#showpackagedata').html(mydata)
+                $('#tbdata').html(mydata)
             }
 
 

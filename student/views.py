@@ -405,6 +405,10 @@ def startquiz(request , id):
                 if x.currectAnswse== value:
                     score+=round(perAnwserMark,2)
                     correct+=1
+
+        mylist=dict()
+        for x in useranwser:
+            mylist.update(x)
                 
                  
            

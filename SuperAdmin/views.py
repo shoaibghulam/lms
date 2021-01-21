@@ -157,14 +157,15 @@ def profileupdate(request):
             email = request.POST['email']
             phone = request.POST['phone']
             uname = request.POST['uname']
-            # img=request.FILES['img']
+            img=request.FILES.get('img',False)
 
             data.SFname = firstname
             data.SLname = lastname
             data.SEmail = email
             data.SUsername = uname
             data.SContactNo = phone
-            # data.SProfile=img
+            if img:
+                data.SProfile=img
             data.save()
             return HttpResponse('Update Successfully')
 

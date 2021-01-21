@@ -167,6 +167,8 @@ def profileupdate(request):
             if img:
                 data.SProfile=img
             data.save()
+            request.session['adminimage'] = str(data.SProfile)
+                   
             return HttpResponse('Update Successfully')
 
         userdata = list()

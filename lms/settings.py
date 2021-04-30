@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'SuperAdmin',
     'UniversityApp',
     'branch',
+    'finance'
     
     #all auth
     'allauth',

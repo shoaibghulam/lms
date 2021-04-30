@@ -1,6 +1,6 @@
 from django.shortcuts import render,HttpResponse,redirect
-from faculty.models import Ser_Exam_result,User_Signup,Materialclass,Course,Instructor,NotificationModel,AssigmentModel,Department,Teacher_syllabus,TeacherApplication,Query_Admin,SerTeacher,User_Stories,CourseVideos,Faculty_Development,Exam_Result,Faculty_Evaluation,Semester,Exam_Result,onlinequiz,MidtermModel,Ser_Midterm,FinalExamModel,Ser_FinalExam
-from student.models import Application,Student_Signup,Student_Course,Student_Profile,Student_Assigment,MeetingAppointment,SerStudent,Ser_Assigment,Ser_App,SerMeeting,Student_Midterm,Ser_Midterms,Student_FinalExam,Ser_FinalExams,Batch
+from faculty.models import Ser_Exam_result,User_Signup,Materialclass,Course,Instructor,NotificationModel,AssigmentModel,Department,Teacher_syllabus,TeacherApplication,Query_Admin,SerTeacher,User_Stories,CourseVideos,Faculty_Development,Exam_Result,Faculty_Evaluation,Semester,Exam_Result,onlinequiz,MidtermModel,Ser_Midterm,FinalExamModel,Ser_FinalExam,quaizsheet
+from student.models import Application,Student_Signup,Student_Course,Student_Profile,Student_Assigment,MeetingAppointment,SerStudent,Ser_Assigment,Ser_App,SerMeeting,Student_Midterm,Ser_Midterms,Student_FinalExam,Ser_FinalExams,Batch,SerStudentCourse
 from library.models import Books,BookAuthor
 from django.http import HttpResponse
 from passlib.hash import pbkdf2_sha256
@@ -16,10 +16,41 @@ from UniversityApp.models import UniversityAccount,UniversityBranch
 from urllib.request import urlopen
 import pandas as pd
 import datetime
+from django.views.decorators.csrf import csrf_exempt
 
+import hashlib
+import hmac
+import base64
+import time
+from  zoomus import ZoomClient
+import pusher
+pusher_client = pusher.Pusher(
+  app_id='980079',
+  key='088b51ea5617a50f8ad0',
+  secret='b2a51edb2c8eebe2aad7',
+  cluster='ap2',
+  ssl=True
+)
 # Create your views here.
+# zoom meeting api start
+client = ZoomClient('tgs2Q91LTDqTwMZneinf0w', 'kfpR6fi0K51zFLR5PaDvICFv2ekOQ9SLTaVl')
 
-
+# zoom meeting api end
+# signatue generate for meeinting start
+def generateSignature(data):
+    ts = int(round(time.time() * 1000)) - 30000;
+    msg = data['apiKey'] + str(data['meetingNumber']) + str(ts) + str(data['role']);    
+    message = base64.b64encode(bytes(msg, 'utf-8'));
+    # message = message.decode("utf-8");    
+    secret = bytes(data['apiSecret'], 'utf-8')
+    hash = hmac.new(secret, message, hashlib.sha256);
+    hash =  base64.b64encode(hash.digest());
+    hash = hash.decode("utf-8");
+    tmpString = "%s.%s.%s.%s.%s" % (data['apiKey'], str(data['meetingNumber']), str(ts), str(data['role']), hash);
+    signature = base64.b64encode(bytes(tmpString, "utf-8"));
+    signature = signature.decode("utf-8");
+    return signature.rstrip("=");
+# signatue generate for meeinting end
 def handler404(request,exception):
     return render(request,'page-error.html')
 
@@ -142,7 +173,7 @@ def suggestiondigitallibrary(request):
     
     if request.is_ajax():
         q = request.GET.get('term', '')
-        print(q)
+      
         
         projects = Books.objects.filter(Bookcategory="digitallibrary",BookTitle__istartswith=q)[:5]
         results = []
@@ -152,7 +183,7 @@ def suggestiondigitallibrary(request):
             project_json['value'] = project.BookTitle
             project_json['label'] = project.BookTitle
             results.append(project_json)
-        print(results)
+      
         data = json.dumps(results)
     else:
         data = 'fail'
@@ -183,7 +214,7 @@ def suggesPhddigitallibrary(request):
     
     if request.is_ajax():
         q = request.GET.get('term', '')
-        print(q)
+     
         
         projects = Books.objects.filter(Bookcategory="digitallibraryphd",BookTitle__istartswith=q)[:5]
         results = []
@@ -193,7 +224,7 @@ def suggesPhddigitallibrary(request):
             project_json['value'] = project.BookTitle
             project_json['label'] = project.BookTitle
             results.append(project_json)
-        print(results)
+     
         data = json.dumps(results)
     else:
         data = 'fail'
@@ -262,7 +293,7 @@ def examresult(request):
             studentlist.append(i.Student_ID.StudentId)
         
         data=Student_Course.objects.filter(~Q(Student_ID__in = studentlist),Semester_ID=semester,StudenBatch=batch,Courses=courseid,uniId__in=request.session['facultyuniid'],branchId__in=request.session['facultybranchid'])
-        print(data)
+    
         student_courselistId = []
         for k in data:
             student_courselistId.append(k.Student_Course_ID)
@@ -719,13 +750,14 @@ def Onlinequiz(request):
             if request.method=="POST":
 
                 coursename=request.POST['category']
+                marks=request.POST['marks']
                 department=request.POST['department']
                 semester=request.POST['semester']
                 semesterdata=Semester.objects.get(Samester_Name=semester,uniId__in=request.session['facultyuniid'],branchId__in=request.session['facultybranchid'])
                 semestername=semesterdata.SamesterId
                 Instructor_id=Instructor.objects.get(username=request.session['facultyuserid'],uniId__in=request.session['facultyuniid'],branchId__in=request.session['facultybranchid'])
-                link=request.POST['link']
-                data=onlinequiz(semester=semester,Course_id=Course.objects.get(Cid=coursename),Instructor_id=Instructor.objects.get(username=request.session['facultyuserid']),Department_id=Department.objects.get(Department_name=department),quizlink=link,uniId=UniversityAccount.objects.get(UniId__in=request.session['facultyuniid']),branchId=UniversityBranch.objects.get(BranchId__in=request.session['facultybranchid']))
+                title=request.POST['title']
+                data=onlinequiz(semester=semester,quizlink=marks,Course_id=Course.objects.get(Cid=coursename),Instructor_id=Instructor.objects.get(username=request.session['facultyuserid']),Department_id=Department.objects.get(Department_name=department),Title=title,uniId=UniversityAccount.objects.get(UniId__in=request.session['facultyuniid']),branchId=UniversityBranch.objects.get(BranchId__in=request.session['facultybranchid']))
                 data.save()
                 messages.success(request, 'Quiz Successfully Added')
                 courses=Course.objects.filter(Instructor_id=Instructor_id.tid)
@@ -767,7 +799,24 @@ def deletequiz(request,id):
         return redirect('/')
 
 
-        
+# Active or disable quiz
+def quizstatus(request, id, status):
+    Instructor_id=Instructor.objects.get(username=request.session['facultyuserid'],uniId__in=request.session['facultyuniid'],branchId__in=request.session['facultybranchid'])
+    data=onlinequiz.objects.get(pk=id,Instructor_id=Instructor_id.tid)
+    status = status
+    msg=""
+    if status =="active":
+        data.status="disable"
+        msg="Quiz is Disabled"
+    elif status=="disable" :
+        data.status="active"
+        msg="Quiz is Active"
+    data.save()
+    messages.success(request,msg)
+    return redirect('/faculty/onlinequiz')
+    
+
+
 
 
 
@@ -2164,4 +2213,169 @@ def showfinalexam(request):
         mydata=Ser_FinalExams(data)
         userdata.append(mydata.data)
         return HttpResponse(json.dumps(userdata))
+
+# class meeting notification for student use pusher by shoaib ghulam
+def classmeetingdata(request):
+    return render(request,'faculty/meeting.html')
+
+
+def onlineclass(request):
+
+    instructorProfile=Instructor.objects.get(username=request.session['facultyuserid'])
+    courses=Course.objects.filter(Instructor_id=instructorProfile.tid)
+    studentBatch=Batch.objects.all()
+    studentSamester=Semester.objects.all()
+    alldata={
+        'data':courses,
+        'batch':studentBatch,
+        'samester':studentSamester,
+    }
+
+    return render(request,'faculty/onlineclass.html',alldata)
+
+
+# start meeting 
+def startmeeting(request):
+    if request.method=="POST":
+        cid=request.POST['course']
+        semester=request.POST['semester']
+        batch=request.POST['batch']
+        instructor=Instructor.objects.get(username=request.session['facultyuserid'])
+        teacher="%s %s"%(instructor.First_Name, instructor.Last_Name)
+        
+
+        data= Student_Course.objects.filter(Courses=cid,StudenBatch=batch,Semester_ID=semester)
+        coursename=data[0].Courses.all()
+        teacherCourse=coursename[0].Course_name
+        studentlist=list()
+        for studentids in data:
+            studentlist.append(studentids.Student_ID.User_id.user_id)
     
+    #   crate host data for teacher join start
+    
+        # generating meeting user and  password start
+        getmeeting=client.meeting.create(user_id="shoaibghulam45@gmail.com")
+        meeting=getmeeting.json()
+        meetingdata={
+            'id':meeting['id'],
+            'password': meeting['password'],
+        }
+        # generating meeting user and  password end
+        
+    #   crate host data for teacher join end
+        # trager meeeting id and password to student
+        # print(coursename)
+        for ids in studentlist:
+        
+            pusher_client.trigger('chat'+str(ids), 'myevent', {'message':"hello owrld",'mid':meeting['id'],'password':meeting['password'],'instructor':teacher,'course':teacherCourse})
+        
+        request.session['hostdata']={
+            'mid':meeting['id'],
+            'password':meeting['password'],
+            'role':1,
+            'teacher':teacher,
+        }
+        return redirect('/faculty/meeting')
+
+def meetingnotification(request):
+    
+   pass
+def coursedatafatching(request):
+    studentcourses=Student_Course.objects.filter(Courses__in=request.GET['cid'])
+    data=SerStudentCourse(studentcourses, many=True)
+  
+    return HttpResponse(json.dumps(data.data))
+
+@csrf_exempt
+def meetingdata(request):
+    r =json.loads(request.body) 
+    mydata=r['meetingData']
+    
+    
+    xdata = {
+        'apiKey':mydata['apiKey'] ,
+        'apiSecret': "kfpR6fi0K51zFLR5PaDvICFv2ekOQ9SLTaVl",
+        'meetingNumber': mydata['meetingNumber'],
+        'role':mydata['role'],
+        'passWord':mydata['passWord'],
+        
+        }
+    
+    x=generateSignature(xdata);
+    
+   
+    return HttpResponse(json.dumps(x))
+
+
+
+# add student attendance system start  by shoaib ghulam
+def addStudentatten(request):
+    try:
+        if request.method=="POST":
+            StudentAttendenceYear=request.POST['StudentAttendenceYear']
+            StudentAttendenceMonth=request.POST['StudentAttendenceMonth']
+            StudentAttendencePresent=request.POST['StudentAttendencePresent']
+            StudentAttendenceAbsent=request.POST['StudentAttendenceAbsent']
+            StudentAttendenceTotal=request.POST['StudentAttendenceTotal']
+            student=Student_Profile.objects.get(StudentId=request.POST['student']) 
+            depart=Department.objects.get(Did=request.POST['depart']) 
+            course=Course.objects.get(Cid=request.POST['course']) 
+            uniid=UniversityAccount.objects.get(UniId=request.session['universityuniid'])
+            branchid=UniversityBranch.objects.get(BranchId=request.session['universitybranchid'])
+            data=StudentAttendence(StudentAttendenceYear=StudentAttendenceYear,StudentAttendenceMonth=StudentAttendenceMonth,StudentAttendencePresent=StudentAttendencePresent,StudentAttendenceAbsent=StudentAttendenceAbsent,StudentAttendenceTotal=StudentAttendenceTotal,uniId=uniid,branchId=branchid,Student_id=student,Department_id=depart,Course_id=course)
+            data.save()
+            messages.success(request,"Successfully Added")
+            return redirect('attendance')
+   
+        
+    
+    except:
+        return redirect('/university/')
+    instructorProfile=Instructor.objects.get(username=request.session['facultyuserid'])
+    courses=Course.objects.filter(Instructor_id=instructorProfile.tid)
+    coursesid=list()
+    for x in courses:
+        coursesid.append(x.Cid)
+    data= Student_Course.objects.filter(Courses__in=coursesid)
+    
+    student=Student_Profile.objects.filter(uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+    department=Department.objects.filter(uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+    # course=Course.objects.filter(uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+    return render(request,'faculty/addStudentatten.html',{'student':data,'department':department,'course':courses})
+    
+
+# add student attendance system end
+@csrf_exempt
+def studentAttendanceData(request):
+  
+    sid=request.POST['sid']
+    data= Student_Course.objects.get(Student_ID=sid,uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+    serdata=SerStudentCourse(data , many=False)
+   
+    return HttpResponse(json.dumps(serdata.data))
+
+
+    # quaiz sheet
+def quizsheet(request,qid):
+    request.session['qid']=qid
+  
+    return render(request,'faculty/quizsheet.html')
+@csrf_exempt
+def quizsheetsave(request):
+    if request.method =="POST":
+        save="nothing"
+        question=request.POST['question']
+        a1=request.POST['a1']
+        a2=request.POST['a2']
+        a3=request.POST['a3']
+        a4=request.POST['a4']
+
+        anwser=request.POST['anwser']
+        uniId=request.session['universityuniid']
+        branchId=request.session['universitybranchid'] 
+        save=request.POST['save']
+        
+        data=quaizsheet(question=question,a1=a1,a2=a2,a3=a3,a4=a4,currectAnswse=anwser,quizid=onlinequiz.objects.get(onlinequizid=request.session['qid']),uniId=UniversityAccount.objects.get(UniId__in=request.session['facultyuniid']),branchId=UniversityBranch.objects.get(BranchId__in=request.session['facultybranchid']))
+        data.save()
+      
+        return HttpResponse(save)

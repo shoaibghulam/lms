@@ -44,6 +44,7 @@
         color: white;
         font-weight: bold;
     }
+
 </style>
 	<!-- Our Dashbord -->
 	<div class="our-dashbord dashbord">
@@ -58,45 +59,52 @@
 							 </nav>
 							 <ol class="breadcrumb float-right">
 							    	<li class="breadcrumb-item active" aria-current="page">
-							    		<a href="myclass" class="btn btn-primary"  data-toggle="tooltip" data-placement="left" title="Back to Class Room" data-original-title="Left">
+							    		<a href="/faculty/onlinequiz" class="btn btn-primary"  data-toggle="tooltip" data-placement="left" title="Back to Class Room" data-original-title="Left">
 							    			Back To Class
 							    		</a>
 							    	</li>
 								</ol>
 						</div>
                    
+                            <div class="col-md-8 mx-auto">
+                               
+                                   <form action='/student/startquiz/{% for q in data|slice:":1" %}{{q.quizid}}{% endfor %}' method="post">
+                                    
+                                    {% for q in data  %}
+                                      
+                                  
+                                      
+                                    <!-- question start -->
 
-                         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScTDSGSZ00uwxKcPDB_AjO_PgUliOAvnHLPPw4a1and-3WWvw/viewform?embedded=true" width="800px" height="1338" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-                        {% comment %} <table class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-
-                                    <th class="tdp">Course</th>
-                                    <th class="tdp">Department</th>
-                                    <th class="tdp">Teacher</th>
-                                    <th class="tdp">Join Quiz</th>
-
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for data in data %}
-                                <tr>
-
-                                    <td>{{data.Course_id}}</td>
-                                    <td>{{data.Department_id}}</td>
-                                     <td>{{data.Instructor_id}}</td>
-                                <td> <a href="/student/startquiz" ><button type="submit" class="btn btn-primary">Click To Join</button></a></td>
-
-                                </tr>
-                                {% endfor %}
-
-
-
-                            </tbody>
-                        </table>  {% endcomment %}
-                
-						
+                                    <div class="question">
+                                    <h1>{{q.question}}</h1>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                          <input type="radio" class="form-check-input radio-box" name="q{{q.pk}}" value="{{q.a1}}" required>{{q.a1}} </label>
+                                      </div>
+                                      <div class="form-check">
+                                        <label class="form-check-label">
+                                          <input type="radio" class="form-check-input radio-box" name="q{{q.pk}}" value="{{q.a2}}" required>{{q.a2}} </label>
+                                      </div>
+                                      <div class="form-check">
+                                        <label class="form-check-label">
+                                          <input type="radio" class="form-check-input radio-box" name="q{{q.pk}}" value="{{q.a3}}" required>{{q.a3}} </label>
+                                      </div>
+                                      <div class="form-check">
+                                        <label class="form-check-label">
+                                          <input type="radio" class="form-check-input radio-box" name="q{{q.pk}}" value="{{q.a4}}" required>{{q.a4}} </label>
+                                      </div>
+                                    </div>
+                                    <!-- question end -->
+                                    {% endfor %}
+                                    <br><br>
+                                    {% csrf_token %}
+                                    <input class="btn btn-success mx-auto" type="submit" value="Submit" name="Submit">
+                                   </form>
+                                   
+                                </div>
+                            </div>
+                        
 					
 					</div>
 				</div>

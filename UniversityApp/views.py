@@ -1,7 +1,7 @@
 from django.shortcuts import render , HttpResponse,redirect,HttpResponseRedirect , reverse
 from UniversityApp.models import UniversityAccount,UniversityBranch
 from passlib.hash import pbkdf2_sha256
-from student.models import Student_Course,Student_Profile,Student_Signup,SerStudent,Application,Student_Query_Admin,Student_Survey,Registration,ScrunityForm,Job_Apply,Student_Submit_Evaluation,MeetingAppointment,Student_Assigment,Batch,Ser_Batch
+from student.models import SerStudentCourse, Student_Course,Student_Profile,Student_Signup,SerStudent,Application,Student_Query_Admin,Student_Survey,Registration,ScrunityForm,Job_Apply,Student_Submit_Evaluation,MeetingAppointment,Student_Assigment,Batch,Ser_Batch
 from administrator.models import AcademicCalendarModel,FacultyCalendarModel,Form,Admin_Notification,role,RoomReservation,Rooms,menu,MenuOrders, menuSer,FacultyAttendence,Faculty_Evaluation_Report,Semester_Schedule,Exam_Schedule,StudentAttendence,SerFaculty_Evaluation_Report,Placement_Portal,onlinesurvey,SerForm,Sermenu,Serrole,Serroom,SerPlacement_Portal
 from faculty.models import User_Signup,Instructor,Department,Semester,Course,CourseVideos,AssigmentModel,Faculty_Development,Materialclass,Exam_Result,Faculty_Evaluation,NotificationModel,onlinequiz,Query_Admin,TeacherApplication,Teacher_syllabus,User_Stories,SerDepartment
 from library.models import BookAuthor,Books
@@ -16,6 +16,7 @@ from urllib.request import urlopen
 import pandas as pd
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
+from django.core.mail import send_mail,EmailMultiAlternatives
 
 
 # Create your views here.
@@ -35,6 +36,8 @@ def login(request):
             if data:
                 if data.UniversityId.UniStatus=="Active":
                     if data.BranchPassword==password:
+                        request.session['financeuni']=str(data.UniversityId.UniId)
+                        request.session['financebranch']=data.BranchId
                         request.session['universitybranchid']=data.BranchId
                         request.session['universitybranchname']=data.BranchName
                         request.session['universityuniid']=str(data.UniversityId.UniId)
@@ -1592,7 +1595,9 @@ def adminaddusersign(request):
             
           
             profilesave.save()
+
             messages.success(request,"Save Successfully")
+            facultycredentials(request,data.pk)
             return redirect('adminusersignup')
           
     except:
@@ -2896,38 +2901,42 @@ def admincourse(request):
 def AdminAddCourses(request):
     try:
         if request.method == "POST":
-            department = request.POST['depart']
-            semester = request.POST['semester']
-            batch = request.POST['batch']
+            
+            department =Department.objects.get(Did=request.POST['depart']) 
+            semester =Semester.objects.get(SamesterId=request.POST['semester'])
+            batch =Batch.objects.get(Batch_id=request.POST['batch'])
             courselist=request.POST.getlist('courselist','off')
+            # if course is unchecked  redirect
             if courselist == "off":
                 messages.error(request,"Make Sure Course are Check At least One")
                 return redirect('/university/admincourse')
+            # if course is unchecked  redirect end
+           
+            # condtion for those student who already enrolled in course start
+            studentsids= list()
+            studentdata=Student_Course.objects.filter(Q(Courses__in=courselist),Department_id=department,Semester_ID=semester,StudenBatch=batch)
+            for x in studentdata:
+                studentsids.append(x.Student_ID.StudentId)
+            # condtion for those student who already enrolled in course end
 
-            sdata = Student_Course.objects.filter(Department_id=department,Semester_ID=semester,StudenBatch=batch)
-            if sdata:
-                for i in sdata:
-                    for j in courselist:
-                        i.Courses.add(Course.objects.get(Cid = j))
-                    
-                messages.success(request,"Courses Updated Sucessfully")
-                return redirect('/university/admincourse')
+            students=Student_Profile.objects.filter(~Q(StudentId__in=studentsids),StudenBatch=batch,Department_id=department,Semester_ID=semester)
+           
+          
+            if students:
+                for st in students:
+                    stcourse=Student_Course.objects.create(Student_ID=st,Department_id=department,Semester_ID=semester,StudenBatch=batch,uniId=UniversityAccount.objects.get(UniId=request.session['universityuniid']),branchId=UniversityBranch.objects.get(BranchId=request.session['universitybranchid']))
+                    for courseid in courselist:
+                        stcourse.Courses.add(Course.objects.get(Cid=courseid))
+                    stcourse.save()
             
-            StudentProfile = Student_Profile.objects.filter(Department_id=department,Semester_ID=semester,StudenBatch=batch)      
-            
-            for i in StudentProfile: 
-                profile = Student_Profile.objects.get(StudentId=i.StudentId)
-                dep = Department.objects.get(Did=department)
-                semid = Semester.objects.get(SamesterId=semester)
-                bid = Batch.objects.get(Batch_id=batch)
-                courseData = Student_Course(Student_ID=profile,Department_id=dep,Semester_ID=semid,StudenBatch=bid,uniId=UniversityAccount.objects.get(UniId=request.session['universityuniid']),branchId=UniversityBranch.objects.get(BranchId=request.session['universitybranchid']))
 
-                courseData.save()
-                for j in courselist:
-                    courseData.Courses.add(Course.objects.get(Cid = j))
                         
-            messages.success(request,"Courses Added Sucessfully")
-            return redirect('/university/admincourse')
+                messages.success(request,"Courses Added Sucessfully")
+                return redirect('/university/admincourse')
+            else:
+                 messages.success(request,"All Students enrolled in the course")
+                 return redirect('/university/admincourse')
+
     
     except:
         messages.error(request,"Make Sure Course are Check At least One")
@@ -3160,6 +3169,7 @@ User_id=userid)
 
 
             messages.success(request,"Save Successfully")
+            studentcredentials(request, data.pk)
             return redirect('adminsignup')
             
 
@@ -6466,3 +6476,63 @@ def searchbatch(request):
     data=Batch.objects.filter(Batch_Name__icontains=query,uniId=uniid,branchId=branchid)
     return render(request,'uniadmin/adminbatch.html',{'data':data})
     # return rredirect('adminbatch'),{'data':data})
+
+    
+# send credentials to student login user and password  by shoaib ghulam
+def studentcredentials(request,id):
+    data=Student_Signup.objects.get(user_id=id,uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+    # uniname=UniversityBranch.objects.get(request.session['universityuniid']
+    unidata=UniversityBranch.objects.get(BranchId=request.session['universitybranchid'])
+    uniuser=unidata.UniversityId.UniUsername
+    branchuser=unidata.BranchUsername
+    subject=f"Login Credential {unidata.BranchName}"
+    url=f"http://127.0.0.1/studentlogin/{uniuser}/{branchuser}";
+    # email tamplate start
+    subject, from_email, to = subject, 'test@certnetworks.tk', data.email
+    html_content = f'''
+            <h1 style="text-align:center; font-family: 'Montserrat', sans-serif;">Login Credential {unidata.BranchName}</h1>
+                <p>
+                  Username:  {data.email} <br>
+                  password: {data.password}
+                  </p>
+            <div style='width:300px; margin:0 auto;'> <a href='{url}' style=" background-color:#0066ff; border: none;  color: white; padding: 15px 32px;  text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; font-family: PT Sans, sans-serif;" >click here</a>
+        </div>
+            '''
+    msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+    # email tamplate end
+    messages.success(request,"Credential has been sent")
+    return redirect('/university/adminsignup')
+
+
+
+
+
+# send credentials to Faculty login user and password
+def facultycredentials(request,id):
+    data=User_Signup.objects.get(user_id=id,uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+    unidata=UniversityBranch.objects.get(BranchId=request.session['universitybranchid'])
+    uniuser=unidata.UniversityId.UniUsername
+    branchuser=unidata.BranchUsername
+    subject=f"Login Credential {unidata.BranchName}"
+    url=f"http://127.0.0.1/Facultylogin/{uniuser}/{branchuser}";
+    # email tamplate start
+    subject, from_email, to = subject, 'test@certnetworks.tk', data.email
+    html_content = f'''
+            <h1 style="text-align:center; font-family: 'Montserrat', sans-serif;">Login Credential {unidata.BranchName}</h1>
+                <p>
+                  Username:  {data.email} <br>
+                  password: {data.password}
+                  </p>
+            <div style='width:300px; margin:0 auto;'> <a href='{url}' style=" background-color:#0066ff; border: none;  color: white; padding: 15px 32px;  text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer; font-family: PT Sans, sans-serif;" >click here</a>
+        </div>
+            '''
+    msg = EmailMultiAlternatives(subject, html_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+    # email tamplate end
+    messages.success(request,"Credential has been sent")
+    return redirect('/university/adminsignup')
+
+# send credentials to Faculty login user and password

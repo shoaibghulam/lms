@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Online class </title>
+    <meta charset="utf-8" />
+     <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.5/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.8.5/css/react-select.css" />
+
+   
+
+</head>
+<body>
+{% csrf_token %}
+
+ <!-- import ZoomMtg dependencies -->
+ <script src="https://source.zoom.us/1.8.5/lib/vendor/react.min.js"></script>
+ <script src="https://source.zoom.us/1.8.5/lib/vendor/react-dom.min.js"></script>
+ <script src="https://source.zoom.us/1.8.5/lib/vendor/redux.min.js"></script>
+ <script src="https://source.zoom.us/1.8.5/lib/vendor/redux-thunk.min.js"></script>
+ <script src="https://source.zoom.us/1.8.5/lib/vendor/lodash.min.js"></script>
+
+ <!-- import ZoomMtg -->
+ <script src="https://source.zoom.us/zoom-meeting-1.8.5.min.js"></script>
+
+  <!-- import ZoomMtg -->
+<script>
+
+  let mid="{{request.session.hostdata.mid}}";
+  let pass="{{request.session.hostdata.password}}";
+  let username="{{request.session.hostdata.teacher}}";
+  let email="{{request.session.hostdata.teacher}}@lms.com";
+  let leaveurl="http://www.fb.com";
+  
+</script>
+  <script src="{% static '' %}meeting/js/teacher.js"></script> 
+  
+  <script>
+    const simd = async () => WebAssembly.validate(new Uint8Array([0, 97, 115, 109, 1, 0, 0, 0, 1, 4, 1, 96, 0, 0, 3, 2, 1, 0, 10, 9, 1, 7, 0, 65, 0, 253, 15, 26, 11]))
+    simd().then((res) => {
+      console.log("simd check", res);
+    });
+</script>
+</body>
+</html>

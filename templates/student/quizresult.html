@@ -1,0 +1,111 @@
+{% extends 'student/vbase.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.shop_grid {
+    position: relative;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(237, 239, 247);
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255);
+    height: 266px;
+    margin-bottom: 30px;
+    padding: 20px;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+.shop_grid .details .price {
+    font-size: 18px;
+    font-family: "Nunito";
+    color: rgb(199, 85, 51);
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
+.shop_grid .cart_bag {
+    border-radius: 50%;
+    background-color: rgb(255, 16, 83);
+    height: 50px;
+     margin-top: 0px; 
+    opacity: 0;
+    text-align: center;
+    width: 50px;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+
+  .tdp {
+        background: #8d35b4;
+        color: white;
+        font-weight: bold;
+    }
+
+</style>
+	<!-- Our Dashbord -->
+	<div class="our-dashbord dashbord">
+		<div class="dashboard_main_content">
+			<div class="container-fluid">
+				<div class="main_content_container">
+					<div class="row">
+						<div class="col-lg-12">
+                        
+							 <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+								<h4 class="title float-left">Online Quiz</h4>
+							 </nav>
+							 <ol class="breadcrumb float-right">
+							    	<li class="breadcrumb-item active" aria-current="page">
+							    		<a href="myclass" class="btn btn-primary"  data-toggle="tooltip" data-placement="left" title="Back to Class Room" data-original-title="Left">
+							    			Back To Class
+							    		</a>
+							    	</li>
+								</ol>
+            </div>
+            
+                   
+                            <div class="col-md-8 mx-auto">
+                               
+                                
+                                <table class="table table-borderless">
+                                    
+                                    <tbody>
+                                      <tr>
+                                        <td>Total Marks</td>
+                                        <td>{{totalmarks}}</td>
+                                           </tr>
+                                      <tr>
+                                        <td>Total Question</td>
+                                        <td>{{totalquestion}}</td>
+                                           </tr>
+                                      <tr>
+                                        <td>True Answer	</td>
+                                        <td>{{correct}}</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Wrong Answer</td>
+                                        <td>{{wrong}}</td>
+                                         </tr>
+                                      <tr class="bg-primary text-light">
+                                        <th>Score</th>
+                                        <th>{{score}} / {{totalmarks}}</th>
+                                         </tr>
+                                    </tbody>
+                                  </table>
+
+                                   
+                                </div>
+                            </div>
+                        
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+{% endblock %}

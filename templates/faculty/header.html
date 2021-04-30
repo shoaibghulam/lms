@@ -151,7 +151,7 @@
                             <li><a href="/chat/" target="_blank"><span class="flaticon-online-learning"></span> Messaging</a></li>
                             <li><a href="onlineclass" target="_blank"><span class="flaticon-online-learning"></span> Take Online Class</a></li>
                             <li><a href="https://apps.google.com/meet/" target="_blank"><span class="flaticon-online-learning"></span>Google Meetup</a></li>
-                            <li><a href="https://zoom.us/join" target="_blank"><span class="flaticon-online-learning"></span>Zoom</a></li>
+                            <li><a href="{% url 'onlineclassteacher' %}" onclick="meeting()"><span class="flaticon-online-learning" class="meetingbox"></span>Zoom</a></li>
 
                         </ul>
                         <h4>Account</h4>
@@ -171,3 +171,15 @@
                 </div>
             </div>
         </section>
+        <script>
+          
+           function meeting(){
+               $.ajax({
+                   url:'/faculty/classmeetingdata',
+                   type:'GET',
+                   success:function(data){
+                       alert(data)
+                   }
+               })
+           }
+        </script>

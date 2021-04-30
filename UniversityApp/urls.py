@@ -308,6 +308,9 @@ urlpatterns = [
     path('getbatchdata',views.getbatchdata,name="getbatchdata"),
     path('deletebatch/<int:id>',views.deletebatch,name="deletebatch"),
     path('searchbatch',views.searchbatch,name="searchbatch"),
+    path('studentcredentials/<int:id>',views.studentcredentials,name="studentcredentials"),
+    path('facultycredentials/<int:id>',views.facultycredentials,name="facultycredentials"),
+    
 
 
     

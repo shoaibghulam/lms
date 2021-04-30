@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'SuperAdmin',
     'UniversityApp',
     'branch',
-    'finance'
+    'finance',
     
     #all auth
     'allauth',
@@ -142,7 +142,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
-
+USE_TZ = True
 
 
 # Mail setting

@@ -1,6 +1,7 @@
 from django.db import models
 from rest_framework import serializers
 from datetime import datetime
+
 from UniversityApp.models import UniversityAccount , UniversityBranch
 # from student.models import Student_Profile,Student_Course
 MATERAIL=(
@@ -15,6 +16,10 @@ NOTIFICATION=(
 STORY_CATEGORY=(
     ("new","NEW"),
     ("old","OLD"),
+)
+QUIZ_STATUS=(
+    ("active","active"),
+    ("disable","disable"),
 )
 
 # Create your models here.
@@ -55,8 +60,7 @@ class Instructor(models.Model):
 class SerTeacher(serializers.ModelSerializer):
     class Meta:
         model= Instructor
-        fields=('First_Name','Last_Name','Gender','Address','Phone_Number','Dob')
-    
+        fields='__all__'
 
 class Department(models.Model):
     Did = models.AutoField(primary_key=True)
@@ -346,18 +350,35 @@ class Ser_Exam_result(serializers.ModelSerializer):
 
 class onlinequiz(models.Model):
     onlinequizid=models.AutoField(primary_key=True)
+    Title=models.CharField(max_length=100,default="")
     semester=models.CharField(max_length=100,default="")
     Course_id=models.ForeignKey(Course, on_delete=models.CASCADE)
     Instructor_id=models.ForeignKey(Instructor, on_delete=models.CASCADE)
     Department_id=models.ForeignKey(Department, on_delete=models.CASCADE)
     quizlink=models.CharField(max_length=1000,default="link")
+    # quizmarks=models.CharField(max_length=100,default="")
     uniId=models.ForeignKey(UniversityAccount , on_delete=models.CASCADE)
     branchId=models.ForeignKey(UniversityBranch , on_delete=models.CASCADE)
+    status=models.CharField(max_length=100, choices=QUIZ_STATUS,default="disable")
+  
     def __str__(self):
         return str(self.onlinequizid)
     
 
-
+class quaizsheet(models.Model):
+    sheetid=models.AutoField(primary_key=True)
+    question=models.TextField(max_length="800")
+    a1=models.TextField(max_length="800")
+    a2=models.TextField(max_length="800")
+    a3=models.TextField(max_length="800")
+    a4=models.TextField(max_length="800")
+    currectAnswse=models.TextField(max_length="800")
+    quizid=models.ForeignKey(onlinequiz , on_delete=models.CASCADE)
+    uniId=models.ForeignKey(UniversityAccount , on_delete=models.CASCADE)
+    branchId=models.ForeignKey(UniversityBranch , on_delete=models.CASCADE)
+    def __str__(self):
+        return str(self.question)
+    
 
     
     

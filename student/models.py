@@ -2,7 +2,7 @@ from django.db import models
 from faculty.models import Course,Instructor
 from datetime import datetime  
 from rest_framework import serializers
-from faculty.models import Semester,Department,Instructor,AssigmentModel,MidtermModel,FinalExamModel
+from faculty.models import Semester,Department,Instructor,AssigmentModel,MidtermModel,FinalExamModel,CourseSeralizer,SerDepartment,onlinequiz
 from UniversityApp.models import UniversityAccount , UniversityBranch
 
 APPLICATIONSTATUS=(
@@ -74,7 +74,7 @@ class Student_Profile(models.Model):
 class SerStudent(serializers.ModelSerializer):
     class Meta:
         model= Student_Profile
-        fields=('StudentId','First_name','Last_name','ContactNo','Address','DOB','StudenBatch','StudenShift')
+        fields='__all__'
     
 
 class Application(models.Model):
@@ -309,6 +309,10 @@ class Ser_FinalExams(serializers.ModelSerializer):
     
 # seralizer data
 class SerStudentCourse(serializers.ModelSerializer):
+    StudenBatch=Ser_Batch(Batch , many=False, read_only=True)
+    Courses=CourseSeralizer(Course , many=True, read_only=True)
+    Department_id=SerDepartment(Department )
+
     class Meta:
         model = Student_Course
         fields = '__all__'
@@ -318,3 +322,23 @@ class SerStudentProfile(serializers.ModelSerializer):
         model = Student_Profile
         fields = '__all__'
 
+
+# Latest Model Create by shoaib ghulam 1/7/2021
+class StudentQuizResult(models.Model):
+    qId=models.AutoField(primary_key=True)
+    studentId=models.ForeignKey(Student_Signup, on_delete=models.CASCADE)
+    totalmarks=models.IntegerField()
+    totalquestion=models.IntegerField()
+    wrong=models.IntegerField()
+    correct=models.IntegerField()
+    score=models.IntegerField()
+    quizId=models.ForeignKey(onlinequiz, on_delete=models.CASCADE)
+    uniId=models.ForeignKey(UniversityAccount , on_delete=models.CASCADE)
+    branchId=models.ForeignKey(UniversityBranch , on_delete=models.CASCADE)
+    def __str__(self):
+        return str(self.studentId)
+    
+class serStudentQuizResult(serializers.ModelSerializer):
+    class Meta:
+        model = StudentQuizResult
+        fields = '__all__'

@@ -151,6 +151,7 @@
                             <li><a href="/chat/" target="_blank"><span class="flaticon-online-learning"></span> Messaging</a></li>
                             <li><a href="onlineclass" target="_blank"><span class="flaticon-online-learning"></span> Take Online Class</a></li>
                             <li><a href="https://apps.google.com/meet/" target="_blank"><span class="flaticon-online-learning"></span>Google Meetup</a></li>
+                      
                             <li><a href="{% url 'onlineclassteacher' %}" onclick="meeting()"><span class="flaticon-online-learning" class="meetingbox"></span>Zoom</a></li>
 
                         </ul>
@@ -171,8 +172,30 @@
                 </div>
             </div>
         </section>
+        <div class="modal fade" id="zoommodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Zoom Inivite Link</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                 <input type="text" id="link" placeholder="Paste Zoom Link"/>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Send Link</button>
+                </div>
+              </div>
+            </div>
+          </div>
         <script>
-          
+          function zoomtrigger(){
+            
+            $('#zoommodal').modal('show');
+          }
            function meeting(){
                $.ajax({
                    url:'/faculty/classmeetingdata',

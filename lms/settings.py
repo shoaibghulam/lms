@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import django_heroku
+# import django_heroku
 #for messages
 
 from django.contrib.messages import constants as messages
@@ -102,19 +102,39 @@ TEMPLATES = [
 WSGI_APPLICATION = 'lms.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+
+
+#Docker DB Configuration #
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'NAME': 'LMS',
+        'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'shoaib',
-        'HOST': '127.0.0.1',
-        'PORT': '5433'
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
+
+#Docker DB Configuration #
+
+#local Db Configuration
+
+# Database
+# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'NAME': 'LMS',
+#         'USER': 'postgres',
+#         'PASSWORD': 'shoaib',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5433'
+#     }
+# }
+
+#local Db Configuration
 
 
 # Password validation
@@ -180,7 +200,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'upload')
 MEDIA_URL = '/upload/'
 
 # Activate Django-Heroku.
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
 
 

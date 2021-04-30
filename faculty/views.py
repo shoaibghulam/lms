@@ -2240,6 +2240,7 @@ def startmeeting(request):
         cid=request.POST['course']
         semester=request.POST['semester']
         batch=request.POST['batch']
+        zoomlink=request.POST['zoomlink']
         instructor=Instructor.objects.get(username=request.session['facultyuserid'])
         teacher="%s %s"%(instructor.First_Name, instructor.Last_Name)
         
@@ -2257,6 +2258,7 @@ def startmeeting(request):
         getmeeting=client.meeting.create(user_id="shoaibghulam45@gmail.com")
         meeting=getmeeting.json()
         meetingdata={
+           
             'id':meeting['id'],
             'password': meeting['password'],
         }
@@ -2267,7 +2269,7 @@ def startmeeting(request):
         # print(coursename)
         for ids in studentlist:
         
-            pusher_client.trigger('chat'+str(ids), 'myevent', {'message':"hello owrld",'mid':meeting['id'],'password':meeting['password'],'instructor':teacher,'course':teacherCourse})
+            pusher_client.trigger('chat'+str(ids), 'myevent', {'message':"hello owrld",'mid':meeting['id'],'password':meeting['password'],'instructor':teacher,'course':teacherCourse,'zoomlink':zoomlink})
         
         request.session['hostdata']={
             'mid':meeting['id'],
@@ -2275,7 +2277,8 @@ def startmeeting(request):
             'role':1,
             'teacher':teacher,
         }
-        return redirect('/faculty/meeting')
+        messages.success(request,'Invition link has been sent')
+        return redirect('/faculty/onlineclass')
 
 def meetingnotification(request):
     
@@ -2330,7 +2333,7 @@ def addStudentatten(request):
         
     
     except:
-        return redirect('/university/')
+        return redirect('/faculty/')
     instructorProfile=Instructor.objects.get(username=request.session['facultyuserid'])
     courses=Course.objects.filter(Instructor_id=instructorProfile.tid)
     coursesid=list()
@@ -2338,8 +2341,8 @@ def addStudentatten(request):
         coursesid.append(x.Cid)
     data= Student_Course.objects.filter(Courses__in=coursesid)
     
-    student=Student_Profile.objects.filter(uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
-    department=Department.objects.filter(uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+    student=Student_Profile.objects.filter(uniId=request.session['facultyuniid'][0],branchId=request.session['facultybranchid'][0])
+    department=Department.objects.filter(uniId=request.session['facultyuniid'][0],branchId=request.session['facultybranchid'][0])
     # course=Course.objects.filter(uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
     return render(request,'faculty/addStudentatten.html',{'student':data,'department':department,'course':courses})
     
@@ -2349,7 +2352,7 @@ def addStudentatten(request):
 def studentAttendanceData(request):
   
     sid=request.POST['sid']
-    data= Student_Course.objects.get(Student_ID=sid,uniId=request.session['universityuniid'],branchId=request.session['universitybranchid'])
+    data= Student_Course.objects.get(Student_ID=sid,uniId=request.session['facultyuniid'][0],branchId=request.session['facultybranchid'][0])
     serdata=SerStudentCourse(data , many=False)
    
     return HttpResponse(json.dumps(serdata.data))
@@ -2371,8 +2374,8 @@ def quizsheetsave(request):
         a4=request.POST['a4']
 
         anwser=request.POST['anwser']
-        uniId=request.session['universityuniid']
-        branchId=request.session['universitybranchid'] 
+        uniId=request.session['facultyuniid'][0]
+        branchId=request.session['facultybranchid'][0]
         save=request.POST['save']
         
         data=quaizsheet(question=question,a1=a1,a2=a2,a3=a3,a4=a4,currectAnswse=anwser,quizid=onlinequiz.objects.get(onlinequizid=request.session['qid']),uniId=UniversityAccount.objects.get(UniId__in=request.session['facultyuniid']),branchId=UniversityBranch.objects.get(BranchId__in=request.session['facultybranchid']))

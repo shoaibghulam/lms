@@ -77,7 +77,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button id="join" class="btn btn-primary">join</button>
+        <a id="join" href="#" class="btn btn-primary">join</a>
       </div>
     </div>
   </div>
@@ -98,7 +98,8 @@ let x=0;
 channel.bind('myevent', function(data) {
   $('#meetingmodal').modal('show'); 
    $('#classinfo').html(`${data['instructor']} ${data['course']} class is now going to start click join`)
-   $('#join').click(function(){
+   $('#join').attr('href',data['zoomlink'])
+  /* $('#join').click(function(){
     localStorage.setItem("mid", data['mid']);
     localStorage.setItem("password", data['password']);
       $.ajax({
@@ -118,6 +119,7 @@ channel.bind('myevent', function(data) {
       // windows.location.href="{% url 'joinmeetingstudent' %}"; 
 
    })
+   */
     
   });
  

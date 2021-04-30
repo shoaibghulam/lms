@@ -46,22 +46,22 @@
 		        <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
 		        <ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
 		            <li>
-		                <a href="{% url 'home' %}"><span class="title">Home</span></a>
+		                <!-- <a href="{% url 'home' %}"><span class="title">Home</span></a> -->
 		                
 		            </li>
 		        
 		            <li>
-		                <a href="/event"><span class="title">Events</span></a>
+		                <!-- <a href="/event"><span class="title">Events</span></a> -->
 		                
 		            </li>
 		           
 		            </li>
 		            <li>
-		                <a href="/blog"><span class="title">Blog</span></a>
+		                <!-- <a href="/blog"><span class="title">Blog</span></a> -->
 		             
 		            </li>
 		            <li class="last">
-		                <a href="{% url 'contact' %}"><span class="title">Contact</span></a>
+		                <!-- <a href="{% url 'contact' %}"><span class="title">Contact</span></a> -->
 		            </li>
 					{% if request.session.role == 'Student'  %}
 					<li class="last">
@@ -405,11 +405,20 @@
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="main-title text-center">
-						<h3 class="mt0">Via School Categories Courses</h3>
-						<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+						<h3 class="mt0">VIRTUAL CLASSROOM AND LMS </h3>
+						<h5><p>LMS is an Audio/Video virtual classroom solution for the institutes. It provides the better environment for the teachers and students to deliver and attend online classes. Users can share screen and files respectively</p><br>
+						<p>With a modern, intuitive, fully responsive interface, Digital LMS delivers a simpler, more powerful teaching and learning experience that goes beyond the traditional learning management system (LMS).</p><br>
+						<p>Excite educators and learners with seamless, deeply integrated Powerful tools, and workflows that help learners and instructors stay organized, easily take action, and engage with content and each other.</p>
+						</h5><br>
+
+						
 					</div>
 				</div>
 			</div>
+			<video width="100%" controls>
+				<source src="{% static 'images/lms.mp4' %}" type="video/mp4">
+				
+			  </video> 
 			<div class="row">
 			
 				{% for i in data %}
@@ -426,7 +435,7 @@
 				{% endfor %}
 				<div class="col-lg-6 offset-lg-3">
 					<div class="courses_all_btn text-center">
-						<a class="btn btn-transparent" href="#">View All Courses</a>
+						<!-- <a class="btn btn-transparent" href="#">View All Courses</a> -->
 					</div>
 				</div>
 			</div>
@@ -454,310 +463,12 @@
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="main-title text-center">
-						<h3 class="mt0">Browse Our Top Courses</h3>
-						<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+						<h3 class="mt0">LEARNING MANAGEMENT SYSTEM</h3>
+						<h5>It facilitates educational services related to managing data and information regarding student and teachers. Allows administration to access student information from a single source. It incorporates services like</h5>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-			 	<div class="col-lg-12">
-			 		<div id="options" class="alpha-pag full">
-						<div class="option-isotop">
-							<ul id="filter" class="option-set" data-option-key="filter">
-								<li class="list-inline-item"><a href="#all" data-option-value="*" class="selected">Developer</a></li>
-								<li class="list-inline-item"><a href="#business" data-option-value=".business">Business</a></li>
-								<li class="list-inline-item"><a href="#design" data-option-value=".design">Design</a></li>
-								<li class="list-inline-item"><a href="#web" data-option-value=".web">Web</a></li>
-								<li class="list-inline-item"><a href="#marketing" data-option-value=".marketing">Marketing</a></li>
-							</ul>
-						</div>
-					</div><!-- FILTER BUTTONS -->
-			 		<div class="emply-text-sec">
-			 			<div class="row" id="masonry_abc">
-			 				<div class="col-md-6 col-lg-4 col-xl-3 business design">
-								<div class="top_courses">
-									<div class="thumb">
-										<img class="img-whp" src="{% static 'images/courses/t1.jpg' %}" alt="t1.jpg">
-										<div class="overlay">
-											<div class="tag">Best Seller</div>
-											<div class="icon"><span class="flaticon-like"></span></div>
-											<a class="tc_preview_course" href="#">Preview Course</a>
-										</div>
-									</div>
-									<div class="details">
-										<div class="tc_content">
-											<p>Ali TUFAN</p>
-											<h5>Introduction Web Design with HTML</h5>
-											<ul class="tc_review">
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#">(6)</a></li>
-											</ul>
-										</div>
-										<div class="tc_footer">
-											<ul class="tc_meta float-left">
-												<li class="list-inline-item"><a href="#"><i class="flaticon-profile"></i></a></li>
-												<li class="list-inline-item"><a href="#">1548</a></li>
-												<li class="list-inline-item"><a href="#"><i class="flaticon-comment"></i></a></li>
-												<li class="list-inline-item"><a href="#">25</a></li>
-											</ul>
-											<div class="tc_price float-right">$69.95</div>
-										</div>
-									</div>
-								</div>
-			 				</div>
-			 				<div class="col-md-6 col-lg-4 col-xl-3 business marketing">
-								<div class="top_courses">
-									<div class="thumb">
-										<img class="img-whp" src="{% static 'images/courses/t2.jpg' %}" alt="t2.jpg">
-										<div class="overlay">
-											<div class="tag">Top Seller</div>
-											<div class="icon"><span class="flaticon-like"></span></div>
-											<a class="tc_preview_course" href="#">Preview Course</a>
-										</div>
-									</div>
-									<div class="details">
-										<div class="tc_content">
-											<p>Ali TUFAN</p>
-											<h5>Designing a Responsive Mobile Website with Muse</h5>
-											<ul class="tc_review">
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#">(6)</a></li>
-											</ul>
-										</div>
-										<div class="tc_footer">
-											<ul class="tc_meta float-left">
-												<li class="list-inline-item"><a href="#"><i class="flaticon-profile"></i></a></li>
-												<li class="list-inline-item"><a href="#">1548</a></li>
-												<li class="list-inline-item"><a href="#"><i class="flaticon-comment"></i></a></li>
-												<li class="list-inline-item"><a href="#">25</a></li>
-											</ul>
-											<div class="tc_price float-right">$69.95</div>
-										</div>
-									</div>
-								</div>
-			 				</div>
-			 				<div class="col-md-6 col-lg-4 col-xl-3 web design">
-								<div class="top_courses">
-									<div class="thumb">
-										<img class="img-whp" src="{% static 'images/courses/t3.jpg' %}" alt="t3.jpg">
-										<div class="overlay">
-											<div class="tag">Top Seller</div>
-											<div class="icon"><span class="flaticon-like"></span></div>
-											<a class="tc_preview_course" href="#">Preview Course</a>
-										</div>
-									</div>
-									<div class="details">
-										<div class="tc_content">
-											<p>Ali TUFAN</p>
-											<h5>Adobe XD: Prototyping Tips and Tricks</h5>
-											<ul class="tc_review">
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#">(6)</a></li>
-											</ul>
-										</div>
-										<div class="tc_footer">
-											<ul class="tc_meta float-left">
-												<li class="list-inline-item"><a href="#"><i class="flaticon-profile"></i></a></li>
-												<li class="list-inline-item"><a href="#">1548</a></li>
-												<li class="list-inline-item"><a href="#"><i class="flaticon-comment"></i></a></li>
-												<li class="list-inline-item"><a href="#">25</a></li>
-											</ul>
-											<div class="tc_price float-right">$69.95</div>
-										</div>
-									</div>
-								</div>
-			 				</div>
-			 				<div class="col-md-6 col-lg-4 col-xl-3 business Web">
-								<div class="top_courses">
-									<div class="thumb">
-										<img class="img-whp" src="{% static 'images/courses/t4.jpg' %}" alt="t4.jpg">
-										<div class="overlay">
-											<div class="tag">Best Seller</div>
-											<div class="icon"><span class="flaticon-like"></span></div>
-											<a class="tc_preview_course" href="#">Preview Course</a>
-										</div>
-									</div>
-									<div class="details">
-										<div class="tc_content">
-											<p>Ali TUFAN</p>
-											<h5>Sketch: Creating Responsive SVG</h5>
-											<ul class="tc_review">
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#">(6)</a></li>
-											</ul>
-										</div>
-										<div class="tc_footer">
-											<ul class="tc_meta float-left">
-												<li class="list-inline-item"><a href="#"><i class="flaticon-profile"></i></a></li>
-												<li class="list-inline-item"><a href="#">1548</a></li>
-												<li class="list-inline-item"><a href="#"><i class="flaticon-comment"></i></a></li>
-												<li class="list-inline-item"><a href="#">25</a></li>
-											</ul>
-											<div class="tc_price float-right">$69.95</div>
-										</div>
-									</div>
-								</div>
-			 				</div>
-			 				<div class="col-md-6 col-lg-4 col-xl-3 marketing">
-								<div class="top_courses">
-									<div class="thumb">
-										<img class="img-whp" src="{% static 'images/courses/t5.jpg' %}" alt="t5.jpg">
-										<div class="overlay">
-											<div class="tag">Best Seller</div>
-											<div class="icon"><span class="flaticon-like"></span></div>
-											<a class="tc_preview_course" href="#">Preview Course</a>
-										</div>
-									</div>
-									<div class="details">
-										<div class="tc_content">
-											<p>Ali TUFAN</p>
-											<h5>Design Instruments for Communication</h5>
-											<ul class="tc_review">
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#">(6)</a></li>
-											</ul>
-										</div>
-										<div class="tc_footer">
-											<ul class="tc_meta float-left">
-												<li class="list-inline-item"><a href="#"><i class="flaticon-profile"></i></a></li>
-												<li class="list-inline-item"><a href="#">1548</a></li>
-												<li class="list-inline-item"><a href="#"><i class="flaticon-comment"></i></a></li>
-												<li class="list-inline-item"><a href="#">25</a></li>
-											</ul>
-											<div class="tc_price float-right">$69.95</div>
-										</div>
-									</div>
-								</div>
-			 				</div>
-			 				<div class="col-md-6 col-lg-4 col-xl-3 business marketing">
-								<div class="top_courses">
-									<div class="thumb">
-										<img class="img-whp" src="{% static 'images/courses/t6.jpg' %}" alt="t6.jpg">
-										<div class="overlay">
-											<div class="tag">Top Seller</div>
-											<div class="icon"><span class="flaticon-like"></span></div>
-											<a class="tc_preview_course" href="#">Preview Course</a>
-										</div>
-									</div>
-									<div class="details">
-										<div class="tc_content">
-											<p>Ali TUFAN</p>
-											<h5>How to be a DJ? Make Electronic Music</h5>
-											<ul class="tc_review">
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#">(6)</a></li>
-											</ul>
-										</div>
-										<div class="tc_footer">
-											<ul class="tc_meta float-left">
-												<li class="list-inline-item"><a href="#"><i class="flaticon-profile"></i></a></li>
-												<li class="list-inline-item"><a href="#">1548</a></li>
-												<li class="list-inline-item"><a href="#"><i class="flaticon-comment"></i></a></li>
-												<li class="list-inline-item"><a href="#">25</a></li>
-											</ul>
-											<div class="tc_price float-right">$69.95</div>
-										</div>
-									</div>
-								</div>
-			 				</div>
-			 				<div class="col-md-6 col-lg-4 col-xl-3 design Web">
-								<div class="top_courses">
-									<div class="thumb">
-										<img class="img-whp" src="{% static 'images/courses/t7.jpg' %}" alt="t7.jpg">
-										<div class="overlay">
-											<div class="tag">Top Seller</div>
-											<div class="icon"><span class="flaticon-like"></span></div>
-											<a class="tc_preview_course" href="#">Preview Course</a>
-										</div>
-									</div>
-									<div class="details">
-										<div class="tc_content">
-											<p>Ali TUFAN</p>
-											<h5>How to Make Beautiful Landscape Photos?</h5>
-											<ul class="tc_review">
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#">(6)</a></li>
-											</ul>
-										</div>
-										<div class="tc_footer">
-											<ul class="tc_meta float-left">
-												<li class="list-inline-item"><a href="#"><i class="flaticon-profile"></i></a></li>
-												<li class="list-inline-item"><a href="#">1548</a></li>
-												<li class="list-inline-item"><a href="#"><i class="flaticon-comment"></i></a></li>
-												<li class="list-inline-item"><a href="#">25</a></li>
-											</ul>
-											<div class="tc_price float-right">$69.95</div>
-										</div>
-									</div>
-								</div>
-			 				</div>
-			 				<div class="col-md-6 col-lg-4 col-xl-3 business">
-								<div class="top_courses">
-									<div class="thumb">
-										<img class="img-whp" src="{% static 'images/courses/t8.jpg' %}" alt="t8.jpg">
-										<div class="overlay">
-											<div class="tag">Best Seller</div>
-											<div class="icon"><span class="flaticon-like"></span></div>
-											<a class="tc_preview_course" href="#">Preview Course</a>
-										</div>
-									</div>
-									<div class="details">
-										<div class="tc_content">
-											<p>Ali TUFAN</p>
-											<h5>Fashion Photography From Professional</h5>
-											<ul class="tc_review">
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-												<li class="list-inline-item"><a href="#">(6)</a></li>
-											</ul>
-										</div>
-										<div class="tc_footer">
-											<ul class="tc_meta float-left">
-												<li class="list-inline-item"><a href="#"><i class="flaticon-profile"></i></a></li>
-												<li class="list-inline-item"><a href="#">1548</a></li>
-												<li class="list-inline-item"><a href="#"><i class="flaticon-comment"></i></a></li>
-												<li class="list-inline-item"><a href="#">25</a></li>
-											</ul>
-											<div class="tc_price float-right">$69.95</div>
-										</div>
-									</div>
-								</div>
-			 				</div>
-			 			</div>
-			 		</div>
-				</div>
-			</div>
+		
 		</div>
 	</section>
 
@@ -768,7 +479,7 @@
 				<div class="col-lg-6 offset-lg-3">
 					<div class="main-title text-center">
 						<h3 class="mt0">What People Say</h3>
-						<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+						<!-- <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p> -->
 					</div>
 				</div>
 			</div>
@@ -795,7 +506,7 @@
 									<div class="details">
 										<h5>Ali Tufan</h5>
 										<span class="small text-thm">Client</span>
-										<p>Customization is very easy with this theme. Clean and quality design and full support for any kind of request! Great theme!</p>
+										<h5>Customization is very easy with this theme. Clean and quality design and full support for any kind of request! Great theme!</h4>
 									</div>
 								</div>
 							</li>
@@ -804,7 +515,7 @@
 									<div class="details">
 										<h5>Ali Tufan</h5>
 										<span class="small text-thm">Client</span>
-										<p>Customization is very easy with this theme. Clean and quality design and full support for any kind of request! Great theme!</p>
+										<h5>Customization is very easy with this theme. Clean and quality design and full support for any kind of request! Great theme!</h5>
 									</div>
 								</div>
 							</li>
@@ -839,107 +550,46 @@
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="main-title text-center">
-						<h3 class="mt0">Latest News And Events</h3>
-						<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+						<h3 class="mt0">MAIN FEATURES OF LMS</h3>
+						<!-- <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p> -->
+						<b>
+						<ul>
+							<li>Enrolment</li>
+							<li>Course registration</li>
+							<li>Grades Management</li>
+							<li>Attendance Management</li>
+							<li>Course Management</li>
+							<li>Content Management</li>
+						</ul>
+					</b>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-lg-6 col-xl-6">
-					<div class="blog_slider_home1">
-						<div class="item">
-							<div class="blog_post one">
-								<div class="thumb">
-									<div class="post_title">Events</div>
-									<img class="img-fluid w100" src="{% static 'images/blog/1.jpg' %}" alt="1.jpg">
-									<a class="post_date" href="#"><span>28 <br> March</span></a>
-								</div>
-								<div class="details">
-									<div class="post_meta">
-										<ul>
-											<li class="list-inline-item"><a href="#"><i class="flaticon-calendar"></i> 8:00 am - 5:00 pm</a></li>
-											<li class="list-inline-item"><a href="#"><i class="flaticon-placeholder"></i> Vancouver, Canada</a></li>
-										</ul>
-									</div>
-									<h4>Elegant Light Box Paper Cut Dioramas New Design Conference</h4>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="blog_post one">
-								<div class="thumb">
-									<div class="post_title">Events</div>
-									<img class="img-fluid w100" src="{% static 'images/blog/1a.jpg' %}" alt="1a.jpg">
-									<a class="post_date" href="#"><span>28 <br> March</span></a>
-								</div>
-								<div class="details">
-									<div class="post_meta">
-										<ul>
-											<li class="list-inline-item"><a href="#"><i class="flaticon-calendar"></i> 8:00 am - 5:00 pm</a></li>
-											<li class="list-inline-item"><a href="#"><i class="flaticon-placeholder"></i> Vancouver, Canada</a></li>
-										</ul>
-									</div>
-									<h4>Elegant Light Box Paper Cut Dioramas New Design Conference</h4>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="blog_post one">
-								<div class="thumb">
-									<div class="post_title">Events</div>
-									<img class="img-fluid w100" src="{% static 'images/blog/1b.jpg' %}" alt="1b.jpg">
-									<a class="post_date" href="#"><span>28 <br> March</span></a>
-								</div>
-								<div class="details">
-									<div class="post_meta">
-										<ul>
-											<li class="list-inline-item"><a href="#"><i class="flaticon-calendar"></i> 8:00 am - 5:00 pm</a></li>
-											<li class="list-inline-item"><a href="#"><i class="flaticon-placeholder"></i> Vancouver, Canada</a></li>
-										</ul>
-									</div>
-									<h4>Elegant Light Box Paper Cut Dioramas New Design Conference</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 col-xl-3">
-					<div class="blog_post">
-						<div class="thumb">
-							<img class="img-fluid w100" src="{% static 'images/blog/2.jpg' %}" alt="2.jpg">
-							<a class="post_date" href="#">July 21, 2019</a>
-						</div>
-						<div class="details">
-							<h5>Marketing</h5>
-							<h4>A Solution Built for Teachers</h4>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 col-xl-3">
-					<div class="blog_post">
-						<div class="thumb">
-							<img class="img-fluid w100" src="{% static 'images/blog/3.jpg' %}" alt="3.jpg">
-							<a class="post_date" href="#">July 21, 2019</a>
-						</div>
-						<div class="details">
-							<h5>Business</h5>
-							<h4>An Overworked Newspaper Editor</h4>
-						</div>
-					</div>
-				</div>
-			</div>
+		
 			<div class="row mt50">
 				<div class="col-lg-12">
 					<div class="read_more_home text-center">
-						<h4>Like what you see? <a href="#">See more posts<span class="flaticon-right-arrow pl10"></span></a></h4>
+						<h3>IMPORTANCE OF LMS</h3>
+						<p>The existence of Learning Management System within an institute contribute in</p>
+						<b>
+							<ul>
+								<li>Accomplishing its goals and objectives</li>
+								<li>Streamline processes and operations</li>
+								<li>Assist dealing with uncertainty</li>
+								<li>Adaptation to change</li>
+								
+							</ul>
+						</b>
+						<!-- <h4>Like what you see? <a href="#">See more posts<span class="flaticon-right-arrow pl10"></span></a></h4> -->
 					</div>
 				</div>
 			</div>
 		</div>
+		<img class="img-fluid" src="{% static 'images/VLmS-01.jpg' %}" alt="1.png">
 	</section>
 
 	<!-- Popular Job Categories -->
-	<section class="home1-divider2 parallax" data-stellar-background-ratio="0.3">
+	<!-- <section class="home1-divider2 parallax" data-stellar-background-ratio="0.3">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-7 col-lg-7">
@@ -969,7 +619,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 
 	<!-- Our Partners -->
 	<section id="our-partners" class="our-partners">
@@ -977,11 +627,252 @@
 			<div class="row">
 				<div class="col-lg-6 offset-lg-3">
 					<div class="main-title text-center">
-						<h3 class="mt0">Need To Train Your Team?</h3>
-						<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+						<h3 class="mt0">MAIN FEATURES</h3>
+						<p>
+							<h4>General Features:</h4><br>
+
+							1.	Modern Easy to use interface. <br>
+							
+							2.	Personalized Dashboard.<br>
+							3.	Collaborative tools and activities.<br>
+							4.	All-in-one Calendar<br>
+							5.	Convenient file Management<br>
+							6.	Simple and intuitive text Editor.<br>
+							7.	Notifications.<br>
+							8.	Track Progress.<br>
+							<br>
+							
+							<h4>Administrative Features.</h4><br>
+							1.	Customizable site design and layout.<br>
+							2.	Secure authentication and mass enrol<br>ment.<br>
+							3.	Bulk course creation.<br>
+							4.	Manage user roles and permissions.<br>
+							<br>
+							
+							
+							<h3>MODERN EASY TO USE INTERFACE</h3><br>
+							<p>Designed to be responsive and accessible, the LMS interface is easy to navigate on both desktop and mobile devices.</p><br>
+
+							<h3>PERSONALIZED DASHBOARD</h3><br>
+							<p>Display current, past and future courses, along with tasks due.</p><br>
+
+							<h3>COLLABORATIVE TOOLS AND ACTIVITIES</h3><br>
+							<p>Work and learn together in forums, wikis, glossaries, database activities, and much more.</p><br>
+
+							<h3>ALL IN ONE CALENDAR</h3><br>
+							<p>Course Calendar helps you to keep track of your upcoming events and activities..</p><br>
+
+							<h3>CONVENIENT FILE MANAGEMENT</h3><br>
+							<p>Upload and download files from cloud storage services including Dropbox and Google Drive.</p><br>
+
+							<h3>SIMPLE AND INTUITIVE TEXT EDITOR</h3><br>
+							<p>Format text and conveniently add media and images with an editor that works across all web browsers and devices.</p><br>
+
+							<h3>NOTIFICATIONS</h3><br>
+							<p>When enabled, users can receive automatic alerts on new assignments and deadlines, forum posts and also send private messages to one another.</p><br>
+
+							<h3>TRACK PROGRESS</h3><br>
+							<p>Educators and learners can track progress and completion with an array of options for tracking individual activities or resources and at course level.</p><br>
+
+							<h3>CUSTOMIZABLE SITE DESIGN AND LAYOUT</h3><br>
+							<p>Easily customize a LMS theme with your logo, color schemes and much more - or simply design your own theme.</p><br>
+
+							<h3>SECURE AUTHENTICATION AND MASS ENROLMENT</h3><br>
+							<p>Over 50 authentication and enrolment options to add and register users to your site and courses.</p><br>
+
+
+							<h3>BULK COURSE CREATION AND EASY BACKUP</h3><br>
+							<p>Add courses in bulk, backup and restore large courses with ease.</p><br>
+
+
+							<h3>USER MANAGEMENT</h3><br>
+							<p>Address security concerns by defining roles to specify and manage user access.</p><br>
+
+
+							<h3>DETAILED REPORTING AND LOGS</h3><br>
+							<p>View and generate reports on activity and participation at course and site level.</p><br>
+
+
+							<h3>DIRECT LEARNING PATH</h3><br>
+							<p>Design and manage courses to meet various requirements. Classes can be instructor-led, self-paced, blended or entirely online.</p><br>
+
+
+							<h3>ENCOURAGE COLLABORATION</h3><br>
+							<p>Built-in collaborative publishing features foster engagement and encourage content-driven collaboration</p><br>
+
+							<h3>MULTIMEDIA INTEGRATION</h3><br>
+							<p>LMS built-in media support enables you to easily search for and insert video and audio files in your courses.</p><br>
+
+							<h3>MARKING WORKFLOW</h3><br>
+							<p>Conveniently assign different markers to assignments, manage grade moderation and control when marks are released to individual learners</p><br>
+
+							<h3>INLINE MARKING</h3><br>
+							<p>Easily review and provide in-line feedback by annotating files directly within browser.</p><br>
+
+							<h3>PEER AND SELF-ASSESSMENT</h3><br>
+							<p>Built-in activities such as workshops and surveys encourages learners to view, grade and assess their own and other course members' work as a group.</p><br>
+
+							<h3>OUTCOMES AND RUBRICS</h3><br>
+							<p>Select from advanced grading methods to tailor the gradebook to your course and examination criteria.</p><br>
+
+							<h3>COMPETENCY BASED MARKING</h3><br>
+							<p>Set up competencies with personal learning plans across courses and activities.</p><br>
+
+							<h2>TOOLS AND TECHNOLOGIES</h2><br>
+							<p>LMS is motivated to introduce solutions that developed using the latest technological and tools. "Security for everyone” is the vision that drives LMS to develop easy and accessible enterprise solutions. Our proposed solution is a composition of Web Application, Web API (where required) and central integrated database.</p>
+
+							<h1>Website Options Quick Glimpses</h1><br>
+
+							<h4>Admin Panel</h4><br>
+							
+
+								<h4>Branch Panel</h4><br>
+							
+							<h4>University Panel</h4><br>
+
+							<h4>Faculty Panel</h4><br>
+
+							<h4>Student Panel</h4><br>
+
+							<h5>Students are the backbone and core members of educational system. Implementing latest technological tools not only bring more value to the institute but help manage student and teacher related information more effectively and efficiently<br>
+								With a modern, intuitive, fully responsive interface, Digital LMS delivers a simpler, more powerful teaching and learning experience that goes beyond the traditional learning management system (LMS).
+							</h5><br>
+							
+							
+
+
+
+
+
+								
+
+
+
+
+							
+						
 					</div>
 				</div>
 			</div>
+			<div class="row text-center">
+
+				<div class="col-md-6">
+
+			<h3>MODERN EASY TO USE INTERFACE AND RESPONSIVE</h3>
+
+			<img class="img-fluid" src="{% static 'images/1.jpg' %}" alt="1.png"><br>
+		</div>
+
+		<div class="col-md-6">
+
+			<h3>COLLABORATIVE TOOLS AND ACTIVITIES</h3>
+
+			<img class="img-fluid" src="{% static 'images/2.jpg' %}" alt="1.png"><br>
+
+		</div>
+		</div><br>
+
+		<div class="row text-center">
+
+			<div class="col-md-6">
+
+			<h3>CONVENIENT FILE MANAGEMENT</h3>
+
+			<img class="img-fluid" src="{% static 'images/3.png' %}" alt="1.png"><br>
+
+		</div>
+
+		<div class="col-md-6">
+
+
+			<h3>SIMPLE AND INTUITIVE TEXT EDITOR</h3>
+
+			<img class="img-fluid" src="{% static 'images/4.jpg' %}" alt="1.png"><br>
+
+		</div>
+	</div><br>
+
+	<div class="row text-center">
+
+		<div class="col-md-6">
+
+
+			<h3>NOTIFICATIONS</h3>
+
+			<img class="img-fluid" src="{% static 'images/5.jpg' %}" alt="1.png"><br>
+
+		</div>
+
+		<div class="col-md-6">
+
+
+			<h3>TRACK PROGRESS</h3>
+
+			<img class="img-fluid" src="{% static 'images/6.jpg' %}" alt="1.png"><br>
+		</div>
+	</div><br>
+
+	<div class="row text-center">
+
+		<div class="col-md-6">
+
+
+			<h3>SECURE AUTHENTICATION AND MASS ENROLMENT</h3>
+
+			<img class="img-fluid" src="{% static 'images/7.jpg' %}" alt="1.png"><br>
+
+		</div>
+
+		<div class="col-md-6">
+
+			<h3>DIRECT LEARNING PATH</h3>
+
+			<img class="img-fluid" src="{% static 'images/8.jpg' %}" alt="1.png"><br>
+
+		</div>
+	</div><br>
+
+	<div class="row text-center">
+
+		<div class="col-md-6">
+
+			<h3>DISCUSSION FORUM</h3>
+
+			<img class="img-fluid" src="{% static 'images/9.jpg' %}" alt="1.png"><br>
+
+		</div>
+
+		<div class="col-md-6">
+
+			<h3>MARKING WORKFLOW</h3>
+
+			<img class="img-fluid" src="{% static 'images/10.png' %}" alt="1.png"><br>
+
+		</div>
+	</div><br>
+
+	<div class="row text-center">
+
+		<div class="col-md-6">
+
+
+			<h3>PEER AND SELF-ASSESSMENT</h3>
+
+			<img class="img-fluid" src="{% static 'images/11.jpg' %}" alt="1.png"><br>
+
+		</div>
+
+		<div class="col-md-6">
+
+			<h3>OUTCOMES, RUBRICS &COMPETENCY BASED MARKING</h3>
+
+		
+	
+
+			<img class="img-fluid" src="{% static 'images/12.png' %}" alt="1.png"><br>
+
+		</div>
+	</div><br>
 			<div class="row">
 				<div class="col-sm-6 col-md-4 col-lg">
 					<div class="our_partner">
@@ -1013,28 +904,7 @@
 	</section>
 
 	<!-- Our Newslatters -->
-	<section id="our-newslatters" class="our-newslatters">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 offset-lg-3">
-					<div class="main-title text-center">
-						<h3 class="mt0">Get Newsletter</h3>
-						<p>Your download should start automatically, if not Click here. Should I give up, huh?.</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-6 offset-lg-3">
-					<div class="footer_apps_widget_home1">
-						<form class="form-inline mailchimp_form">
-							<input type="email" class="form-control" placeholder="Email address">
-							<button type="submit" class="btn btn-lg btn-thm dbxshad">Get it now <span class="flaticon-right-arrow-1"></span></button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+	
 <!-- forget Password -->
 <!-- The Modal -->
 <div class="modal" id="forgetpwd">

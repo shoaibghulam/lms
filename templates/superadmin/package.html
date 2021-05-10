@@ -132,7 +132,7 @@
 													<div class="my_profile_setting_input form-group">
 														<label for="price">Package Price </label>
 														<input type="number" class="form-control" id="price" name="price"
-														 min="0"	placeholder="Price" required>
+														 min="0"	placeholder="Price example $100" required>
 													</div>
 													<div class="my_profile_setting_input form-group">
 														<label for="sdate">Start Date </label>
@@ -229,7 +229,7 @@
 													<div class="my_profile_setting_input form-group">
 														<label for="price">Package Price </label>
 														<input type="number" min="0" class="form-control" id="uprice" name="uprice"
-															placeholder="Price" required>
+															placeholder="Price example $100" required>
 													</div>
 													<div class="my_profile_setting_input form-group">
 														<label for="sdate">Start Date </label>
@@ -386,10 +386,10 @@
 				for (x = 0; x < datas.length; x++) {
 					mydata += `
         
-        <div class="instructor_pricing_widget csv2">
+        <div class="instructor_pricing_widget csv2 mr-2">
 
 						<h3>${datas[x].PackName}</h3>
-						<div class="price"><span>Price</span> ${datas[x].PackPrice} <small>${datas[x].PackPrice}</small></div>
+						<div class="price"><span>Price</span> $${datas[x].PackPrice}</div>
 
 						<h5 class="subtitle text-left">Includes</h5>
 						<ul class="price_quere_list text-left">

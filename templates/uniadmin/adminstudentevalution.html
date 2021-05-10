@@ -9,9 +9,6 @@
 .cart_page_form.style3 .table_body td {
     padding: 24px 38px;
 }
-.table-responsive {
-    overflow-x: hidden;
-}
 .tdp
 {
     width: 35%;
@@ -67,15 +64,15 @@
 									<div class="my_setting_content_details">
 										<div class="cart_page_form style3 offset-md-1">
 											<form action="#">
-												  <table class="table table-responsive">
+												  <table class="table ">
 												  	<thead>
 												  		<tr class="carttable_row">
 												  			
 												  			
 												  			<th class="cartm_title">Student Name</th>
 												  			<th class="cartm_title">Program</th>
-												  			<th class="cartm_title">Student_id</th>
-												  			<th class="cartm_title">Report_File</th>
+												  			<th class="cartm_title">Student id</th>
+												  			<th class="cartm_title">Report File</th>
 												  			<th class="cartm_title">Actions</th>
 															 
 												  		</tr>
@@ -90,7 +87,7 @@
 													    	
 															 <td><a href="/upload/{{d.Report_File}}" class="btn btn-sm btn-primary" >Download </a></td>
 													    	
-															<td><a href="deleteadminstudentevalution/{{d.Student_Submit_Evaluation_id}}" class="btn btn-sm btn-danger">Delete</a></td>	
+															<td><a href="deleteadminstudentevalution/{{d.Student_Submit_Evaluation_id}}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this Evvalution?');">Delete</a></td>	
 													    </tr>
 														{% endfor %}
 													 

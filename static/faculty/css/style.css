@@ -8452,6 +8452,11 @@ ul.mc_parent_list ul.mc_child_list:hover .pricing_btn{
   overflow: hidden;
   opacity: 0;
 }
+.close  span{
+      position: relative;
+    bottom: 21px;
+
+}
 .wrap-custom-file label {
   z-index: 1;
   position: absolute;
@@ -8463,6 +8468,7 @@ ul.mc_parent_list ul.mc_child_list:hover .pricing_btn{
   overflow: hidden;
   cursor: pointer;
   background-image: url(../images/team/upload_photo.jpg);
+  background-size:100% 100%;
   border-radius: 5px;
   -webkit-transition: -webkit-transform 0.4s;
   transition: -webkit-transform 0.4s;

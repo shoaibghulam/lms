@@ -35,7 +35,7 @@ class UniversityBranch(models.Model):
     BranchEmail=models.CharField(max_length=400 , default="Branch Email")
     BranchPassword=models.TextField(max_length=3000 , default="Branch Password")
     BranchAddress=models.CharField(max_length=400 , default="Branch Address")
-    BranchCreatedDate=models.DateTimeField(blank=True)
+    BranchCreatedDate=models.DateField(blank=True , null=True)
     UniversityId=models.ForeignKey(UniversityAccount , on_delete=models.CASCADE)
     def __str__(self):
         return self.BranchName

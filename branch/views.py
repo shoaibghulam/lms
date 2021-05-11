@@ -151,7 +151,7 @@ def profileshow(request):
         messages.success(request, "Update Successfully")
         return redirect('/branch/profileshow')
 
-    data = UniversityAccount.objects.filter(UniId=request.session['UniId'])
+    data = UniversityAccount.objects.filter(UniId=request.session['UniId'])[0]
     return render(request, 'branch/profile.html', {'data': data})
     # result = urlopen('http://just-the-time.appspot.com/')
     # result = result.read().strip()

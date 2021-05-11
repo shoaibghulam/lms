@@ -57,7 +57,7 @@
 							<h4 class="title float-left">Welcome Super Admin </h4>
 						</nav>
 					</div>
-					<div class="col-lg-12">
+					<div class="col-lg-12 text-center">
 						<div class="row">
 							<div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
 								<div class="ff_one">
@@ -81,7 +81,7 @@
 								<div class="ff_one style3">
 									<div class="icon"><span class="fa fa-university"></span></div>
 									<div class="detais">
-										<p>University</p>
+										<p>Universities</p>
 										<div class="timer">{{universitycount}}</div>
 									</div>
 								</div>
@@ -101,7 +101,7 @@
 					<br><br>
 					<div class="col-lg-12">
 						<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
-							<h4 class="title float-left">Active Universtiy </h4>
+							<h4 class="title float-left">Active University </h4>
 						</nav>
 					</div>
 					<div class="col-lg-12">
@@ -109,9 +109,9 @@
 						<div class="my_course_content_container">
 							<div class="my_setting_content">
 								<div class="my_setting_content_details">
-									<div class="cart_page_form style3 offset-1">
+									<div class="cart_page_form style3 ">
 										<form action="#">
-											<table class="table table-responsive">
+											<table class="table ">
 												<thead>
 													<tr class="carttable_row">
 														<th class="cartm_title">University Name</th>
@@ -138,7 +138,7 @@
 					<br><br>
 					<div class="col-lg-12">
 						<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
-							<h4 class="title float-left">Not Active Universtiy </h4>
+							<h4 class="title float-left">Not Active University </h4>
 						</nav>
 					</div>
 					<div class="col-lg-12">
@@ -146,9 +146,9 @@
 						<div class="my_course_content_container">
 							<div class="my_setting_content">
 								<div class="my_setting_content_details">
-									<div class="cart_page_form style3 offset-1">
+									<div class="cart_page_form style3">
 										<form action="#">
-											<table class="table table-responsive">
+											<table class="table">
 												<thead>
 													<tr class="carttable_row">
 														<th class="cartm_title">University Name</th>
@@ -591,7 +591,7 @@
 
 				},
 				success: function (data) {
-					alert(data);
+					alert("University Disabled Successfully");
 					showactive();
 
 				}
@@ -620,7 +620,7 @@
 
 				},
 				success: function (data) {
-					alert(data);
+					alert("University Active Successfully");
 					showactive();
 
 				}

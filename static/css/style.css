@@ -2048,7 +2048,7 @@ header.header-nav.menu_style_home_seven .ace-responsive-menu > li.last{
   text-transform: uppercase;
 }
 .home1-mainslider .home-content{
-  padding-top: 150px;
+ margin-top: -30px;
 }
 .home_iconbox_container{
   margin-bottom: 120px;

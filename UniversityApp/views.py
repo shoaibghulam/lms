@@ -1,16 +1,16 @@
 from django.shortcuts import render , HttpResponse,redirect,HttpResponseRedirect , reverse
-from UniversityApp.models import UniversityAccount,UniversityBranch
+from UniversityApp.models import *
 from passlib.hash import pbkdf2_sha256
-from student.models import SerStudentCourse, Student_Course,Student_Profile,Student_Signup,SerStudent,Application,Student_Query_Admin,Student_Survey,Registration,ScrunityForm,Job_Apply,Student_Submit_Evaluation,MeetingAppointment,Student_Assigment,Batch,Ser_Batch
-from administrator.models import AcademicCalendarModel,FacultyCalendarModel,Form,Admin_Notification,role,RoomReservation,Rooms,menu,MenuOrders, menuSer,FacultyAttendence,Faculty_Evaluation_Report,Semester_Schedule,Exam_Schedule,StudentAttendence,SerFaculty_Evaluation_Report,Placement_Portal,onlinesurvey,SerForm,Sermenu,Serrole,Serroom,SerPlacement_Portal
-from faculty.models import User_Signup,Instructor,Department,Semester,Course,CourseVideos,AssigmentModel,Faculty_Development,Materialclass,Exam_Result,Faculty_Evaluation,NotificationModel,onlinequiz,Query_Admin,TeacherApplication,Teacher_syllabus,User_Stories,SerDepartment
-from library.models import BookAuthor,Books
+from student.models import *
+from administrator.models import *
+from faculty.models import *
+from library.models import *
 from django.contrib import messages
 from django.db.models import Case, When
-from lmsapp.models import Contact,SerContact
+from lmsapp.models import *
 from datetime import datetime
 from django.db.models import Q
-from student.models import Student_Signup,Student_Profile
+from student.models import *
 import json
 from urllib.request import urlopen
 import pandas as pd

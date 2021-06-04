@@ -231,7 +231,7 @@ def base(request):
 
 def studentlogin(request,name,username):
     
-    try:
+    # try:
         if request.method=="POST":
             email=request.POST['email']
             password=request.POST['password']
@@ -288,8 +288,8 @@ def studentlogin(request,name,username):
         else:
             return render(request,'page-error.html')
     
-    except:
-        return redirect('studentlogin',name,username)
+    # except:
+    #     return redirect('studentlogin',name,username)
 
 
 
